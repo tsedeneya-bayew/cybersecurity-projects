@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Steps 1–2 are documented below; Steps 3–6 are not yet evidenced.
+> Lab in progress. Steps 1–3 are documented below; Steps 4–6 are not yet evidenced.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Ubuntu desktop VM; 2 GB RAM minimum, 4 GB preferred; local sudo access. Use a di
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–2 evidence is included below; add later screenshots as you complete the lab.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–3 evidence is included below; add later screenshots as you complete the lab.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -76,6 +76,10 @@ sudo ls -l /opt/portfolio-permissions/evidence.txt
 Permissions use read=4, write=2, execute=1. `750` grants the owner rwx, the group r-x, and others no access. Directory execute allows traversal. Use `sudo` for these inspection commands: after setting directory mode `750`, your ordinary account may not have permission to traverse it unless it belongs to `portfolio_lab`. An unprivileged `ls -l` of the file can therefore return `Permission denied` even when setup is correct. `640` grants owner rw-, group r--, and others no access.
 
 **Screenshot checkpoint:** 03-permissions.png: directory and file ownership and modes.
+
+![Step 3: verified directory and file ownership and permissions](screenshots/03-permissions.png)
+
+**Observed result:** The corrected `sudo ls` commands confirm directory mode `drwxr-x---` (`750`) and file mode `-rw-r-----` (`640`), both owned by `root:portfolio_lab`. The file is 28 bytes, and `tee` displays the synthetic lab text. Step 3 is complete; reader and outsider access still require the Step 4 tests.
 
 ### 4. Verify allowed and denied access
 

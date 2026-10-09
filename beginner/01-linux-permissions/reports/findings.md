@@ -4,11 +4,11 @@
 **Started:** October 9, 2026 (first screenshot submitted)  
 **Completed:** Not yet completed
 
-> Partial report based on the supplied Steps 1–2 screenshots. Steps 3–6 have not yet been documented.
+> Partial report based on the supplied Steps 1–3 screenshots. Steps 4–6 have not yet been documented.
 
 ## Progress summary
 
-Environment inspection and lab account setup are documented. The second screenshot confirms two distinct lab users and membership of `portfolio_reader` in `portfolio_lab`; `portfolio_outsider` is not in that group. File-permission changes and allowed/denied access tests remain pending.
+Environment inspection and lab account setup are documented. The second screenshot confirms two distinct lab users and membership of `portfolio_reader` in `portfolio_lab`; `portfolio_outsider` is not in that group. Step 3 confirms the directory is `750` and the file is `640`, both owned by `root:portfolio_lab`. Allowed/denied access tests remain pending.
 
 ## Environment and authorized scope
 
@@ -19,8 +19,9 @@ Environment inspection and lab account setup are documented. The second screensh
 | UID / primary GID | 1000 / 1000 (seed) |
 | Supplementary groups shown | adm (4), cdrom (24), sudo (27), dip (30), plugdev (46), lpadmin (120), lxd (131), sambashare (132), docker (136) |
 | Terminal prompt | tsedeneya-bayew@VM; customized display |
+| Hypervisor shown | Oracle VirtualBox; version not captured |
 | Scope | User-provided Ubuntu VM for this lab |
-| Tools used so far | cat, whoami, id, sudo, groupadd, useradd, usermod; versions not captured |
+| Tools used so far | cat, whoami, id, sudo, groupadd, useradd, usermod, mkdir, printf, tee, chown, chmod, ls; versions not captured |
 | Snapshot / recovery plan | Not yet documented |
 | VM CPU / RAM / disk | Not shown in screenshot |
 | Timezone | Not shown in screenshot |
@@ -32,15 +33,20 @@ Environment inspection and lab account setup are documented. The second screensh
 | 1 | `cat /etc/os-release` | Ubuntu 20.04.1 LTS; codename focal | [Environment screenshot](../screenshots/01-environment.png) | Establishes the release label reported by the VM. |
 | 1 | `whoami` | seed | [Environment screenshot](../screenshots/01-environment.png) | The effective account name is seed, despite the customized prompt. |
 | 1 | `id` | UID/GID 1000; groups listed above | [Environment screenshot](../screenshots/01-environment.png) | Records current identity and group membership. |
-
 | 2 | `sudo groupadd portfolio_lab` | No visible error; subsequent reader output includes portfolio_lab (GID 1001) | [User setup screenshot](../screenshots/02-users.png) | Lab group exists at verification time. |
 | 2 | `sudo useradd -m -s /bin/bash portfolio_reader` and equivalent outsider command | No visible errors; both accounts are resolved by id | [User setup screenshot](../screenshots/02-users.png) | Accounts exist; home directories and shells were not independently checked. |
 | 2 | `sudo usermod -aG portfolio_lab portfolio_reader`; `id portfolio_reader` | UID 1001; primary GID 1002; groups portfolio_reader (1002), portfolio_lab (1001) | [User setup screenshot](../screenshots/02-users.png) | Reader has the required supplementary group membership. |
 | 2 | `id portfolio_outsider` | UID 1002; primary GID 1003; only portfolio_outsider (1003) listed | [User setup screenshot](../screenshots/02-users.png) | Outsider is not a member of portfolio_lab. |
+| 3 | `sudo mkdir -p`; `printf ...` piped to `sudo tee` | No visible errors; tee displays Synthetic lab evidence only | [Permissions screenshot](../screenshots/03-permissions.png) | Synthetic evidence file was written. |
+| 3 | `sudo chown root:portfolio_lab`; `sudo chmod 750` / `640` | No visible errors; final listings below verify settings | [Permissions screenshot](../screenshots/03-permissions.png) | Requested ownership and modes are confirmed by inspection. |
+| 3 | `sudo ls -ld /opt/portfolio-permissions` | drwxr-x---; root portfolio_lab | [Permissions screenshot](../screenshots/03-permissions.png) | Directory mode 750: owner rwx, group r-x, others no access. |
+| 3 | `sudo ls -l /opt/portfolio-permissions/evidence.txt` | -rw-r-----; root portfolio_lab; 28 bytes | [Permissions screenshot](../screenshots/03-permissions.png) | File mode 640: owner read/write, group read, others no access. |
 
 ![Step 1 environment evidence](../screenshots/01-environment.png)
 
 ![Step 2 lab account and group evidence](../screenshots/02-users.png)
+
+![Step 3 ownership and permission evidence](../screenshots/03-permissions.png)
 
 ## Observations
 
@@ -60,27 +66,31 @@ The account belongs to `sudo`, along with the other groups in the environment ta
 
 The reader and outsider have distinct UIDs and primary groups. Only the reader belongs to `portfolio_lab`, providing the intended identities for later access tests. Membership alone does not prove read or write access; directory and file permissions must still be configured and tested.
 
+### Restricted directory and file configured
+
+The final listings confirm `root:portfolio_lab` ownership on both objects. Mode `750` allows the group to list and traverse the directory; mode `640` grants the group file-read permission without file-write permission. These settings predict the intended access behavior, but the Step 4 tests must establish actual outcomes for each lab user.
+
 ## Deviations and troubleshooting
 
 ### Step 3 verification command corrected
 
-The next supplied screenshot shows `ls -ld /opt/portfolio-permissions` returning `drwxr-x---`, owned by `root:portfolio_lab`, matching directory mode `750`. The subsequent unprivileged `ls -l /opt/portfolio-permissions/evidence.txt` returns `Permission denied`. The current account `seed` was not listed as a member of `portfolio_lab` in Step 1, so this is consistent with the directory blocking traversal for other users. The guide omitted `sudo` from its inspection commands; those commands have been corrected. The screenshot also shows `sudo chmod 640` for the file with no visible error, but the resulting file mode has not yet been independently verified. Run the corrected inspection commands and capture their output before marking Step 3 complete.
+The next supplied screenshot shows `ls -ld /opt/portfolio-permissions` returning `drwxr-x---`, owned by `root:portfolio_lab`, matching directory mode `750`. The subsequent unprivileged `ls -l /opt/portfolio-permissions/evidence.txt` returns `Permission denied`. The current account `seed` was not listed as a member of `portfolio_lab` in Step 1, so this is consistent with the directory blocking traversal for other users. The guide omitted `sudo` from its inspection commands; those commands have been corrected. The subsequent Step 3 screenshot shows both corrected `sudo ls` commands and confirms directory mode `750` and file mode `640`. The inspection issue is resolved; Step 3 is complete.
 
 
 The terminal prompt is customized; the report retains the actual account identity from command output. No errors are visible in the environment or account-setup commands. Exit codes were not captured.
 
 ## Validation
 
-- **Documented:** OS release inspection, current account inspection, UID/GID and group inspection; lab group/account setup and reader/outsider membership verification.
-- **Pending:** Apply directory and file permissions, verify allowed and denied access, demonstrate controlled group-write, and restore settings.
+- **Documented:** OS release inspection, current account inspection, UID/GID and group inspection; lab group/account setup and reader/outsider membership verification; directory and file ownership/mode verification.
+- **Pending:** Verify allowed and denied access, demonstrate controlled group-write, and restore settings.
 
 ## Limitations
 
-Only Steps 1–2 are evidenced. The screenshots do not prove hypervisor configuration, snapshot creation, resource allocation, home-directory creation, configured login shells, file permissions, or access-control behavior. No vulnerability or remediation finding is claimed.
+Only Steps 1–3 are evidenced. The screenshots do not prove hypervisor settings, snapshot creation, resource allocation, home-directory creation, configured login shells, or actual reader/outsider access outcomes. No vulnerability or remediation finding is claimed.
 
 ## Cleanup / restoration
 
-No cleanup is documented yet. The lab users and group remain present in the supplied evidence. Account removal or VM snapshot restoration has not been shown; no lab-specific file permission change is visible.
+No cleanup is documented yet. The lab users and group remain present in the supplied evidence. Account removal or VM snapshot restoration has not been shown; the lab directory and file now have the documented ownership and modes.
 
 ## Lessons learned so far
 
@@ -89,12 +99,13 @@ No cleanup is documented yet. The lab users and group remain present in the supp
 - OS identification is a baseline, not proof of patch status.
 - `id username` verifies primary and supplementary group memberships.
 - Group membership prepares an access-control test; actual access requires separate validation.
+- Restricted directory traversal can block an ordinary account from inspecting a file; privileged inspection can verify settings without widening permissions.
 
 ## Remaining work
 
 - [x] Step 1: record environment
 - [x] Step 2: create two lab users and one group
-- [ ] Step 3: create least-privilege directory and file
+- [x] Step 3: create least-privilege directory and file
 - [ ] Step 4: verify allowed and denied access
 - [ ] Step 5: demonstrate a controlled permission change
 - [ ] Step 6: complete findings and document restoration
