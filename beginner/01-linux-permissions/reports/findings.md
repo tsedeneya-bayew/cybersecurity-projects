@@ -1,59 +1,82 @@
-# Findings Report
+# Linux Users & File Permissions — Findings Report
 
-**Status:** Not started
-**Started:** _Not recorded_
-**Completed:** _Not recorded_
+**Status:** In progress  
+**Started:** October 9, 2026 (first screenshot submitted)  
+**Completed:** Not yet completed
 
-> Replace placeholders with your own observations. This template is not a completed report.
+> Partial report based on the supplied Step 1 screenshot. Steps 2–6 have not yet been documented.
 
-## Executive summary
+## Progress summary
 
-_What you investigated, what you observed, and why it matters. Write this after the lab._
+The initial environment inspection is complete. The screenshot records the Ubuntu release, actual current account, UID/GID, and group membership. No lab users, file-permission changes, or access-control outcomes are established by this evidence.
 
 ## Environment and authorized scope
 
-| Item | Actual value |
+| Item | Observed value |
 |---|---|
-| OS and version | _Fill in_ |
-| Tools and versions | _Fill in_ |
-| Authorized targets | _Fill in_ |
-| Snapshot / recovery plan | _Fill in_ |
-| Timezone | _Fill in_ |
+| OS and version | Ubuntu 20.04.1 LTS (Focal Fossa); VERSION_ID 20.04 |
+| Actual account | seed |
+| UID / primary GID | 1000 / 1000 (seed) |
+| Supplementary groups shown | adm (4), cdrom (24), sudo (27), dip (30), plugdev (46), lpadmin (120), lxd (131), sambashare (132), docker (136) |
+| Terminal prompt | tsedeneya-bayew@VM; customized display |
+| Scope | User-provided Ubuntu VM for this lab |
+| Tools used so far | cat, whoami, id; versions not captured |
+| Snapshot / recovery plan | Not yet documented |
+| VM CPU / RAM / disk | Not shown in screenshot |
+| Timezone | Not shown in screenshot |
 
 ## Evidence log
 
-| Step | Command or action | Actual result | Screenshot / artifact | Interpretation |
+| Step | Command | Actual result | Evidence | Interpretation |
 |---|---|---|---|---|
-| 1 | _Fill in_ | _Fill in_ | _Relative link_ | _Fill in_ |
+| 1 | `cat /etc/os-release` | Ubuntu 20.04.1 LTS; codename focal | [Environment screenshot](../screenshots/01-environment.png) | Establishes the release label reported by the VM. |
+| 1 | `whoami` | seed | [Environment screenshot](../screenshots/01-environment.png) | The effective account name is seed, despite the customized prompt. |
+| 1 | `id` | UID/GID 1000; groups listed above | [Environment screenshot](../screenshots/01-environment.png) | Records current identity and group membership. |
 
-## Findings
+![Step 1 environment evidence](../screenshots/01-environment.png)
 
-For each finding describe: observation, supporting evidence, impact, confidence, recommended action, and validation. Do not invent severity ratings or vulnerability claims unsupported by the lab.
+## Observations
+
+### OS baseline recorded
+
+The release information identifies Ubuntu 20.04.1 LTS (Focal Fossa). This screenshot does not establish installed package versions, patch status, support entitlement, or whether updates have been applied.
+
+### Account identity differs from the displayed prompt
+
+The prompt displays `tsedeneya-bayew@VM`, while `whoami` returns `seed`. The prompt was customized for the portfolio; it is not evidence of an account rename. Account-related commands should use the actual account where required.
+
+### Group membership recorded
+
+The account belongs to `sudo`, along with the other groups in the environment table. Membership is observed, but no `sudo` command or effective privilege test is shown. No claim of successfully exercised administrative access is made at this stage.
 
 ## Deviations and troubleshooting
 
-_Record anything that differed from the guide and how you resolved it._
+The terminal prompt is customized; the report retains the actual account identity from command output. No errors are visible in the three environment commands. Exit codes were not captured.
 
 ## Validation
 
-_What passed, failed, or could not be tested? Include negative tests where relevant._
+- **Documented:** OS release inspection, current account inspection, UID/GID and group inspection.
+- **Pending:** Create lab users/group, apply directory and file permissions, verify allowed and denied access, demonstrate controlled group-write, and restore settings.
 
 ## Limitations
 
-_What can this evidence establish, and what remains unknown?_
+Only Step 1 is evidenced. The screenshot does not prove hypervisor configuration, snapshot creation, resource allocation, successful privilege elevation, file permissions, or access-control behavior. No vulnerability or remediation finding is claimed.
 
 ## Cleanup / restoration
 
-_Record services stopped, settings restored, or snapshot reverted._
+No cleanup is documented yet. The shown commands inspect the environment; no lab-specific permission change is visible.
 
-## Lessons learned
+## Lessons learned so far
 
-_Answer the questions in the README and explain your own changes._
+- The visible shell prompt can differ from the actual account name.
+- `whoami` and `id` provide account identity and group evidence.
+- OS identification is a baseline, not proof of patch status.
 
-## Completion review
+## Remaining work
 
-- [ ] All results are my actual observations
-- [ ] Screenshots are sanitized and linked
-- [ ] No secrets or personal logs included
-- [ ] Limitations and cleanup documented
-- [ ] README and portfolio index status updated
+- [x] Step 1: record environment
+- [ ] Step 2: create two lab users and one group
+- [ ] Step 3: create least-privilege directory and file
+- [ ] Step 4: verify allowed and denied access
+- [ ] Step 5: demonstrate a controlled permission change
+- [ ] Step 6: complete findings and document restoration

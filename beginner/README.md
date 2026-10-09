@@ -6,7 +6,7 @@ Six beginner labs, listed in recommended order. All begin as prepared guides; up
 
 | # | Project | Estimated time | Status |
 |---|---|---|---|
-| 01 | [Linux Users & File Permissions](01-linux-permissions/README.md) | 1–2 hours | Not started |
+| 01 | [Linux Users & File Permissions](01-linux-permissions/README.md) | 1–2 hours | In progress |
 | 02 | [File Integrity with SHA-256](02-file-integrity/README.md) | 45–90 minutes | Not started |
 | 03 | [Wireshark Traffic Analysis](03-wireshark-analysis/README.md) | 1–2 hours | Not started |
 | 04 | [Windows Security Event Logs](04-windows-event-logs/README.md) | 1–2 hours | Not started |

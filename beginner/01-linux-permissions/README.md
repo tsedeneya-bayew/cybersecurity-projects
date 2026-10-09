@@ -1,8 +1,8 @@
 # Linux Users & File Permissions
 
-**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** Not started
+**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Prepared lab guide. No execution, screenshots, or findings are claimed yet.
+> Lab in progress. Step 1 is documented below; Steps 2–6 are not yet evidenced.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Ubuntu desktop VM; 2 GB RAM minimum, 4 GB preferred; local sudo access. Use a di
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. No images are included yet.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Step 1 evidence is included below; add later screenshots as you complete the lab.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -38,6 +38,10 @@ id
 Record Ubuntu version and the groups listed by `id`. `sudo` runs a single command as administrator; do not use a persistent root shell.
 
 **Screenshot checkpoint:** 01-environment.png: OS version and group membership, with identifying details redacted.
+
+![Step 1: Ubuntu release, current account, and group membership](screenshots/01-environment.png)
+
+**Observed result:** The VM reports Ubuntu 20.04.1 LTS (Focal Fossa). `whoami` returns `seed`; `id` reports UID 1000, primary GID 1000, and membership in `adm`, `cdrom`, `sudo`, `dip`, `plugdev`, `lpadmin`, `lxd`, `sambashare`, and `docker`. The displayed `tsedeneya-bayew@VM` prompt is customized and does not rename the actual account. Step 1 is complete; permission changes and access tests remain pending.
 
 ### 2. Create two lab users and one group
 
