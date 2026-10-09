@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Steps 1–4 are documented below; Steps 5–6 are not yet evidenced.
+> Lab in progress. Steps 1–5 are documented below; Step 6 remains pending.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Ubuntu desktop VM; 2 GB RAM minimum, 4 GB preferred; local sudo access. Use a di
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–4 evidence is included below; add later screenshots as you complete the lab.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–5 evidence is included below; add later screenshots as you complete the lab.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -108,11 +108,26 @@ Group write temporarily permits the append. Restore 640 immediately. Explain why
 
 **Screenshot checkpoint:** 05-controlled-change.png: successful append and restored mode.
 
+![Step 5: temporary group write and successful lab append](screenshots/05-controlled-change.png)
+
+**Observed result:** After `sudo chmod 660`, the reader's append shows no visible error. The screenshot then shows `sudo chmod 640` with no visible error, followed by a successful reader read displaying both `Synthetic lab evidence only` and `approved-lab-change`. This confirms the append. The restore command is recorded; a final permission listing and post-restoration write test remain for Step 6.
+
 ### 6. Document and restore
 
 Fill `reports/findings.md` with your access matrix: owner, group member, outsider; read and write outcomes. Revert the VM snapshot when finished, or retain the VM for later labs. Do not delete real users or directories as cleanup.
 
-**Screenshot checkpoint:** 06-summary.png: final permission settings.
+Before the final screenshot, verify ownership and numeric modes:
+
+```bash
+sudo stat -c '%a %U:%G %n' /opt/portfolio-permissions /opt/portfolio-permissions/evidence.txt
+sudo -u portfolio_reader sh -c 'echo restoration-check >> /opt/portfolio-permissions/evidence.txt'
+echo $?
+sudo -u portfolio_reader cat /opt/portfolio-permissions/evidence.txt
+```
+
+Expected: directory `750 root:portfolio_lab`, file `640 root:portfolio_lab`, a denied append with a nonzero exit code, and the same two existing lines without `restoration-check`. Record actual output. Document whether you retain this disposable VM for later labs or revert a snapshot; do not claim restoration or deletion that you have not performed.
+
+**Screenshot checkpoint:** 06-summary.png: final permission settings and post-restoration check.
 
 ## Troubleshooting
 
