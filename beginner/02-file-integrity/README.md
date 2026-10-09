@@ -1,8 +1,8 @@
 # File Integrity with SHA-256
 
-**Level:** Beginner · **Suggested time:** 45–90 minutes · **Status:** Not started
+**Level:** Beginner · **Suggested time:** 45–90 minutes · **Status:** In progress
 
-> Prepared lab guide. No execution, screenshots, or findings are claimed yet.
+> Lab in progress. Step 1 is evidenced below; Steps 2–6 remain pending.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Ubuntu VM with sha256sum (coreutils). No privileged access required.
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. No images are included yet.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Step 1 evidence is included below; add later screenshots as you complete the lab.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -38,6 +38,10 @@ cat invoice.txt
 Use this fictional invoice only. Hashes describe bytes, so spaces and line endings matter.
 
 **Screenshot checkpoint:** 01-original.png: synthetic invoice contents.
+
+![Step 1: creation and inspection of the synthetic invoice](screenshots/01-original.png)
+
+**Observed result:** The screenshot shows creation of `~/portfolio-labs/integrity`, changing into that directory, and writing `invoice.txt` with `printf`. `cat invoice.txt` displays `Invoice ID: LAB-001` and `Amount: 100` on separate lines. No errors are visible. Step 1 is complete; no SHA-256 digest or baseline verification has yet been captured.
 
 ### 2. Establish a trusted baseline
 

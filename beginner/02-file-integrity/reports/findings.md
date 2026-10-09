@@ -1,59 +1,68 @@
-# Findings Report
+# File Integrity with SHA-256 — Findings Report
 
-**Status:** Not started
-**Started:** _Not recorded_
-**Completed:** _Not recorded_
+**Status:** In progress  
+**Started:** October 9, 2026 (first screenshot submitted)  
+**Completed:** Not yet completed
 
-> Replace placeholders with your own observations. This template is not a completed report.
+> Partial report based on Step 1 evidence. Steps 2–6 remain pending.
 
-## Executive summary
+## Progress summary
 
-_What you investigated, what you observed, and why it matters. Write this after the lab._
+The synthetic invoice was created and its visible contents verified. No hash, baseline, tamper-detection result, or restoration result has yet been captured.
 
 ## Environment and authorized scope
 
-| Item | Actual value |
+| Item | Observed value |
 |---|---|
-| OS and version | _Fill in_ |
-| Tools and versions | _Fill in_ |
-| Authorized targets | _Fill in_ |
-| Snapshot / recovery plan | _Fill in_ |
-| Timezone | _Fill in_ |
+| Platform | Ubuntu VM shown running in Oracle VirtualBox; release and tool versions not shown in this screenshot |
+| Prompt | tsedeneya-bayew@VM; customized display |
+| Working directory | Commands target ~/portfolio-labs/integrity; prompt shows an abbreviated path ending in integrity |
+| Target | invoice.txt, a fictional lab invoice |
+| Tools used so far | mkdir, cd, printf, cat; versions not captured |
+| Snapshot / recovery plan | Not documented for this project |
+| Timezone | Not shown |
 
 ## Evidence log
 
-| Step | Command or action | Actual result | Screenshot / artifact | Interpretation |
+| Step | Command or action | Actual result | Evidence | Interpretation |
 |---|---|---|---|---|
-| 1 | _Fill in_ | _Fill in_ | _Relative link_ | _Fill in_ |
+| 1 | mkdir -p ~/portfolio-labs/integrity; cd into that directory | No visible errors; prompt ends in integrity | [Original invoice screenshot](../screenshots/01-original.png) | Lab working directory established. |
+| 1 | printf writes the fictional invoice to invoice.txt | No visible error | [Original invoice screenshot](../screenshots/01-original.png) | File creation command recorded. |
+| 1 | cat invoice.txt | Invoice ID: LAB-001 and Amount: 100 on separate lines | [Original invoice screenshot](../screenshots/01-original.png) | Visible contents match the intended synthetic starting data. |
 
-## Findings
+![Step 1 synthetic invoice evidence](../screenshots/01-original.png)
 
-For each finding describe: observation, supporting evidence, impact, confidence, recommended action, and validation. Do not invent severity ratings or vulnerability claims unsupported by the lab.
+## Observations
+
+The file contains the expected fictional invoice identifier and amount. The shown `printf` command specifies newline separators. The screenshot confirms visible text, but no independent byte count or digest has been captured. All subsequent integrity tests remain pending.
 
 ## Deviations and troubleshooting
 
-_Record anything that differed from the guide and how you resolved it._
+No visible command errors or deviations from Step 1. Exit codes were not captured.
 
 ## Validation
 
-_What passed, failed, or could not be tested? Include negative tests where relevant._
+- **Documented:** Synthetic file creation and visible content inspection.
+- **Pending:** Original SHA-256 digest, baseline check, modified-file digest and failed check, restoration, and the baseline trust demonstration.
 
 ## Limitations
 
-_What can this evidence establish, and what remains unknown?_
+This evidence establishes visible file contents only. It does not prove file integrity, authorship, a protected baseline, or any detected modification. OS release and tool versions were not captured in this screenshot.
 
 ## Cleanup / restoration
 
-_Record services stopped, settings restored, or snapshot reverted._
+The synthetic file and lab directory are present at the end of Step 1. No cleanup or restoration has been reported for this project.
 
-## Lessons learned
+## Lessons learned so far
 
-_Answer the questions in the README and explain your own changes._
+- `printf` creates controlled synthetic content and `cat` checks the visible text.
+- File-integrity testing needs a recorded digest and comparison; viewing a file alone is not an integrity test.
 
-## Completion review
+## Remaining work
 
-- [ ] All results are my actual observations
-- [ ] Screenshots are sanitized and linked
-- [ ] No secrets or personal logs included
-- [ ] Limitations and cleanup documented
-- [ ] README and portfolio index status updated
+- [x] Step 1: create synthetic data
+- [ ] Step 2: establish a baseline
+- [ ] Step 3: change a value and detect the mismatch
+- [ ] Step 4: restore and recheck
+- [ ] Step 5: demonstrate baseline trust limitations
+- [ ] Step 6: complete the report and final verification
