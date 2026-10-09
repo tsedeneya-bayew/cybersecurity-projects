@@ -62,6 +62,11 @@ The reader and outsider have distinct UIDs and primary groups. Only the reader b
 
 ## Deviations and troubleshooting
 
+### Step 3 verification command corrected
+
+The next supplied screenshot shows `ls -ld /opt/portfolio-permissions` returning `drwxr-x---`, owned by `root:portfolio_lab`, matching directory mode `750`. The subsequent unprivileged `ls -l /opt/portfolio-permissions/evidence.txt` returns `Permission denied`. The current account `seed` was not listed as a member of `portfolio_lab` in Step 1, so this is consistent with the directory blocking traversal for other users. The guide omitted `sudo` from its inspection commands; those commands have been corrected. The screenshot also shows `sudo chmod 640` for the file with no visible error, but the resulting file mode has not yet been independently verified. Run the corrected inspection commands and capture their output before marking Step 3 complete.
+
+
 The terminal prompt is customized; the report retains the actual account identity from command output. No errors are visible in the environment or account-setup commands. Exit codes were not captured.
 
 ## Validation
