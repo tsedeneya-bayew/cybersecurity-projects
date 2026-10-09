@@ -1,10 +1,10 @@
 # Linux Users & File Permissions — Findings Report
 
-**Status:** In progress  
+**Status:** Completed  
 **Started:** October 9, 2026 (first screenshot submitted)  
-**Completed:** Not yet completed
+**Completed:** October 9, 2026
 
-> Partial report based on the supplied Steps 1–6 screenshots. Technical checks are complete; VM retention or snapshot restoration remains undocumented.
+> Partial report based on the supplied Steps 1–6 screenshots. Technical checks are complete; The author confirmed VM retention for future projects; no snapshot rollback or deletion was performed.
 
 ## Progress summary
 
@@ -118,7 +118,7 @@ Both permission-denied messages match the test expectations. No permission widen
 ## Validation
 
 - **Documented:** OS release inspection, current account inspection, UID/GID and group inspection; lab group/account setup and reader/outsider membership verification; directory and file ownership/mode verification; reader read allowed, outsider read denied, reader append denied in Step 4; successful controlled append and retained read access in Step 5; final modes and denied post-restoration append (exit code 1) in Step 6.
-- **Pending:** Document VM retention or snapshot restoration. Technical validation is complete.
+- **Closeout:** Technical validation is complete. The author confirmed the VM will be retained for future projects.
 
 ## Limitations
 
@@ -126,7 +126,7 @@ All six technical steps are evidenced. The screenshots do not prove hypervisor s
 
 ## Cleanup / restoration
 
-Step 5 shows the file-mode restore command (`chmod 640`); Step 6 independently confirms final mode `640`, directory mode `750`, and blocked reader writing. No VM cleanup is documented yet. The lab users and group remain present in the supplied evidence. Account removal or VM snapshot restoration has not been shown; the lab directory and file now have the documented ownership and modes.
+Step 5 shows the file-mode restore command (`chmod 640`); Step 6 independently confirms final mode `640`, directory mode `750`, and blocked reader writing. The author confirmed that the VM is retained for future projects. Lab users, group, directory, and synthetic file are preserved intentionally; no deletion or snapshot rollback was performed. The lab users and group remain present in the supplied evidence. Account removal or VM snapshot restoration has not been shown; the lab directory and file now have the documented ownership and modes.
 
 ## Lessons learned so far
 
@@ -147,7 +147,7 @@ Step 5 shows the file-mode restore command (`chmod 640`); Step 6 independently c
 - [x] Step 4: verify allowed and denied access
 - [x] Step 5: demonstrate a controlled permission change
 - [x] Step 6: verify final settings and denied writing; technical findings documented
-- [ ] Record VM retention or snapshot restoration decision
+- [x] Record VM retention decision: retain for future projects
 
 ## Answers to the report questions
 
@@ -157,4 +157,4 @@ Step 5 shows the file-mode restore command (`chmod 640`); Step 6 independently c
 
 ## Technical conclusion
 
-The lab demonstrates account/group setup, restricted ownership and modes, allowed and denied access, a controlled permission change, and verified restoration. Final reader access is read-only in the tested operations. The lab users, group, directory, and synthetic file remain present in the final screenshot; VM retention or snapshot rollback must be documented before administrative closeout.
+The lab demonstrates account/group setup, restricted ownership and modes, allowed and denied access, a controlled permission change, and verified restoration. Final reader access is read-only in the tested operations. The lab users, group, directory, and synthetic file remain present in the final screenshot; the author confirmed they will retain the VM for future projects. Closeout is complete with permission restoration verified and VM retention documented.

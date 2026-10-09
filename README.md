@@ -4,7 +4,7 @@
 
 A public learning portfolio with six projects at each level. Each project has a detailed guide, screenshot checkpoints, troubleshooting, and a findings report template.
 
-> **Status:** Project 01 is in progress with Step 1 evidence uploaded. Other projects remain prepared guides until execution is documented.
+> **Status:** Project 01 is completed with all six screenshots, verified permission restoration, and a findings report. Other projects remain prepared guides until execution is documented.
 
 **[Start here: lab setup and screenshot workflow](START-HERE.md)**
 
@@ -18,7 +18,7 @@ A public learning portfolio with six projects at each level. Each project has a 
 
 | # | Project | Estimated time | Status |
 |---|---|---|---|
-| 01 | [Linux Users & File Permissions](beginner/01-linux-permissions/README.md) | 1–2 hours | In progress |
+| 01 | [Linux Users & File Permissions](beginner/01-linux-permissions/README.md) | 1–2 hours | Completed |
 | 02 | [File Integrity with SHA-256](beginner/02-file-integrity/README.md) | 45–90 minutes | Not started |
 | 03 | [Wireshark Traffic Analysis](beginner/03-wireshark-analysis/README.md) | 1–2 hours | Not started |
 | 04 | [Windows Security Event Logs](beginner/04-windows-event-logs/README.md) | 1–2 hours | Not started |
@@ -64,7 +64,7 @@ Follow the upload workflow in START-HERE.md. Add screenshots under the matching 
 |---|---|
 | Not started | Guide prepared; execution not documented |
 | In progress | Lab underway; actual evidence being collected |
-| Completed | Screenshots, findings, validation, and cleanup included |
+| Completed | Screenshots, findings, validation, and cleanup or retention decision included |
 
 ## Scope and evidence
 

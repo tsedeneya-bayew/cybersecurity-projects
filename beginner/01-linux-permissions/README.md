@@ -1,8 +1,8 @@
 # Linux Users & File Permissions
 
-**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
+**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** Completed
 
-> Lab in progress. All six technical steps are evidenced below. Final permission restoration is verified; VM retention or snapshot restoration remains to be documented.
+> Completed October 9, 2026. All six steps are evidenced below. Final permissions are verified, and the VM is retained for future projects.
 
 [← Project index](../../README.md)
 
@@ -131,7 +131,7 @@ Expected: directory `750 root:portfolio_lab`, file `640 root:portfolio_lab`, a d
 
 ![Step 6: final modes and verified write denial after restoration](screenshots/06-summary.png)
 
-**Observed result:** `stat` confirms directory `750 root:portfolio_lab` and file `640 root:portfolio_lab`. The reader's `restoration-check` append is denied, and the immediately following `echo $?` returns `1`. A final reader read shows only the original synthetic line and `approved-lab-change`; the denied append did not add a line. Technical verification is complete. VM retention or snapshot restoration has not yet been reported.
+**Observed result:** `stat` confirms directory `750 root:portfolio_lab` and file `640 root:portfolio_lab`. The reader's `restoration-check` append is denied, and the immediately following `echo $?` returns `1`. A final reader read shows only the original synthetic line and `approved-lab-change`; the denied append did not add a line. Technical verification is complete. The author confirmed that the VM will be retained for future projects, with lab accounts, group, directory, and synthetic evidence preserved. No snapshot rollback or deletion was performed. Readers may retain their lab VM or revert a pre-lab snapshot after saving their evidence.
 
 ## Troubleshooting
 
@@ -150,8 +150,8 @@ If sudo reports no permission, use a VM account created with administrator right
 - [x] Screenshots uploaded and linked under their steps
 - [x] Findings distinguish observation from interpretation
 - [x] Limitations and remediation explained
-- [ ] Cleanup or restoration completed
-- [ ] Findings report completed; status updated in this repository and portfolio index
+- [x] File permissions restored and verified; VM retention documented
+- [x] Findings report completed; status updated in this repository and portfolio index
 
 ## Official references
 
