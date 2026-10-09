@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Steps 1–5 are documented below; Step 6 remains pending.
+> Lab in progress. All six technical steps are evidenced below. Final permission restoration is verified; VM retention or snapshot restoration remains to be documented.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Ubuntu desktop VM; 2 GB RAM minimum, 4 GB preferred; local sudo access. Use a di
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–5 evidence is included below; add later screenshots as you complete the lab.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–6 evidence is included below; add later screenshots as you complete the lab.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -110,7 +110,7 @@ Group write temporarily permits the append. Restore 640 immediately. Explain why
 
 ![Step 5: temporary group write and successful lab append](screenshots/05-controlled-change.png)
 
-**Observed result:** After `sudo chmod 660`, the reader's append shows no visible error. The screenshot then shows `sudo chmod 640` with no visible error, followed by a successful reader read displaying both `Synthetic lab evidence only` and `approved-lab-change`. This confirms the append. The restore command is recorded; a final permission listing and post-restoration write test remain for Step 6.
+**Observed result:** After `sudo chmod 660`, the reader's append shows no visible error. The screenshot then shows `sudo chmod 640` with no visible error, followed by a successful reader read displaying both `Synthetic lab evidence only` and `approved-lab-change`. This confirms the append. The restore command is recorded; Step 6 below verifies the final mode and denied write.
 
 ### 6. Document and restore
 
@@ -129,6 +129,10 @@ Expected: directory `750 root:portfolio_lab`, file `640 root:portfolio_lab`, a d
 
 **Screenshot checkpoint:** 06-summary.png: final permission settings and post-restoration check.
 
+![Step 6: final modes and verified write denial after restoration](screenshots/06-summary.png)
+
+**Observed result:** `stat` confirms directory `750 root:portfolio_lab` and file `640 root:portfolio_lab`. The reader's `restoration-check` append is denied, and the immediately following `echo $?` returns `1`. A final reader read shows only the original synthetic line and `approved-lab-change`; the denied append did not add a line. Technical verification is complete. VM retention or snapshot restoration has not yet been reported.
+
 ## Troubleshooting
 
 If sudo reports no permission, use a VM account created with administrator rights. If the reader is denied, check both directory traversal and file permissions with `namei -l /opt/portfolio-permissions/evidence.txt`. The sudo -u tests use a fresh process, so a new login is not required.
@@ -141,11 +145,11 @@ If sudo reports no permission, use a VM account created with administrator right
 
 ## Completion checklist
 
-- [ ] Environment and exact scope recorded
-- [ ] All lab steps attempted and actual outcomes documented
-- [ ] Screenshots uploaded and linked under their steps
-- [ ] Findings distinguish observation from interpretation
-- [ ] Limitations and remediation explained
+- [x] Environment and exact scope recorded
+- [x] All lab steps attempted and actual outcomes documented
+- [x] Screenshots uploaded and linked under their steps
+- [x] Findings distinguish observation from interpretation
+- [x] Limitations and remediation explained
 - [ ] Cleanup or restoration completed
 - [ ] Findings report completed; status updated in this repository and portfolio index
 

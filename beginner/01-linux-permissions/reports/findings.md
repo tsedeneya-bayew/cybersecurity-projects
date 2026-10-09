@@ -4,11 +4,11 @@
 **Started:** October 9, 2026 (first screenshot submitted)  
 **Completed:** Not yet completed
 
-> Partial report based on the supplied Steps 1–5 screenshots. Step 6 final verification and VM disposition remain pending.
+> Partial report based on the supplied Steps 1–6 screenshots. Technical checks are complete; VM retention or snapshot restoration remains undocumented.
 
 ## Progress summary
 
-Environment inspection and lab account setup are documented. The second screenshot confirms two distinct lab users and membership of `portfolio_reader` in `portfolio_lab`; `portfolio_outsider` is not in that group. Step 3 confirms the directory is `750` and the file is `640`, both owned by `root:portfolio_lab`. Step 4 shows successful reader access, denied outsider read access, and a denied reader append attempt. Step 5 records a temporary change to `660`, a successful reader append, and a command to restore `640`. A final listing and post-restoration write check remain pending.
+Environment inspection and lab account setup are documented. The second screenshot confirms two distinct lab users and membership of `portfolio_reader` in `portfolio_lab`; `portfolio_outsider` is not in that group. Step 3 confirms the directory is `750` and the file is `640`, both owned by `root:portfolio_lab`. Step 4 shows successful reader access, denied outsider read access, and a denied reader append attempt. Step 5 records a temporary change to `660`, a successful reader append, and a command to restore `640`. Step 6 confirms final modes (`750` directory, `640` file), denies reader writing with exit code `1`, and confirms the expected two-line contents.
 
 ## Environment and authorized scope
 
@@ -46,8 +46,11 @@ Environment inspection and lab account setup are documented. The second screensh
 | 4 | `sudo -u portfolio_reader sh -c 'echo change >> /opt/portfolio-permissions/evidence.txt'` | zsh:1: permission denied for the file path | [Access-test screenshot](../screenshots/04-access-tests.png) | Reader append attempt is blocked. Exit codes were not captured. |
 | 5 | `sudo chmod 660 /opt/portfolio-permissions/evidence.txt` | No visible error | [Controlled-change screenshot](../screenshots/05-controlled-change.png) | Temporary group-write setting requested; no intermediate mode listing shown. |
 | 5 | Reader append of `approved-lab-change` via `sh -c` | No visible error; subsequent cat includes appended line | [Controlled-change screenshot](../screenshots/05-controlled-change.png) | Reader append succeeded during the controlled change. |
-| 5 | `sudo chmod 640 /opt/portfolio-permissions/evidence.txt` | No visible error | [Controlled-change screenshot](../screenshots/05-controlled-change.png) | Restore command recorded; final mode inspection remains pending. |
+| 5 | `sudo chmod 640 /opt/portfolio-permissions/evidence.txt` | No visible error | [Controlled-change screenshot](../screenshots/05-controlled-change.png) | Restore command recorded; final mode and write restriction are verified in Step 6. |
 | 5 | `sudo -u portfolio_reader cat /opt/portfolio-permissions/evidence.txt` | Synthetic lab evidence only, followed by approved-lab-change | [Controlled-change screenshot](../screenshots/05-controlled-change.png) | Reader retains read access and the appended content is present. |
+| 6 | `sudo stat -c '%a %U:%G %n'` on directory and file | 750 root:portfolio_lab for directory; 640 root:portfolio_lab for file | [Final verification screenshot](../screenshots/06-summary.png) | Final ownership and restrictive modes verified. |
+| 6 | Reader append of `restoration-check`; immediate `echo $?` | Permission denied; exit code 1 | [Final verification screenshot](../screenshots/06-summary.png) | Reader write is blocked after restoration. |
+| 6 | Reader cat of evidence.txt | Original synthetic line and approved-lab-change only | [Final verification screenshot](../screenshots/06-summary.png) | Read access persists; denied append did not add restoration-check. |
 
 ![Step 1 environment evidence](../screenshots/01-environment.png)
 
@@ -58,6 +61,8 @@ Environment inspection and lab account setup are documented. The second screensh
 ![Step 4 access-test evidence](../screenshots/04-access-tests.png)
 
 ![Step 5 controlled permission-change evidence](../screenshots/05-controlled-change.png)
+
+![Step 6 final permission and access verification](../screenshots/06-summary.png)
 
 ## Observations
 
@@ -87,14 +92,14 @@ The reader prints the synthetic file text, while the outsider's read and reader'
 
 ### Temporary group write demonstrated
 
-The reader could not append under the Step 4 restrictions. After the command to set `660`, the reader appends `approved-lab-change`, confirmed by the subsequent file contents. Group-write permission allows a group member to modify evidence, creating an integrity risk if left enabled unnecessarily. Granting group write for this controlled test avoids granting access to all users with `777`. The `640` restore command is visible, but final mode inspection and a repeat denied-write test remain pending.
+The reader could not append under the Step 4 restrictions. After the command to set `660`, the reader appends `approved-lab-change`, confirmed by the subsequent file contents. Group-write permission allows a group member to modify evidence, creating an integrity risk if left enabled unnecessarily. Granting group write for this controlled test avoids granting access to all users with `777`. Step 6 confirms restoration to `640` and a repeat denied-write test with exit code `1`.
 
 ## Access matrix — observed tests
 
 | Identity | Read | Append / write | Evidence |
 |---|---|---|---|
 | root (owner) | Not explicitly tested | File creation via sudo tee shown in Step 3 | Step 3 screenshot |
-| portfolio_reader (group member) | Allowed in Steps 4 and 5 | Denied in Step 4; allowed during Step 5 temporary group-write test; after-restoration write not yet tested | Steps 4–5 screenshots |
+| portfolio_reader (group member) | Allowed in Steps 4 and 5 | Denied in Step 4; allowed during Step 5 temporary group-write test; denied after restoration in Step 6 (exit code 1) | Steps 4–6 screenshots |
 | portfolio_outsider (nonmember) | Denied | Not tested | Step 4 screenshot |
 
 ## Deviations and troubleshooting
@@ -108,20 +113,20 @@ The terminal prompt is customized; the report retains the actual account identit
 
 ### Step 4 expected denials and shell message
 
-Both permission-denied messages match the test expectations. No permission widening is required. The write command visibly uses `sh -c`, but the error prefix is `zsh:1`; the shell mapping or implementation was not inspected, so no explanation of that prefix is asserted. Exit codes are not shown and must not be inferred as exact numeric values.
+Both permission-denied messages match the test expectations. No permission widening is required. The write command visibly uses `sh -c`, but the error prefix is `zsh:1`; the shell mapping or implementation was not inspected, so no explanation of that prefix is asserted. Step 4 exit codes are not shown and must not be inferred as exact numeric values. Step 6 separately captures exit code `1` for the post-restoration denied append.
 
 ## Validation
 
-- **Documented:** OS release inspection, current account inspection, UID/GID and group inspection; lab group/account setup and reader/outsider membership verification; directory and file ownership/mode verification; reader read allowed, outsider read denied, reader append denied in Step 4; successful controlled append and retained read access in Step 5.
-- **Pending:** Inspect final modes, repeat the reader denied-write test after restoration, capture its exit code, and document VM retention or snapshot restoration.
+- **Documented:** OS release inspection, current account inspection, UID/GID and group inspection; lab group/account setup and reader/outsider membership verification; directory and file ownership/mode verification; reader read allowed, outsider read denied, reader append denied in Step 4; successful controlled append and retained read access in Step 5; final modes and denied post-restoration append (exit code 1) in Step 6.
+- **Pending:** Document VM retention or snapshot restoration. Technical validation is complete.
 
 ## Limitations
 
-Only Steps 1–5 are evidenced. The screenshots do not prove hypervisor settings, snapshot creation, resource allocation, home-directory creation, configured login shells, or the shell implementation. Exact exit codes, outsider write behavior, and a separate root read test are not shown. Step 5 has no intermediate or final mode listing and no post-restoration write test. No vulnerability or remediation finding is claimed.
+All six technical steps are evidenced. The screenshots do not prove hypervisor settings, snapshot creation, resource allocation, home-directory creation, configured login shells, or the shell implementation. Step 1–5 exit codes, outsider write behavior, and a separate root read test are not shown. Step 5 has no intermediate `660` mode listing; successful append is confirmed by file contents. Step 6 verifies final `640` and denied writing with exit code `1`. No vulnerability or remediation finding is claimed.
 
 ## Cleanup / restoration
 
-Step 5 shows the file-mode restore command (`chmod 640`) without visible error; final inspection remains pending. No VM cleanup is documented yet. The lab users and group remain present in the supplied evidence. Account removal or VM snapshot restoration has not been shown; the lab directory and file now have the documented ownership and modes.
+Step 5 shows the file-mode restore command (`chmod 640`); Step 6 independently confirms final mode `640`, directory mode `750`, and blocked reader writing. No VM cleanup is documented yet. The lab users and group remain present in the supplied evidence. Account removal or VM snapshot restoration has not been shown; the lab directory and file now have the documented ownership and modes.
 
 ## Lessons learned so far
 
@@ -141,4 +146,15 @@ Step 5 shows the file-mode restore command (`chmod 640`) without visible error; 
 - [x] Step 3: create least-privilege directory and file
 - [x] Step 4: verify allowed and denied access
 - [x] Step 5: demonstrate a controlled permission change
-- [ ] Step 6: complete findings and document restoration
+- [x] Step 6: verify final settings and denied writing; technical findings documented
+- [ ] Record VM retention or snapshot restoration decision
+
+## Answers to the report questions
+
+- **Why directory execute matters:** Execute permission on a directory allows traversal to entries. A readable file remains inaccessible through a directory the user cannot traverse.
+- **Risk of group write:** Group members can modify file contents, affecting integrity. Step 5 demonstrates this with a controlled append; Step 6 verifies write restriction after restoring `640`.
+- **Least privilege:** `root:portfolio_lab` ownership with directory `750` and file `640` grants the lab group traversal and read access while withholding file write and excluding nonmembers. The tested outcomes support these specific restrictions; they do not constitute a full system security audit.
+
+## Technical conclusion
+
+The lab demonstrates account/group setup, restricted ownership and modes, allowed and denied access, a controlled permission change, and verified restoration. Final reader access is read-only in the tested operations. The lab users, group, directory, and synthetic file remain present in the final screenshot; VM retention or snapshot rollback must be documented before administrative closeout.
