@@ -70,10 +70,10 @@ sudo chown root:portfolio_lab /opt/portfolio-permissions
 sudo chown root:portfolio_lab /opt/portfolio-permissions/evidence.txt
 sudo chmod 750 /opt/portfolio-permissions
 sudo chmod 640 /opt/portfolio-permissions/evidence.txt
-ls -ld /opt/portfolio-permissions
-ls -l /opt/portfolio-permissions/evidence.txt
+sudo ls -ld /opt/portfolio-permissions
+sudo ls -l /opt/portfolio-permissions/evidence.txt
 ```
-Permissions use read=4, write=2, execute=1. `750` grants the owner rwx, the group r-x, and others no access. Directory execute allows traversal. `640` grants owner rw-, group r--, and others no access.
+Permissions use read=4, write=2, execute=1. `750` grants the owner rwx, the group r-x, and others no access. Directory execute allows traversal. Use `sudo` for these inspection commands: after setting directory mode `750`, your ordinary account may not have permission to traverse it unless it belongs to `portfolio_lab`. An unprivileged `ls -l` of the file can therefore return `Permission denied` even when setup is correct. `640` grants owner rw-, group r--, and others no access.
 
 **Screenshot checkpoint:** 03-permissions.png: directory and file ownership and modes.
 
