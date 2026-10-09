@@ -2,7 +2,7 @@
 
 ## Your first project
 
-Begin with [01 — Linux Users & File Permissions](https://github.com/tsedeneya-bayew/01-linux-permissions). Do not try to complete all 18 projects at once. Finish the guide, collect evidence, and explain what you learned before moving on.
+Begin with [01 — Linux Users & File Permissions](beginner/01-linux-permissions/README.md). Do not try to complete all 18 projects at once. Finish the guide, collect evidence, and explain what you learned before moving on.
 
 ## Prepare an Ubuntu VM on your Windows computer
 
@@ -39,7 +39,7 @@ Official starting points:
 8. Fill `reports/findings.md` with your real results; do not copy expected results as if they were observed.
 9. Change the project status to In progress when you begin, and Completed only after evidence, findings, validation, and cleanup are recorded. Update the portfolio roadmap too.
 
-For projects temporarily housed in this index, use the matching `projects/PROJECT-NAME/` folder and its own `screenshots/` and `reports/` subfolders.
+For every project, open its category folder (`beginner/`, `intermediate/`, or `advanced/`), then its numbered project folder. Upload evidence inside that project's `screenshots/` folder and write results in its `reports/findings.md` file.
 
 ## Useful commit messages
 
