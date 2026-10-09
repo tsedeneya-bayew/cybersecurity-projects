@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Steps 1–3 are documented below; Steps 4–6 are not yet evidenced.
+> Lab in progress. Steps 1–4 are documented below; Steps 5–6 are not yet evidenced.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Ubuntu desktop VM; 2 GB RAM minimum, 4 GB preferred; local sudo access. Use a di
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–3 evidence is included below; add later screenshots as you complete the lab.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–4 evidence is included below; add later screenshots as you complete the lab.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -91,6 +91,10 @@ sudo -u portfolio_reader sh -c 'echo change >> /opt/portfolio-permissions/eviden
 Expected: reader can read; outsider receives Permission denied; reader cannot append. A denied operation is useful evidence, not a failed lab. Record actual exit codes with `echo $?` immediately after each command.
 
 **Screenshot checkpoint:** 04-access-tests.png: all three tests and their results.
+
+![Step 4: successful reader access and expected read/write denials](screenshots/04-access-tests.png)
+
+**Observed result:** `portfolio_reader` reads `Synthetic lab evidence only`. The outsider's read attempt returns `Permission denied`, and the reader's append attempt also returns a permission denial. These denials are expected and confirm the intended restriction. Exit codes are not shown in this screenshot. The write-error prefix is `zsh:1` despite the command using `sh -c`; the shell implementation has not been investigated.
 
 ### 5. Demonstrate the effect of a controlled change
 

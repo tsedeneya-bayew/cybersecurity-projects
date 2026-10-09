@@ -4,11 +4,11 @@
 **Started:** October 9, 2026 (first screenshot submitted)  
 **Completed:** Not yet completed
 
-> Partial report based on the supplied Steps 1–3 screenshots. Steps 4–6 have not yet been documented.
+> Partial report based on the supplied Steps 1–4 screenshots. Steps 5–6 have not yet been documented.
 
 ## Progress summary
 
-Environment inspection and lab account setup are documented. The second screenshot confirms two distinct lab users and membership of `portfolio_reader` in `portfolio_lab`; `portfolio_outsider` is not in that group. Step 3 confirms the directory is `750` and the file is `640`, both owned by `root:portfolio_lab`. Allowed/denied access tests remain pending.
+Environment inspection and lab account setup are documented. The second screenshot confirms two distinct lab users and membership of `portfolio_reader` in `portfolio_lab`; `portfolio_outsider` is not in that group. Step 3 confirms the directory is `750` and the file is `640`, both owned by `root:portfolio_lab`. Step 4 shows successful reader access, denied outsider read access, and a denied reader append attempt. Controlled group-write and restoration remain pending.
 
 ## Environment and authorized scope
 
@@ -21,7 +21,7 @@ Environment inspection and lab account setup are documented. The second screensh
 | Terminal prompt | tsedeneya-bayew@VM; customized display |
 | Hypervisor shown | Oracle VirtualBox; version not captured |
 | Scope | User-provided Ubuntu VM for this lab |
-| Tools used so far | cat, whoami, id, sudo, groupadd, useradd, usermod, mkdir, printf, tee, chown, chmod, ls; versions not captured |
+| Tools used so far | cat, whoami, id, sudo, groupadd, useradd, usermod, mkdir, printf, tee, chown, chmod, ls, sh, echo; versions not captured |
 | Snapshot / recovery plan | Not yet documented |
 | VM CPU / RAM / disk | Not shown in screenshot |
 | Timezone | Not shown in screenshot |
@@ -41,12 +41,17 @@ Environment inspection and lab account setup are documented. The second screensh
 | 3 | `sudo chown root:portfolio_lab`; `sudo chmod 750` / `640` | No visible errors; final listings below verify settings | [Permissions screenshot](../screenshots/03-permissions.png) | Requested ownership and modes are confirmed by inspection. |
 | 3 | `sudo ls -ld /opt/portfolio-permissions` | drwxr-x---; root portfolio_lab | [Permissions screenshot](../screenshots/03-permissions.png) | Directory mode 750: owner rwx, group r-x, others no access. |
 | 3 | `sudo ls -l /opt/portfolio-permissions/evidence.txt` | -rw-r-----; root portfolio_lab; 28 bytes | [Permissions screenshot](../screenshots/03-permissions.png) | File mode 640: owner read/write, group read, others no access. |
+| 4 | `sudo -u portfolio_reader cat /opt/portfolio-permissions/evidence.txt` | Synthetic lab evidence only | [Access-test screenshot](../screenshots/04-access-tests.png) | Group member can read the file. |
+| 4 | `sudo -u portfolio_outsider cat /opt/portfolio-permissions/evidence.txt` | Permission denied | [Access-test screenshot](../screenshots/04-access-tests.png) | Outsider read attempt is blocked. |
+| 4 | `sudo -u portfolio_reader sh -c 'echo change >> /opt/portfolio-permissions/evidence.txt'` | zsh:1: permission denied for the file path | [Access-test screenshot](../screenshots/04-access-tests.png) | Reader append attempt is blocked. Exit codes were not captured. |
 
 ![Step 1 environment evidence](../screenshots/01-environment.png)
 
 ![Step 2 lab account and group evidence](../screenshots/02-users.png)
 
 ![Step 3 ownership and permission evidence](../screenshots/03-permissions.png)
+
+![Step 4 access-test evidence](../screenshots/04-access-tests.png)
 
 ## Observations
 
@@ -68,7 +73,19 @@ The reader and outsider have distinct UIDs and primary groups. Only the reader b
 
 ### Restricted directory and file configured
 
-The final listings confirm `root:portfolio_lab` ownership on both objects. Mode `750` allows the group to list and traverse the directory; mode `640` grants the group file-read permission without file-write permission. These settings predict the intended access behavior, but the Step 4 tests must establish actual outcomes for each lab user.
+The final listings confirm `root:portfolio_lab` ownership on both objects. Mode `750` allows the group to list and traverse the directory; mode `640` grants the group file-read permission without file-write permission. Step 4 verifies the intended behavior for the tested reader and outsider operations.
+
+### Read access allowed; outsider access and group write blocked
+
+The reader prints the synthetic file text, while the outsider's read and reader's append both produce permission-denied messages. These are successful negative tests of the restrictions, not setup failures. The outsider denial is consistent with lack of directory traversal permission; the reader can traverse and read, but lacks file-write permission.
+
+## Access matrix — observed tests
+
+| Identity | Read | Append / write | Evidence |
+|---|---|---|---|
+| root (owner) | Not explicitly tested | File creation via sudo tee shown in Step 3 | Step 3 screenshot |
+| portfolio_reader (group member) | Allowed | Append denied | Step 4 screenshot |
+| portfolio_outsider (nonmember) | Denied | Not tested | Step 4 screenshot |
 
 ## Deviations and troubleshooting
 
@@ -79,14 +96,18 @@ The next supplied screenshot shows `ls -ld /opt/portfolio-permissions` returning
 
 The terminal prompt is customized; the report retains the actual account identity from command output. No errors are visible in the environment or account-setup commands. Exit codes were not captured.
 
+### Step 4 expected denials and shell message
+
+Both permission-denied messages match the test expectations. No permission widening is required. The write command visibly uses `sh -c`, but the error prefix is `zsh:1`; the shell mapping or implementation was not inspected, so no explanation of that prefix is asserted. Exit codes are not shown and must not be inferred as exact numeric values.
+
 ## Validation
 
-- **Documented:** OS release inspection, current account inspection, UID/GID and group inspection; lab group/account setup and reader/outsider membership verification; directory and file ownership/mode verification.
-- **Pending:** Verify allowed and denied access, demonstrate controlled group-write, and restore settings.
+- **Documented:** OS release inspection, current account inspection, UID/GID and group inspection; lab group/account setup and reader/outsider membership verification; directory and file ownership/mode verification; reader read allowed, outsider read denied, reader append denied.
+- **Pending:** Capture exit codes if desired, demonstrate controlled group-write, and restore settings.
 
 ## Limitations
 
-Only Steps 1–3 are evidenced. The screenshots do not prove hypervisor settings, snapshot creation, resource allocation, home-directory creation, configured login shells, or actual reader/outsider access outcomes. No vulnerability or remediation finding is claimed.
+Only Steps 1–4 are evidenced. The screenshots do not prove hypervisor settings, snapshot creation, resource allocation, home-directory creation, configured login shells, or the shell implementation. Exact exit codes, outsider write behavior, and a separate root read test are not shown. No vulnerability or remediation finding is claimed.
 
 ## Cleanup / restoration
 
@@ -99,6 +120,7 @@ No cleanup is documented yet. The lab users and group remain present in the supp
 - OS identification is a baseline, not proof of patch status.
 - `id username` verifies primary and supplementary group memberships.
 - Group membership prepares an access-control test; actual access requires separate validation.
+- Expected permission denials provide evidence that access restrictions are enforced.
 - Restricted directory traversal can block an ordinary account from inspecting a file; privileged inspection can verify settings without widening permissions.
 
 ## Remaining work
@@ -106,6 +128,6 @@ No cleanup is documented yet. The lab users and group remain present in the supp
 - [x] Step 1: record environment
 - [x] Step 2: create two lab users and one group
 - [x] Step 3: create least-privilege directory and file
-- [ ] Step 4: verify allowed and denied access
+- [x] Step 4: verify allowed and denied access
 - [ ] Step 5: demonstrate a controlled permission change
 - [ ] Step 6: complete findings and document restoration
