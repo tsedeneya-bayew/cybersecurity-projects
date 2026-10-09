@@ -4,11 +4,11 @@
 **Started:** October 9, 2026 (first screenshot submitted)  
 **Completed:** Not yet completed
 
-> Partial report based on the supplied Step 1 screenshot. Steps 2–6 have not yet been documented.
+> Partial report based on the supplied Steps 1–2 screenshots. Steps 3–6 have not yet been documented.
 
 ## Progress summary
 
-The initial environment inspection is complete. The screenshot records the Ubuntu release, actual current account, UID/GID, and group membership. No lab users, file-permission changes, or access-control outcomes are established by this evidence.
+Environment inspection and lab account setup are documented. The second screenshot confirms two distinct lab users and membership of `portfolio_reader` in `portfolio_lab`; `portfolio_outsider` is not in that group. File-permission changes and allowed/denied access tests remain pending.
 
 ## Environment and authorized scope
 
@@ -20,7 +20,7 @@ The initial environment inspection is complete. The screenshot records the Ubunt
 | Supplementary groups shown | adm (4), cdrom (24), sudo (27), dip (30), plugdev (46), lpadmin (120), lxd (131), sambashare (132), docker (136) |
 | Terminal prompt | tsedeneya-bayew@VM; customized display |
 | Scope | User-provided Ubuntu VM for this lab |
-| Tools used so far | cat, whoami, id; versions not captured |
+| Tools used so far | cat, whoami, id, sudo, groupadd, useradd, usermod; versions not captured |
 | Snapshot / recovery plan | Not yet documented |
 | VM CPU / RAM / disk | Not shown in screenshot |
 | Timezone | Not shown in screenshot |
@@ -33,7 +33,14 @@ The initial environment inspection is complete. The screenshot records the Ubunt
 | 1 | `whoami` | seed | [Environment screenshot](../screenshots/01-environment.png) | The effective account name is seed, despite the customized prompt. |
 | 1 | `id` | UID/GID 1000; groups listed above | [Environment screenshot](../screenshots/01-environment.png) | Records current identity and group membership. |
 
+| 2 | `sudo groupadd portfolio_lab` | No visible error; subsequent reader output includes portfolio_lab (GID 1001) | [User setup screenshot](../screenshots/02-users.png) | Lab group exists at verification time. |
+| 2 | `sudo useradd -m -s /bin/bash portfolio_reader` and equivalent outsider command | No visible errors; both accounts are resolved by id | [User setup screenshot](../screenshots/02-users.png) | Accounts exist; home directories and shells were not independently checked. |
+| 2 | `sudo usermod -aG portfolio_lab portfolio_reader`; `id portfolio_reader` | UID 1001; primary GID 1002; groups portfolio_reader (1002), portfolio_lab (1001) | [User setup screenshot](../screenshots/02-users.png) | Reader has the required supplementary group membership. |
+| 2 | `id portfolio_outsider` | UID 1002; primary GID 1003; only portfolio_outsider (1003) listed | [User setup screenshot](../screenshots/02-users.png) | Outsider is not a member of portfolio_lab. |
+
 ![Step 1 environment evidence](../screenshots/01-environment.png)
+
+![Step 2 lab account and group evidence](../screenshots/02-users.png)
 
 ## Observations
 
@@ -47,35 +54,41 @@ The prompt displays `tsedeneya-bayew@VM`, while `whoami` returns `seed`. The pro
 
 ### Group membership recorded
 
-The account belongs to `sudo`, along with the other groups in the environment table. Membership is observed, but no `sudo` command or effective privilege test is shown. No claim of successfully exercised administrative access is made at this stage.
+The account belongs to `sudo`, along with the other groups in the environment table. Step 1 records membership only. Step 2 shows administrative account-management commands with no visible errors, followed by the expected account and group output. This supports successful lab setup; it does not establish unrestricted sudo policy.
+
+### Lab identities verified
+
+The reader and outsider have distinct UIDs and primary groups. Only the reader belongs to `portfolio_lab`, providing the intended identities for later access tests. Membership alone does not prove read or write access; directory and file permissions must still be configured and tested.
 
 ## Deviations and troubleshooting
 
-The terminal prompt is customized; the report retains the actual account identity from command output. No errors are visible in the three environment commands. Exit codes were not captured.
+The terminal prompt is customized; the report retains the actual account identity from command output. No errors are visible in the environment or account-setup commands. Exit codes were not captured.
 
 ## Validation
 
-- **Documented:** OS release inspection, current account inspection, UID/GID and group inspection.
-- **Pending:** Create lab users/group, apply directory and file permissions, verify allowed and denied access, demonstrate controlled group-write, and restore settings.
+- **Documented:** OS release inspection, current account inspection, UID/GID and group inspection; lab group/account setup and reader/outsider membership verification.
+- **Pending:** Apply directory and file permissions, verify allowed and denied access, demonstrate controlled group-write, and restore settings.
 
 ## Limitations
 
-Only Step 1 is evidenced. The screenshot does not prove hypervisor configuration, snapshot creation, resource allocation, successful privilege elevation, file permissions, or access-control behavior. No vulnerability or remediation finding is claimed.
+Only Steps 1–2 are evidenced. The screenshots do not prove hypervisor configuration, snapshot creation, resource allocation, home-directory creation, configured login shells, file permissions, or access-control behavior. No vulnerability or remediation finding is claimed.
 
 ## Cleanup / restoration
 
-No cleanup is documented yet. The shown commands inspect the environment; no lab-specific permission change is visible.
+No cleanup is documented yet. The lab users and group remain present in the supplied evidence. Account removal or VM snapshot restoration has not been shown; no lab-specific file permission change is visible.
 
 ## Lessons learned so far
 
 - The visible shell prompt can differ from the actual account name.
 - `whoami` and `id` provide account identity and group evidence.
 - OS identification is a baseline, not proof of patch status.
+- `id username` verifies primary and supplementary group memberships.
+- Group membership prepares an access-control test; actual access requires separate validation.
 
 ## Remaining work
 
 - [x] Step 1: record environment
-- [ ] Step 2: create two lab users and one group
+- [x] Step 2: create two lab users and one group
 - [ ] Step 3: create least-privilege directory and file
 - [ ] Step 4: verify allowed and denied access
 - [ ] Step 5: demonstrate a controlled permission change

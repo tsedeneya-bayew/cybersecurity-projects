@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Step 1 is documented below; Steps 2–6 are not yet evidenced.
+> Lab in progress. Steps 1–2 are documented below; Steps 3–6 are not yet evidenced.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Ubuntu desktop VM; 2 GB RAM minimum, 4 GB preferred; local sudo access. Use a di
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. Step 1 evidence is included below; add later screenshots as you complete the lab.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–2 evidence is included below; add later screenshots as you complete the lab.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -56,6 +56,10 @@ id portfolio_outsider
 `-m` creates a home directory; `-s` selects a shell; `-aG` adds a supplementary group without removing other memberships. If a name already exists, inspect it and use a new lab-only name rather than modifying an existing account.
 
 **Screenshot checkpoint:** 02-users.png: reader belongs to portfolio_lab; outsider does not.
+
+![Step 2: lab user creation and verified group membership](screenshots/02-users.png)
+
+**Observed result:** The creation and group-assignment commands show no visible errors. `id portfolio_reader` reports UID 1001, primary GID 1002 (`portfolio_reader`), and supplementary membership in GID 1001 (`portfolio_lab`). `id portfolio_outsider` reports UID 1002, primary GID 1003 (`portfolio_outsider`), and no `portfolio_lab` membership. Step 2 is complete. Home directories and login shells were requested by the commands but have not been independently inspected; file-access outcomes remain pending.
 
 ### 3. Create a least-privilege directory
 
