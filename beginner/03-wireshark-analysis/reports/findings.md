@@ -4,11 +4,11 @@
 **Started:** October 9, 2026 (first screenshot submitted)  
 **Completed:** Not yet completed
 
-> Partial findings report. Steps 1–4 are documented, including handshake verification and the local capture save. Initial DNS query evidence is documented; query-name and response verification plus final summary/cleanup remain pending.
+> Partial findings report. Steps 1–4 are documented, including handshake verification and the local capture save. Initial DNS query evidence is documented; frame 7's example.com A/IN query is now verified. Response verification and final summary/cleanup remain pending.
 
 ## Progress summary
 
-The supplied screenshot documents dnsutils installation and synthetic page preparation. An additional screenshot shows Wireshark 3.2.3 and available interfaces, including loopback. Step 2 shows the Python HTTP server running on 127.0.0.1:8000. Step 3 shows a captured loopback HTTP GET request and TCP ports. Step 4 reconstructs the request and a `200 OK` response containing the synthetic page. The saved capture is shown as `http-lab.pcapng`. The additional packet-list screenshot verifies the TCP three-way handshake. Step 5 shows a DNS query to a local resolver; query-name and response verification and cleanup remain pending.
+The supplied screenshot documents dnsutils installation and synthetic page preparation. An additional screenshot shows Wireshark 3.2.3 and available interfaces, including loopback. Step 2 shows the Python HTTP server running on 127.0.0.1:8000. Step 3 shows a captured loopback HTTP GET request and TCP ports. Step 4 reconstructs the request and a `200 OK` response containing the synthetic page. The saved capture is shown as `http-lab.pcapng`. The additional packet-list screenshot verifies the TCP three-way handshake. Step 5 shows a DNS query to a local resolver; frame 7's query name/type is now documented; response verification and cleanup remain pending.
 
 ## Environment and authorized scope
 
@@ -44,6 +44,8 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 
 | 5 partial | Capture loopback DNS; inspect frame 3 | UDP 127.0.0.1:42751 → 127.0.0.53:53; standard query; ID 0x43bf; one question | [DNS query screenshot](../screenshots/05-dns-query.png) | Local resolver query captured; query name and matching response details remain unverified. |
 
+| 5 query name | Expand Queries in frame 7 | example.com, type A, class IN; Response In: 8 | [Expanded query screenshot](../screenshots/05-dns-name.png) | IPv4 DNS question verified for frame 7; its transaction ID and response details are not shown. |
+
 ![Step 1 setup evidence](../screenshots/01-setup.png)
 
 ![Step 1 Wireshark interface evidence](../screenshots/01-interfaces.png)
@@ -59,6 +61,8 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 ![Step 3 TCP handshake evidence](../screenshots/03-handshake.png)
 
 ![Step 5 initial DNS query evidence](../screenshots/05-dns-query.png)
+
+![Step 5 expanded DNS query evidence](../screenshots/05-dns-name.png)
 
 ## Observations and limitations
 
@@ -76,6 +80,8 @@ The stream view displays the request and response as readable ASCII. The request
 
 The DNS display filter shows frames 3, 4, 7, and 8 with alternating directions between 127.0.0.1 and 127.0.0.53. The selected query uses UDP source port 42751 and destination port 53, transaction ID 0x43bf, flags 0x0120, one question, zero answer records, and one additional record. Zero answers is expected in a query; it is not proof of failure. The Queries section is collapsed and the Info column is off-screen, so the queried name/type cannot yet be confirmed. Reverse-direction packets alone do not establish a successful answer or matching transaction ID. The screenshot documents the VM's local resolver leg; it does not show which upstream DNS server the resolver used.
 
+The additional screenshot selects **frame 7**, rather than frame 3. Its expanded Queries section confirms `example.com: type A, class IN`, and Wireshark links its response to frame 8. Type A requests IPv4 address records; class IN means Internet. This screenshot does not show frame 7's transaction ID or UDP port, so the earlier frame 3 values must not be assigned to this second query. Frame 8's response details remain pending.
+
 ## Deviations and troubleshooting
 
 No visible error. The first screenshot documented preparation; the additional interface screenshot now satisfies the interface checkpoint. enp0s3 is highlighted, but the local HTTP exercise requires Loopback: lo.
@@ -91,7 +97,8 @@ No visible error. The first screenshot documented preparation; the additional in
 - [x] Step 3: verify SYN, SYN/ACK, and ACK handshake flags
 - [x] Step 4: reconstruct TCP conversation and verify synthetic response
 - [x] Step 4: document local capture saved as http-lab.pcapng
-- [ ] Step 5: inspect DNS query and response
+- [x] Step 5: verify example.com A/IN question in frame 7
+- [ ] Step 5: verify matching response transaction ID, response code, and answer records
 - [ ] Step 6: summarize results and stop server
 
 ## Cleanup / restoration

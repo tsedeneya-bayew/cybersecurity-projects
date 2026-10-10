@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Steps 1–4 are documented, including the HTTP response, TCP handshake, reconstructed stream, and local capture save. Step 5 has initial loopback DNS query evidence; query-name and response matching checks, plus Step 6, remain pending.
+> Lab in progress. Steps 1–4 are documented, including the HTTP response, TCP handshake, reconstructed stream, and local capture save. Step 5 has initial loopback DNS query evidence; the query name/type is now documented for frame 7; response matching checks and Step 6 remain pending.
 
 [← Project index](../../README.md)
 
@@ -107,6 +107,10 @@ Stop capture and apply `dns`. Compare query and response transaction IDs and the
 ![Step 5: DNS query to the local resolver on loopback](screenshots/05-dns-query.png)
 
 **Observed result:** This capture uses `Loopback: lo` with the display filter `dns`. Selected frame 3 shows a DNS standard query from `127.0.0.1:42751` to `127.0.0.53:53` over UDP, transaction ID `0x43bf`, flags `0x0120`, one question, zero answer records, and one additional record. Reverse-direction DNS packets are visible, but their response details are not expanded. The Queries section is collapsed, so `example.com`, the record type, matching response ID, response code, and answer values still need verification. Zero answers in a query is normal and does not indicate a failed lookup. Capturing on loopback is appropriate for this observed local resolver exchange.
+
+![Step 5: expanded example.com IPv4 DNS query in frame 7](screenshots/05-dns-name.png)
+
+**Query-name verification:** The additional screenshot selects **frame 7**, rather than frame 3. Its expanded Queries section confirms `example.com: type A, class IN`, and Wireshark links its response to frame 8. Type A requests IPv4 address records; class IN means Internet. This screenshot does not show frame 7's transaction ID or UDP port, so the earlier frame 3 values must not be assigned to this second query. Frame 8's response details remain pending.
 
 ### 6. Summarize and clean up
 
