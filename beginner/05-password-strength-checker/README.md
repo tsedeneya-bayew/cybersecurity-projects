@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab started October 9, 2026. Initial setup attempt is documented; the project directory and Python version checkpoint remain pending.
+> Lab started October 9, 2026. Step 1 is verified: project directory and Python 3.8.5 are documented. Implementation and testing remain pending.
 
 [← Project index](../../README.md)
 
@@ -45,7 +45,11 @@ On Windows, create a lab folder in your user directory and confirm Python with `
 
 ![Step 1 initial attempt: editor opened from /home](screenshots/01-setup-attempt.png)
 
-**Observed result and correction:** Three `cd ..` commands move from the earlier traffic folder to `/home`, then `nano checker.py` returns to the shell. `/home` is the parent of user home directories; it is not the intended project directory. This screenshot does not show a saved file, its contents, or the Python version. Run the setup commands above to work in `~/portfolio-labs/password-checker`. No sudo is needed for this project. Directory and version verification remain pending.
+**Observed result and correction:** Three `cd ..` commands move from the earlier traffic folder to `/home`, then `nano checker.py` returns to the shell. `/home` is the parent of user home directories; it is not the intended project directory. This screenshot does not show a saved file, its contents, or the Python version. Run the setup commands above to work in `~/portfolio-labs/password-checker`. No sudo is needed for this project. The corrected setup is verified below.
+
+![Step 1: correct project folder and Python version](screenshots/01-environment.png)
+
+**Verified setup:** `pwd` prints `/home/seed/portfolio-labs/password-checker`, and `python3 --version` prints `Python 3.8.5`. The directory creation and navigation show no visible errors. `nano checker.py` returns to the shell, but the screenshot does not establish saved contents; Step 2 will verify the implementation. The customized prompt does not change the actual home directory `/home/seed`.
 
 ### 2. Implement the checker
 
