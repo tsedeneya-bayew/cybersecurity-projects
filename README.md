@@ -4,7 +4,7 @@
 
 A public learning portfolio with six projects at each level. Each project has a detailed guide, screenshot checkpoints, troubleshooting, and a findings report template.
 
-> **Status:** Project 01 is completed with all six screenshots, verified permission restoration, and a findings report. Project 02 is completed with all six screenshots and final integrity verification; Project 03 is in progress with setup evidence; other projects remain prepared guides until execution is documented.
+> **Status:** Projects 01–03 are completed with screenshot evidence and finalized findings reports. The remaining 15 projects are prepared guides awaiting documented execution.
 
 **[Start here: lab setup and screenshot workflow](START-HERE.md)**
 
@@ -20,7 +20,7 @@ A public learning portfolio with six projects at each level. Each project has a 
 |---|---|---|---|
 | 01 | [Linux Users & File Permissions](beginner/01-linux-permissions/README.md) | 1–2 hours | Completed |
 | 02 | [File Integrity with SHA-256](beginner/02-file-integrity/README.md) | 45–90 minutes | Completed |
-| 03 | [Wireshark Traffic Analysis](beginner/03-wireshark-analysis/README.md) | 1–2 hours | In progress |
+| 03 | [Wireshark Traffic Analysis](beginner/03-wireshark-analysis/README.md) | 1–2 hours | Completed |
 | 04 | [Windows Security Event Logs](beginner/04-windows-event-logs/README.md) | 1–2 hours | Not started |
 | 05 | [Python Password Strength Checker](beginner/05-password-strength-checker/README.md) | 1–2 hours | Not started |
 | 06 | [Local Network Discovery with Nmap](beginner/06-nmap-network-discovery/README.md) | 1–2 hours | Not started |

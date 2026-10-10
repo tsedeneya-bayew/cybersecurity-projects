@@ -1,8 +1,8 @@
 # Wireshark Traffic Analysis
 
-**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
+**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** Completed
 
-> Lab in progress. Steps 1–5 are documented, including matched DNS query/response details. Step 6 DNS protocol statistics are documented; final report synthesis and server shutdown remain pending.
+> Completed October 9, 2026. All six lab steps have screenshot evidence and a finalized findings report. The HTTP capture is retained locally; the lab server was stopped.
 
 [← Project index](../../README.md)
 
@@ -106,15 +106,15 @@ Stop capture and apply `dns`. Compare query and response transaction IDs and the
 
 ![Step 5: DNS query to the local resolver on loopback](screenshots/05-dns-query.png)
 
-**Observed result:** This capture uses `Loopback: lo` with the display filter `dns`. Selected frame 3 shows a DNS standard query from `127.0.0.1:42751` to `127.0.0.53:53` over UDP, transaction ID `0x43bf`, flags `0x0120`, one question, zero answer records, and one additional record. Reverse-direction DNS packets are visible, but their response details are not expanded. The Queries section is collapsed, so `example.com`, the record type, matching response ID, response code, and answer values still need verification. Zero answers in a query is normal and does not indicate a failed lookup. Capturing on loopback is appropriate for this observed local resolver exchange.
+**Observed result:** This capture uses `Loopback: lo` with the display filter `dns`. Selected frame 3 shows a DNS standard query from `127.0.0.1:42751` to `127.0.0.53:53` over UDP, transaction ID `0x43bf`, flags `0x0120`, one question, zero answer records, and one additional record. Reverse-direction DNS packets are visible, but their response details are not expanded. The Queries section is collapsed, so this initial screenshot alone does not establish the name/type or response outcome; the expanded response below supplies those details. Zero answers in a query is normal and does not indicate a failed lookup. Capturing on loopback is appropriate for this observed local resolver exchange.
 
 ![Step 5: expanded example.com IPv4 DNS query in frame 7](screenshots/05-dns-name.png)
 
-**Query-name verification:** The additional screenshot selects **frame 7**, rather than frame 3. Its expanded Queries section confirms `example.com: type A, class IN`, and Wireshark links its response to frame 8. Type A requests IPv4 address records; class IN means Internet. This screenshot does not show frame 7's transaction ID or UDP port, so the earlier frame 3 values must not be assigned to this second query. Frame 8's response details remain pending.
+**Query-name verification:** The additional screenshot selects **frame 7**, rather than frame 3. Its expanded Queries section confirms `example.com: type A, class IN`, and Wireshark links its response to frame 8. Type A requests IPv4 address records; class IN means Internet. This screenshot does not show frame 7's transaction ID or UDP port, so the earlier frame 3 values must not be assigned to this second query. Frame 8 was not inspected further; the frame 3/4 exchange below provides the completed DNS validation.
 
 ![Step 5: DNS response in frame 4 linked to request frame 3](screenshots/05-dns-response.png)
 
-**Response evidence:** Frame 4 shows a DNS packet from `127.0.0.53` to `127.0.0.1`, the question `example.com: type A, class IN`, two answer records, zero authority records, and one additional record. Wireshark links it to request frame 3 and reports a query-to-response interval of `0.000078441 seconds`. This confirms the question name/type for the first exchange as well. The Answers section is collapsed and the transaction ID and flags are off-screen; returned addresses and response code remain unverified. This frame belongs to the frame 3/4 exchange, separately from the frame 7/8 exchange.
+**Response evidence:** Frame 4 shows a DNS packet from `127.0.0.53` to `127.0.0.1`, the question `example.com: type A, class IN`, two answer records, zero authority records, and one additional record. Wireshark links it to request frame 3 and reports a query-to-response interval of `0.000078441 seconds`. This confirms the question name/type for the first exchange as well. The Answers section is collapsed and the transaction ID and flags are off-screen; this initial response screenshot alone does not establish the addresses or response code; the next screenshot verifies both. This frame belongs to the frame 3/4 exchange, separately from the frame 7/8 exchange.
 
 ![Step 5: matching DNS response, no-error status, and IPv4 answers](screenshots/05-dns-verified.png)
 
@@ -128,7 +128,11 @@ Create a table of protocol, source, destination, ports, and meaning for the synt
 
 ![Step 6: protocol hierarchy for the four displayed DNS packets](screenshots/06-summary.png)
 
-**Observed result:** Protocol Hierarchy Statistics for `Loopback: lo` uses display filter `dns`. It shows four packets, each classified through Frame → Ethernet → IPv4 → UDP → DNS, with 100% of the displayed packets at each layer. These are nested protocol layers of the same four packets, not separate sets to add together. The result summarizes the filtered DNS subset, not all traffic or the earlier HTTP capture. Byte-percentage columns are clipped and are not transcribed. Server shutdown remains pending.
+**Observed result:** Protocol Hierarchy Statistics for `Loopback: lo` uses display filter `dns`. It shows four packets, each classified through Frame → Ethernet → IPv4 → UDP → DNS, with 100% of the displayed packets at each layer. These are nested protocol layers of the same four packets, not separate sets to add together. The result summarizes the filtered DNS subset, not all traffic or the earlier HTTP capture. Byte-percentage columns are clipped and are not transcribed. Server shutdown is documented below.
+
+![Step 6: Python HTTP server interrupted and exiting](screenshots/06-cleanup.png)
+
+**Cleanup result:** The server terminal shows three local `GET / HTTP/1.1` requests returning status `200`, then `^C` and `Keyboard interrupt received, exiting.` This documents shutdown by Ctrl+C. The final prompt is outside the screenshot. The VM and synthetic lab artifacts are retained for learning; raw captures have not been published. See the report for the protocol table, filter explanations, and HTTP/HTTPS comparison.
 
 ## Troubleshooting
 
@@ -142,13 +146,13 @@ No packets usually means wrong interface or capture permissions. A display filte
 
 ## Completion checklist
 
-- [ ] Environment and exact scope recorded
-- [ ] All lab steps attempted and actual outcomes documented
-- [ ] Screenshots uploaded and linked under their steps
-- [ ] Findings distinguish observation from interpretation
-- [ ] Limitations and remediation explained
-- [ ] Cleanup or restoration completed
-- [ ] Findings report completed; status updated in this repository and portfolio index
+- [x] Environment and exact scope recorded
+- [x] All lab steps attempted and actual outcomes documented
+- [x] Screenshots uploaded and linked under their steps
+- [x] Findings distinguish observation from interpretation
+- [x] Limitations and remediation explained
+- [x] Cleanup or restoration completed
+- [x] Findings report completed; status updated in this repository and portfolio index
 
 ## Official references
 
