@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Step 1 setup evidence is included; Wireshark interface verification and Steps 2–6 remain pending.
+> Lab in progress. Step 1 setup and interface evidence are included; Steps 2–6 remain pending.
 
 [← Project index](../../README.md)
 
@@ -40,9 +40,13 @@ During Wireshark package setup, permit non-root capture if prompted. Add your VM
 
 ![Step 1 setup: dnsutils installation and synthetic page creation](screenshots/01-setup.png)
 
-**Observed result:** The screenshot shows `dnsutils` version `1:9.18.30-0ubuntu0.20.04.2` being unpacked and configured. Commands create `~/portfolio-labs/traffic`, change into it, and write `Synthetic HTTP lab page` to `index.html`, with no visible errors. This screenshot does not establish Wireshark capture permissions or available interfaces; the interface checkpoint remains pending.
+**Observed result:** The screenshot shows `dnsutils` version `1:9.18.30-0ubuntu0.20.04.2` being unpacked and configured. Commands create `~/portfolio-labs/traffic`, change into it, and write `Synthetic HTTP lab page` to `index.html`, with no visible errors. This setup screenshot does not establish capture permissions; the additional screenshot below verifies interface availability.
 
 **Screenshot checkpoint:** 01-interfaces.png: available Wireshark interfaces.
+
+![Step 1: Wireshark version and available capture interfaces](screenshots/01-interfaces.png)
+
+**Observed result:** Wireshark 3.2.3 (packaged as 3.2.3-1) opens and lists `enp0s3`, `Loopback: lo`, `any`, and other interfaces. The status shows `No Packets`; successful capture has not yet been tested. Step 1 preparation and interface inspection are documented. Use `Loopback: lo` for the local HTTP exercise, rather than the currently highlighted `enp0s3`.
 
 ### 2. Start a local web server
 
