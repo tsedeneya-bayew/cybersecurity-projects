@@ -4,7 +4,7 @@
 
 A public learning portfolio with six projects at each level. Each project has a detailed guide, screenshot checkpoints, troubleshooting, and a findings report template.
 
-> **Status:** Projects 01–03 are completed with screenshot evidence and finalized findings reports. The remaining 15 projects are prepared guides awaiting documented execution.
+> **Status:** Projects 01–03 are completed with screenshot evidence and finalized findings reports. Project 05 is in progress with an initial setup attempt; Project 04 and Projects 06–18 remain prepared guides awaiting documented execution.
 
 **[Start here: lab setup and screenshot workflow](START-HERE.md)**
 
@@ -22,7 +22,7 @@ A public learning portfolio with six projects at each level. Each project has a 
 | 02 | [File Integrity with SHA-256](beginner/02-file-integrity/README.md) | 45–90 minutes | Completed |
 | 03 | [Wireshark Traffic Analysis](beginner/03-wireshark-analysis/README.md) | 1–2 hours | Completed |
 | 04 | [Windows Security Event Logs](beginner/04-windows-event-logs/README.md) | 1–2 hours | Not started |
-| 05 | [Python Password Strength Checker](beginner/05-password-strength-checker/README.md) | 1–2 hours | Not started |
+| 05 | [Python Password Strength Checker](beginner/05-password-strength-checker/README.md) | 1–2 hours | In progress |
 | 06 | [Local Network Discovery with Nmap](beginner/06-nmap-network-discovery/README.md) | 1–2 hours | Not started |
 
 ## Intermediate

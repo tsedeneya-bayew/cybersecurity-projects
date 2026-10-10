@@ -1,59 +1,44 @@
-# Findings Report
+# Python Password Strength Checker — Findings Report
 
-**Status:** Not started
-**Started:** _Not recorded_
-**Completed:** _Not recorded_
+**Status:** In progress  
+**Started:** October 9, 2026  
+**Completed:** Not yet completed
 
-> Replace placeholders with your own observations. This template is not a completed report.
+## Progress summary
 
-## Executive summary
+An initial setup attempt is documented. The terminal navigates out of the earlier traffic lab and opens nano from /home. The intended project folder, Python version, saved implementation, and test results have not yet been verified.
 
-_What you investigated, what you observed, and why it matters. Write this after the lab._
+## Environment and scope
 
-## Environment and authorized scope
-
-| Item | Actual value |
+| Item | Observed value |
 |---|---|
-| OS and version | _Fill in_ |
-| Tools and versions | _Fill in_ |
-| Authorized targets | _Fill in_ |
-| Snapshot / recovery plan | _Fill in_ |
-| Timezone | _Fill in_ |
+| Environment | Existing lab VM; exact OS version not shown in this screenshot |
+| Prompt | tsedeneya-bayew@VM, customized display |
+| Directory at editor launch | /home |
+| Editor command | nano checker.py |
+| Python version | Not yet recorded |
+| Scope | Educational local checker using invented test strings only |
 
 ## Evidence log
 
-| Step | Command or action | Actual result | Screenshot / artifact | Interpretation |
+| Step | Action | Actual result | Evidence | Interpretation |
 |---|---|---|---|---|
-| 1 | _Fill in_ | _Fill in_ | _Relative link_ | _Fill in_ |
+| 1 initial attempt | Run cd .. three times, then nano checker.py | Terminal reaches /home; editor command returns to shell | [Setup attempt](../screenshots/01-setup-attempt.png) | Editor invocation documented; file creation and saved contents not established |
 
-## Findings
+## Deviations and correction
 
-For each finding describe: observation, supporting evidence, impact, confidence, recommended action, and validation. Do not invent severity ratings or vulnerability claims unsupported by the lab.
+The initial attempt uses /home, the parent directory containing user homes. The guide now provides explicit commands to create and enter ~/portfolio-labs/password-checker, print the directory, and check Python's version before editing checker.py. No elevated privileges are needed. No permission error appears in the supplied screenshot, so none is claimed.
 
-## Deviations and troubleshooting
+## Validation and remaining work
 
-_Record anything that differed from the guide and how you resolved it._
+- [x] Record initial setup attempt
+- [ ] Step 1: verify project directory and Python version
+- [ ] Step 2: save and inspect implementation
+- [ ] Step 3: run controlled examples using invented strings
+- [ ] Step 4: run automated checks
+- [ ] Step 5: document heuristic limitations
+- [ ] Step 6: publish actual executed code and finalize report
 
-## Validation
+## Limitations and cleanup
 
-_What passed, failed, or could not be tested? Include negative tests where relevant._
-
-## Limitations
-
-_What can this evidence establish, and what remains unknown?_
-
-## Cleanup / restoration
-
-_Record services stopped, settings restored, or snapshot reverted._
-
-## Lessons learned
-
-_Answer the questions in the README and explain your own changes._
-
-## Completion review
-
-- [ ] All results are my actual observations
-- [ ] Screenshots are sanitized and linked
-- [ ] No secrets or personal logs included
-- [ ] Limitations and cleanup documented
-- [ ] README and portfolio index status updated
+The screenshot does not establish whether checker.py was saved or what it contains. No execution, test success, or password-security conclusion is claimed. No sensitive information requiring redaction was visible. The VM is retained for learning; no service or system change is shown in this attempt.

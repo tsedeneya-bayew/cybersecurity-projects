@@ -1,8 +1,8 @@
 # Python Password Strength Checker
 
-**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** Not started
+**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Prepared lab guide. No execution, screenshots, or findings are claimed yet.
+> Lab started October 9, 2026. Initial setup attempt is documented; the project directory and Python version checkpoint remain pending.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Python 3 on Ubuntu or Windows. Use only invented test strings. This educational 
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. No images are included yet.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Initial setup evidence is included below.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -29,9 +29,23 @@ For browser uploads: open the destination folder → Add file → Upload files �
 
 ### 1. Prepare the project
 
-Create a folder for the lab and a file `checker.py`. Confirm Python with `python3 --version` (Windows: `py --version`). No third-party packages are needed. Use a code editor and save the following implementation.
+On Ubuntu, prepare a project folder inside your own home directory:
+
+```bash
+mkdir -p ~/portfolio-labs/password-checker
+cd ~/portfolio-labs/password-checker
+pwd
+python3 --version
+nano checker.py
+```
+
+On Windows, create a lab folder in your user directory and confirm Python with `py --version`. No third-party packages are needed. Save the Step 2 implementation in `checker.py`.
 
 **Screenshot checkpoint:** 01-environment.png: Python version and project folder.
+
+![Step 1 initial attempt: editor opened from /home](screenshots/01-setup-attempt.png)
+
+**Observed result and correction:** Three `cd ..` commands move from the earlier traffic folder to `/home`, then `nano checker.py` returns to the shell. `/home` is the parent of user home directories; it is not the intended project directory. This screenshot does not show a saved file, its contents, or the Python version. Run the setup commands above to work in `~/portfolio-labs/password-checker`. No sudo is needed for this project. Directory and version verification remain pending.
 
 ### 2. Implement the checker
 
