@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Step 1 setup and interface evidence are included; Steps 2–6 remain pending.
+> Lab in progress. Steps 1–2 are documented; Steps 3–6 remain pending.
 
 [← Project index](../../README.md)
 
@@ -57,6 +57,10 @@ python3 -m http.server 8000 --bind 127.0.0.1
 Leave this terminal running. Binding to 127.0.0.1 makes the service local to the VM; it is not exposed to the network.
 
 **Screenshot checkpoint:** 02-server.png: server bound to loopback.
+
+![Step 2: Python HTTP server running on loopback port 8000](screenshots/02-server.png)
+
+**Observed result:** The screenshot shows `python3 -m http.server 8000 --bind 127.0.0.1` reporting `Serving HTTP on 127.0.0.1 port 8000`. The server is running on the VM's loopback address. No HTTP request or capture is shown yet. Leave this terminal running while generating traffic from another terminal.
 
 ### 3. Capture HTTP on loopback
 
