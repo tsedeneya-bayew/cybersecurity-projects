@@ -4,11 +4,11 @@
 **Started:** October 9, 2026 (first screenshot submitted)  
 **Completed:** Not yet completed
 
-> Partial findings report. Steps 1–4 are documented, including handshake verification and the local capture save. DNS analysis and final summary/cleanup remain pending.
+> Partial findings report. Steps 1–4 are documented, including handshake verification and the local capture save. Initial DNS query evidence is documented; query-name and response verification plus final summary/cleanup remain pending.
 
 ## Progress summary
 
-The supplied screenshot documents dnsutils installation and synthetic page preparation. An additional screenshot shows Wireshark 3.2.3 and available interfaces, including loopback. Step 2 shows the Python HTTP server running on 127.0.0.1:8000. Step 3 shows a captured loopback HTTP GET request and TCP ports. Step 4 reconstructs the request and a `200 OK` response containing the synthetic page. The saved capture is shown as `http-lab.pcapng`. The additional packet-list screenshot verifies the TCP three-way handshake. DNS inspection and cleanup remain pending.
+The supplied screenshot documents dnsutils installation and synthetic page preparation. An additional screenshot shows Wireshark 3.2.3 and available interfaces, including loopback. Step 2 shows the Python HTTP server running on 127.0.0.1:8000. Step 3 shows a captured loopback HTTP GET request and TCP ports. Step 4 reconstructs the request and a `200 OK` response containing the synthetic page. The saved capture is shown as `http-lab.pcapng`. The additional packet-list screenshot verifies the TCP three-way handshake. Step 5 shows a DNS query to a local resolver; query-name and response verification and cleanup remain pending.
 
 ## Environment and authorized scope
 
@@ -42,6 +42,8 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 
 | 3 handshake | Inspect Info column for stream 0 | Client SYN, server SYN/ACK, client ACK; sequence acknowledgments each increment the SYN sequence by one | [Handshake screenshot](../screenshots/03-handshake.png) | TCP three-way handshake verified before GET. |
 
+| 5 partial | Capture loopback DNS; inspect frame 3 | UDP 127.0.0.1:42751 → 127.0.0.53:53; standard query; ID 0x43bf; one question | [DNS query screenshot](../screenshots/05-dns-query.png) | Local resolver query captured; query name and matching response details remain unverified. |
+
 ![Step 1 setup evidence](../screenshots/01-setup.png)
 
 ![Step 1 Wireshark interface evidence](../screenshots/01-interfaces.png)
@@ -56,9 +58,11 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 
 ![Step 3 TCP handshake evidence](../screenshots/03-handshake.png)
 
+![Step 5 initial DNS query evidence](../screenshots/05-dns-query.png)
+
 ## Observations and limitations
 
-Only dnsutils setup is visible in the installation excerpt; the interface screenshot separately establishes Wireshark availability. Python 3 successfully starts its HTTP server in Step 2; the Step 4 response advertises Python/3.8.5, but no independent version command is shown. The captured HTTP User-Agent advertises curl/7.68.0; no independent curl version command was captured. The package summary lists 570 packages not upgraded, which alone does not establish vulnerability or patch status. Wireshark interfaces are visible, including loopback. The Python server reports startup on loopback port 8000. Step 3 establishes successful packet capture on loopback and a decoded HTTP request. It does not establish the privilege configuration used to capture. DNS responses remain unverified. Exact exit codes are not shown.
+Only dnsutils setup is visible in the installation excerpt; the interface screenshot separately establishes Wireshark availability. Python 3 successfully starts its HTTP server in Step 2; the Step 4 response advertises Python/3.8.5, but no independent version command is shown. The captured HTTP User-Agent advertises curl/7.68.0; no independent curl version command was captured. The package summary lists 570 packages not upgraded, which alone does not establish vulnerability or patch status. Wireshark interfaces are visible, including loopback. The Python server reports startup on loopback port 8000. Step 3 establishes successful packet capture on loopback and a decoded HTTP request. It does not establish the privilege configuration used to capture. DNS response details remain unverified. The initial DNS screenshot shows a local resolver exchange on loopback, rather than the proposed NAT-interface capture. Exact exit codes are not shown.
 
 ### Loopback request inspection
 
@@ -67,6 +71,10 @@ The client request goes from 127.0.0.1:44470 to 127.0.0.1:8000. Port 8000 is the
 ### Reconstructed HTTP conversation
 
 The stream view displays the request and response as readable ASCII. The request uses HTTP/1.1; the response uses HTTP/1.0 and status 200 OK. Response headers show `Content-type: text/html` and `Content-Length: 24`, consistent with the synthetic page text plus its newline. Wireshark shows an entire conversation of 286 bytes; this counts stream data, not total packet bytes or PCAP file size. This demonstrates that this HTTP exchange is readable in plaintext. It does not establish the contents of an HTTPS exchange. The screenshot's **Save as…** button exports stream data; saving the packet capture requires the main Wireshark window's File → Save As. The subsequent screenshot shows `http-lab.pcapng` open in Wireshark, documenting the local save. Its title and status bar show the filename; the raw file itself has not been uploaded or independently reviewed.
+
+### Initial DNS inspection
+
+The DNS display filter shows frames 3, 4, 7, and 8 with alternating directions between 127.0.0.1 and 127.0.0.53. The selected query uses UDP source port 42751 and destination port 53, transaction ID 0x43bf, flags 0x0120, one question, zero answer records, and one additional record. Zero answers is expected in a query; it is not proof of failure. The Queries section is collapsed and the Info column is off-screen, so the queried name/type cannot yet be confirmed. Reverse-direction packets alone do not establish a successful answer or matching transaction ID. The screenshot documents the VM's local resolver leg; it does not show which upstream DNS server the resolver used.
 
 ## Deviations and troubleshooting
 

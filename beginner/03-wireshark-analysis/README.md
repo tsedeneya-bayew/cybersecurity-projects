@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Steps 1–4 are documented, including the HTTP response, TCP handshake, reconstructed stream, and local capture save. DNS analysis and final summary/cleanup (Steps 5–6) remain pending.
+> Lab in progress. Steps 1–4 are documented, including the HTTP response, TCP handshake, reconstructed stream, and local capture save. Step 5 has initial loopback DNS query evidence; query-name and response matching checks, plus Step 6, remain pending.
 
 [← Project index](../../README.md)
 
@@ -103,6 +103,10 @@ dig example.com
 Stop capture and apply `dns`. Compare query and response transaction IDs and the query name. If the resolver is local, DNS may appear on loopback instead; inspect `resolvectl status` and capture the appropriate interface. If there is no response, record that accurately.
 
 **Screenshot checkpoint:** 05-dns.png: query and response, if available.
+
+![Step 5: DNS query to the local resolver on loopback](screenshots/05-dns-query.png)
+
+**Observed result:** This capture uses `Loopback: lo` with the display filter `dns`. Selected frame 3 shows a DNS standard query from `127.0.0.1:42751` to `127.0.0.53:53` over UDP, transaction ID `0x43bf`, flags `0x0120`, one question, zero answer records, and one additional record. Reverse-direction DNS packets are visible, but their response details are not expanded. The Queries section is collapsed, so `example.com`, the record type, matching response ID, response code, and answer values still need verification. Zero answers in a query is normal and does not indicate a failed lookup. Capturing on loopback is appropriate for this observed local resolver exchange.
 
 ### 6. Summarize and clean up
 
