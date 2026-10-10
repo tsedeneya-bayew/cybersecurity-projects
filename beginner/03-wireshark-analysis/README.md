@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Steps 1–2 and Step 3 HTTP request evidence are documented; response-status and handshake inspection remain pending, along with Steps 4–6.
+> Lab in progress. Steps 1–2, the Step 3 HTTP request and response status, and Step 4 stream reconstruction are documented. TCP handshake inspection, saving the capture, and Steps 5–6 remain pending.
 
 [← Project index](../../README.md)
 
@@ -74,13 +74,17 @@ Stop capture. Enter the display filter `tcp.port == 8000`. If HTTP is not decode
 
 ![Step 3: filtered loopback HTTP GET request and TCP ports](screenshots/03-http.png)
 
-**Observed result:** On `Loopback: lo`, the applied display filter is `tcp.port == 8000`. Frame 4 shows `GET / HTTP/1.1`, Host `127.0.0.1:8000`, User-Agent `curl/7.68.0`, and Accept `*/*`. TCP source port is `44470` and destination port is `8000`; both IP addresses are `127.0.0.1`. Wireshark links the response to frame 8. The status bar reports 12 captured and displayed packets and 0 dropped. The response status and handshake flags are not expanded in this screenshot; inspect them or provide additional evidence before treating those checks as complete.
+**Observed result:** On `Loopback: lo`, the applied display filter is `tcp.port == 8000`. Frame 4 shows `GET / HTTP/1.1`, Host `127.0.0.1:8000`, User-Agent `curl/7.68.0`, and Accept `*/*`. TCP source port is `44470` and destination port is `8000`; both IP addresses are `127.0.0.1`. Wireshark links the response to frame 8. The status bar reports 12 captured and displayed packets and 0 dropped. The Step 4 stream screenshot below confirms the response status as `HTTP/1.0 200 OK`. TCP handshake flags still require inspection.
 
 ### 4. Reconstruct the conversation
 
 Select an HTTP packet and choose Follow → TCP Stream. Find the GET request and synthetic response body. Record which port is the server port and which is the temporary client port. Save this loopback-only capture locally as `http-lab.pcapng`.
 
 **Screenshot checkpoint:** 04-stream.png: synthetic request and response.
+
+![Step 4: reconstructed HTTP request and successful synthetic response](screenshots/04-stream.png)
+
+**Observed result:** Follow TCP Stream shows stream 0 in ASCII: `GET / HTTP/1.1` and the server response `HTTP/1.0 200 OK`. The response advertises `SimpleHTTP/0.6 Python/3.8.5`, `Content-type: text/html`, and `Content-Length: 24`; its body is `Synthetic HTTP lab page`. The readable request and response demonstrate plaintext HTTP within this local lab. The entire conversation is 286 bytes of stream data; this is not the size of the packet capture. The earlier packet details identify server port `8000` and client port `44470`. Saving `http-lab.pcapng` has not yet been verified.
 
 ### 5. Capture a small DNS sample
 
