@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Steps 1–5 are documented, including matched DNS query/response details. Step 6 summary and server shutdown remain pending.
+> Lab in progress. Steps 1–5 are documented, including matched DNS query/response details. Step 6 DNS protocol statistics are documented; final report synthesis and server shutdown remain pending.
 
 [← Project index](../../README.md)
 
@@ -125,6 +125,10 @@ Stop capture and apply `dns`. Compare query and response transaction IDs and the
 Create a table of protocol, source, destination, ports, and meaning for the synthetic exchange. Explain HTTP plaintext versus HTTPS encryption; do not infer that ordinary HTTPS reveals page contents. Stop the Python server using Ctrl+C. Review any packet capture before sharing; raw captures can contain other traffic.
 
 **Screenshot checkpoint:** 06-summary.png: protocol table or capture statistics.
+
+![Step 6: protocol hierarchy for the four displayed DNS packets](screenshots/06-summary.png)
+
+**Observed result:** Protocol Hierarchy Statistics for `Loopback: lo` uses display filter `dns`. It shows four packets, each classified through Frame → Ethernet → IPv4 → UDP → DNS, with 100% of the displayed packets at each layer. These are nested protocol layers of the same four packets, not separate sets to add together. The result summarizes the filtered DNS subset, not all traffic or the earlier HTTP capture. Byte-percentage columns are clipped and are not transcribed. Server shutdown remains pending.
 
 ## Troubleshooting
 

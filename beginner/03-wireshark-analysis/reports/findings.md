@@ -4,7 +4,7 @@
 **Started:** October 9, 2026 (first screenshot submitted)  
 **Completed:** Not yet completed
 
-> Partial findings report. Steps 1–5 are documented, including a matched DNS response with two IPv4 answers. Final summary and cleanup remain pending.
+> Partial findings report. Steps 1–5 are documented, including a matched DNS response with two IPv4 answers. Filtered DNS protocol statistics are now documented; final synthesis and server shutdown remain pending.
 
 ## Progress summary
 
@@ -50,6 +50,8 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 
 | 5 verified | Expand frame 4 DNS response and Answers | ID 0x43bf matches frame 3; flags 0x8180 No error; A answers 172.66.147.243 and 104.20.23.154 | [Verified DNS screenshot](../screenshots/05-dns-verified.png) | First example.com query/response successfully matched and inspected. |
 
+| 6 summary | Open Protocol Hierarchy Statistics with dns display filter | 4 packets; IPv4, UDP, and DNS each 100% of displayed packets | [Protocol statistics screenshot](../screenshots/06-summary.png) | Summarizes DNS subset only; protocol layers overlap. |
+
 ![Step 1 setup evidence](../screenshots/01-setup.png)
 
 ![Step 1 Wireshark interface evidence](../screenshots/01-interfaces.png)
@@ -71,6 +73,8 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 ![Step 5 initial DNS response evidence](../screenshots/05-dns-response.png)
 
 ![Step 5 verified DNS response evidence](../screenshots/05-dns-verified.png)
+
+![Step 6 DNS protocol statistics](../screenshots/06-summary.png)
 
 ## Observations and limitations
 
@@ -96,6 +100,17 @@ Frame 4 shows a DNS packet from `127.0.0.53` to `127.0.0.1`, the question `examp
 
 The expanded frame 4 response has transaction ID `0x43bf`, matching the frame 3 query. Flags `0x8180` decode as `Standard query response, No error`. Its question is `example.com`, type A, class IN, and its two A answers are `172.66.147.243` and `104.20.23.154`. Wireshark links `Request In: 3` and reports `0.000078441 seconds` between query and response. This verifies the first DNS exchange. These addresses are observations from this capture, not permanent domain values. The local resolver leg does not establish the upstream resolver, cache status, or DNSSEC validation.
 
+### Protocol summary
+
+Protocol Hierarchy Statistics for `Loopback: lo` uses display filter `dns`. It shows four packets, each classified through Frame → Ethernet → IPv4 → UDP → DNS, with 100% of the displayed packets at each layer. These are nested protocol layers of the same four packets, not separate sets to add together. The result summarizes the filtered DNS subset, not all traffic or the earlier HTTP capture. Byte-percentage columns are clipped and are not transcribed.
+
+| Exchange | Transport | Source | Destination | Meaning |
+|---|---|---|---|---|
+| HTTP request | TCP | 127.0.0.1:44470 | 127.0.0.1:8000 | Local GET request following verified handshake |
+| HTTP response | TCP | 127.0.0.1:8000 | 127.0.0.1:44470 | 200 OK and synthetic plaintext body |
+| DNS query, frame 3 | UDP | 127.0.0.1:42751 | 127.0.0.53:53 | example.com A/IN lookup, transaction 0x43bf |
+| DNS response, frame 4 | UDP | 127.0.0.53 | 127.0.0.1 | Matching 0x43bf response, no error, two A answers; response UDP ports not expanded in supplied evidence |
+
 ## Deviations and troubleshooting
 
 No visible error. The first screenshot documented preparation; the additional interface screenshot now satisfies the interface checkpoint. enp0s3 is highlighted, but the local HTTP exercise requires Loopback: lo.
@@ -113,7 +128,8 @@ No visible error. The first screenshot documented preparation; the additional in
 - [x] Step 4: document local capture saved as http-lab.pcapng
 - [x] Step 5: verify example.com A/IN question in frame 7
 - [x] Step 5: verify frame 3/4 matching transaction ID, no-error response, and two A answer records
-- [ ] Step 6: summarize results and stop server
+- [x] Step 6: document filtered protocol statistics and exchange summary
+- [ ] Step 6: stop server and finalize report
 
 ## Cleanup / restoration
 
