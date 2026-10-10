@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 45–90 minutes · **Status:** In progress
 
-> Lab in progress. Steps 1–4 are evidenced below; Steps 5–6 remain pending.
+> Lab in progress. Steps 1–5 are evidenced below; Step 6 remains pending.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Ubuntu VM with sha256sum (coreutils). No privileged access required.
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–4 evidence is included below; add later screenshots as you complete the lab.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–5 evidence is included below; add later screenshots as you complete the lab.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -107,11 +107,29 @@ The newly generated baseline passes while the original baseline fails. An attack
 
 **Screenshot checkpoint:** 05-trust-limit.png: contrasting checks.
 
+![Step 5: changed-data baseline passes while original baseline fails](screenshots/05-trust-limit.png)
+
+**Observed result:** After appending `Amount: 999`, a new `compromised-baseline.sha256` is generated from the modified file. Checking this new baseline returns `invoice.txt: OK`; checking the original `baseline.sha256` returns `invoice.txt: FAILED` and a checksum-mismatch warning. This demonstrates the trust limitation of a baseline generated from changed data. Exact exit codes and the new digest are not displayed.
+
 ### 6. Write the report
 
 Record original digest, changed digest, commands, exit codes, restoration outcome, and the baseline trust limitation. Leave the original baseline intact. Retain only synthetic artifacts; no real invoices.
 
-**Screenshot checkpoint:** 06-summary.png: final verification and report excerpt.
+Restore the original file for final verification without overwriting either baseline:
+
+```bash
+cp invoice-original.txt invoice.txt
+cat invoice.txt
+sha256sum invoice.txt
+sha256sum --check baseline.sha256
+echo $?
+sha256sum --check compromised-baseline.sha256
+echo $?
+```
+
+Expected: original invoice with `Amount: 100`, original digest, original-baseline `OK` with exit code `0`, and compromised-baseline `FAILED` with a nonzero exit code. That final failure is expected because this baseline represents the modified data. Retain the synthetic lab artifacts for your portfolio and record your actual results.
+
+**Screenshot checkpoint:** 06-summary.png: restored contents, digest, contrasting checks, and exit codes.
 
 ## Troubleshooting
 
