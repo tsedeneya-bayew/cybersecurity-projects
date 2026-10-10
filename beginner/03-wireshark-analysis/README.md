@@ -112,6 +112,10 @@ Stop capture and apply `dns`. Compare query and response transaction IDs and the
 
 **Query-name verification:** The additional screenshot selects **frame 7**, rather than frame 3. Its expanded Queries section confirms `example.com: type A, class IN`, and Wireshark links its response to frame 8. Type A requests IPv4 address records; class IN means Internet. This screenshot does not show frame 7's transaction ID or UDP port, so the earlier frame 3 values must not be assigned to this second query. Frame 8's response details remain pending.
 
+![Step 5: DNS response in frame 4 linked to request frame 3](screenshots/05-dns-response.png)
+
+**Response evidence:** Frame 4 shows a DNS packet from `127.0.0.53` to `127.0.0.1`, the question `example.com: type A, class IN`, two answer records, zero authority records, and one additional record. Wireshark links it to request frame 3 and reports a query-to-response interval of `0.000078441 seconds`. This confirms the question name/type for the first exchange as well. The Answers section is collapsed and the transaction ID and flags are off-screen; returned addresses and response code remain unverified. This frame belongs to the frame 3/4 exchange, separately from the frame 7/8 exchange.
+
 ### 6. Summarize and clean up
 
 Create a table of protocol, source, destination, ports, and meaning for the synthetic exchange. Explain HTTP plaintext versus HTTPS encryption; do not infer that ordinary HTTPS reveals page contents. Stop the Python server using Ctrl+C. Review any packet capture before sharing; raw captures can contain other traffic.

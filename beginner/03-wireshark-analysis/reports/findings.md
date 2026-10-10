@@ -46,6 +46,8 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 
 | 5 query name | Expand Queries in frame 7 | example.com, type A, class IN; Response In: 8 | [Expanded query screenshot](../screenshots/05-dns-name.png) | IPv4 DNS question verified for frame 7; its transaction ID and response details are not shown. |
 
+| 5 response partial | Inspect frame 4 | example.com A/IN; 2 answer records; Request In: 3; interval 0.000078441 s | [Response screenshot](../screenshots/05-dns-response.png) | Response linked to first query; ID, response code, and answer addresses remain to inspect. |
+
 ![Step 1 setup evidence](../screenshots/01-setup.png)
 
 ![Step 1 Wireshark interface evidence](../screenshots/01-interfaces.png)
@@ -64,6 +66,8 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 
 ![Step 5 expanded DNS query evidence](../screenshots/05-dns-name.png)
 
+![Step 5 initial DNS response evidence](../screenshots/05-dns-response.png)
+
 ## Observations and limitations
 
 Only dnsutils setup is visible in the installation excerpt; the interface screenshot separately establishes Wireshark availability. Python 3 successfully starts its HTTP server in Step 2; the Step 4 response advertises Python/3.8.5, but no independent version command is shown. The captured HTTP User-Agent advertises curl/7.68.0; no independent curl version command was captured. The package summary lists 570 packages not upgraded, which alone does not establish vulnerability or patch status. Wireshark interfaces are visible, including loopback. The Python server reports startup on loopback port 8000. Step 3 establishes successful packet capture on loopback and a decoded HTTP request. It does not establish the privilege configuration used to capture. DNS response details remain unverified. The initial DNS screenshot shows a local resolver exchange on loopback, rather than the proposed NAT-interface capture. Exact exit codes are not shown.
@@ -81,6 +85,8 @@ The stream view displays the request and response as readable ASCII. The request
 The DNS display filter shows frames 3, 4, 7, and 8 with alternating directions between 127.0.0.1 and 127.0.0.53. The selected query uses UDP source port 42751 and destination port 53, transaction ID 0x43bf, flags 0x0120, one question, zero answer records, and one additional record. Zero answers is expected in a query; it is not proof of failure. The Queries section is collapsed and the Info column is off-screen, so the queried name/type cannot yet be confirmed. Reverse-direction packets alone do not establish a successful answer or matching transaction ID. The screenshot documents the VM's local resolver leg; it does not show which upstream DNS server the resolver used.
 
 The additional screenshot selects **frame 7**, rather than frame 3. Its expanded Queries section confirms `example.com: type A, class IN`, and Wireshark links its response to frame 8. Type A requests IPv4 address records; class IN means Internet. This screenshot does not show frame 7's transaction ID or UDP port, so the earlier frame 3 values must not be assigned to this second query. Frame 8's response details remain pending.
+
+Frame 4 shows a DNS packet from `127.0.0.53` to `127.0.0.1`, the question `example.com: type A, class IN`, two answer records, zero authority records, and one additional record. Wireshark links it to request frame 3 and reports a query-to-response interval of `0.000078441 seconds`. This confirms the question name/type for the first exchange as well. The Answers section is collapsed and the transaction ID and flags are off-screen; returned addresses and response code remain unverified. This frame belongs to the frame 3/4 exchange, separately from the frame 7/8 exchange.
 
 ## Deviations and troubleshooting
 
