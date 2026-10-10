@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Steps 1–2, the Step 3 HTTP request and response status, and Step 4 stream reconstruction are documented. TCP handshake inspection, saving the capture, and Steps 5–6 remain pending.
+> Lab in progress. Steps 1–2, the Step 3 HTTP request and response status, and Step 4 stream reconstruction are documented. The capture is shown saved as `http-lab.pcapng`; TCP handshake inspection and Steps 5–6 remain pending.
 
 [← Project index](../../README.md)
 
@@ -84,7 +84,11 @@ Select an HTTP packet and choose Follow → TCP Stream. Find the GET request and
 
 ![Step 4: reconstructed HTTP request and successful synthetic response](screenshots/04-stream.png)
 
-**Observed result:** Follow TCP Stream shows stream 0 in ASCII: `GET / HTTP/1.1` and the server response `HTTP/1.0 200 OK`. The response advertises `SimpleHTTP/0.6 Python/3.8.5`, `Content-type: text/html`, and `Content-Length: 24`; its body is `Synthetic HTTP lab page`. The readable request and response demonstrate plaintext HTTP within this local lab. The entire conversation is 286 bytes of stream data; this is not the size of the packet capture. The earlier packet details identify server port `8000` and client port `44470`. Saving `http-lab.pcapng` has not yet been verified.
+**Observed result:** Follow TCP Stream shows stream 0 in ASCII: `GET / HTTP/1.1` and the server response `HTTP/1.0 200 OK`. The response advertises `SimpleHTTP/0.6 Python/3.8.5`, `Content-type: text/html`, and `Content-Length: 24`; its body is `Synthetic HTTP lab page`. The readable request and response demonstrate plaintext HTTP within this local lab. The entire conversation is 286 bytes of stream data; this is not the size of the packet capture. The earlier packet details identify server port `8000` and client port `44470`. The additional screenshot below shows `http-lab.pcapng` open in Wireshark, documenting the local save.
+
+![Step 4: saved packet capture with stream 0 displayed](screenshots/04-saved-capture.png)
+
+**Capture save evidence:** Wireshark's title and status bar show `http-lab.pcapng`; `tcp.stream == 0` displays all 12 captured packets with 0 dropped. The screenshot shows frame 4 selected. The Info column and handshake flags are not visible, so the three-way handshake still needs verification. The PCAP remains local; it has not been uploaded or independently reviewed.
 
 ### 5. Capture a small DNS sample
 

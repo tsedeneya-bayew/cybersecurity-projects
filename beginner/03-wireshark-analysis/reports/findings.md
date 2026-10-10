@@ -4,11 +4,11 @@
 **Started:** October 9, 2026 (first screenshot submitted)  
 **Completed:** Not yet completed
 
-> Partial findings report. Setup, HTTP request and response inspection, and stream reconstruction are documented. Handshake inspection, capture saving, DNS analysis, and final summary/cleanup remain pending.
+> Partial findings report. Setup, HTTP request and response inspection, and stream reconstruction are documented. The local capture save is documented; handshake inspection, DNS analysis, and final summary/cleanup remain pending.
 
 ## Progress summary
 
-The supplied screenshot documents dnsutils installation and synthetic page preparation. An additional screenshot shows Wireshark 3.2.3 and available interfaces, including loopback. Step 2 shows the Python HTTP server running on 127.0.0.1:8000. Step 3 shows a captured loopback HTTP GET request and TCP ports. Step 4 reconstructs the request and a `200 OK` response containing the synthetic page. Handshake inspection, capture saving, DNS inspection, and cleanup remain pending.
+The supplied screenshot documents dnsutils installation and synthetic page preparation. An additional screenshot shows Wireshark 3.2.3 and available interfaces, including loopback. Step 2 shows the Python HTTP server running on 127.0.0.1:8000. Step 3 shows a captured loopback HTTP GET request and TCP ports. Step 4 reconstructs the request and a `200 OK` response containing the synthetic page. The saved capture is shown as `http-lab.pcapng`. Handshake inspection, DNS inspection, and cleanup remain pending.
 
 ## Environment and authorized scope
 
@@ -38,6 +38,8 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 
 | 4 | Follow TCP Stream, stream 0, ASCII | GET / HTTP/1.1; HTTP/1.0 200 OK; Content-Length: 24; Synthetic HTTP lab page | [Stream screenshot](../screenshots/04-stream.png) | Successful local HTTP exchange and readable plaintext response reconstructed. |
 
+| 4 save | Save capture locally; display tcp.stream == 0 | Title and status bar show http-lab.pcapng; 12 displayed packets; 0 dropped | [Saved capture screenshot](../screenshots/04-saved-capture.png) | Local save documented; handshake flags still not visible. |
+
 ![Step 1 setup evidence](../screenshots/01-setup.png)
 
 ![Step 1 Wireshark interface evidence](../screenshots/01-interfaces.png)
@@ -47,6 +49,8 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 ![Step 3 HTTP request evidence](../screenshots/03-http.png)
 
 ![Step 4 HTTP stream evidence](../screenshots/04-stream.png)
+
+![Step 4 saved capture evidence](../screenshots/04-saved-capture.png)
 
 ## Observations and limitations
 
@@ -58,7 +62,7 @@ The client request goes from 127.0.0.1:44470 to 127.0.0.1:8000. Port 8000 is the
 
 ### Reconstructed HTTP conversation
 
-The stream view displays the request and response as readable ASCII. The request uses HTTP/1.1; the response uses HTTP/1.0 and status 200 OK. Response headers show `Content-type: text/html` and `Content-Length: 24`, consistent with the synthetic page text plus its newline. Wireshark shows an entire conversation of 286 bytes; this counts stream data, not total packet bytes or PCAP file size. This demonstrates that this HTTP exchange is readable in plaintext. It does not establish the contents of an HTTPS exchange. The screenshot's **Save as…** button exports stream data; saving the packet capture requires the main Wireshark window's File → Save As. Capture saving remains unverified.
+The stream view displays the request and response as readable ASCII. The request uses HTTP/1.1; the response uses HTTP/1.0 and status 200 OK. Response headers show `Content-type: text/html` and `Content-Length: 24`, consistent with the synthetic page text plus its newline. Wireshark shows an entire conversation of 286 bytes; this counts stream data, not total packet bytes or PCAP file size. This demonstrates that this HTTP exchange is readable in plaintext. It does not establish the contents of an HTTPS exchange. The screenshot's **Save as…** button exports stream data; saving the packet capture requires the main Wireshark window's File → Save As. The subsequent screenshot shows `http-lab.pcapng` open in Wireshark, documenting the local save. Its title and status bar show the filename; the raw file itself has not been uploaded or independently reviewed.
 
 ## Deviations and troubleshooting
 
@@ -74,7 +78,7 @@ No visible error. The first screenshot documented preparation; the additional in
 - [x] Step 3: verify HTTP response status through reconstructed stream
 - [ ] Step 3 remaining check: TCP handshake flags
 - [x] Step 4: reconstruct TCP conversation and verify synthetic response
-- [ ] Step 4 remaining check: save loopback capture locally as http-lab.pcapng
+- [x] Step 4: document local capture saved as http-lab.pcapng
 - [ ] Step 5: inspect DNS query and response
 - [ ] Step 6: summarize results and stop server
 
