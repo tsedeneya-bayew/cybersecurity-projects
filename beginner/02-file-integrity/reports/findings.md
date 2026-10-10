@@ -1,14 +1,14 @@
 # File Integrity with SHA-256 — Findings Report
 
-**Status:** In progress  
+**Status:** Completed  
 **Started:** October 9, 2026 (first screenshot submitted)  
-**Completed:** Not yet completed
+**Completed:** October 9, 2026
 
-> Partial report based on Steps 1–5 evidence. Step 6 remains pending.
+> Completed report based on all six supplied screenshots.
 
 ## Progress summary
 
-The synthetic invoice was created and its visible contents verified. Step 2 records the original SHA-256 digest and a passing baseline check (`invoice.txt: OK`). Step 3 records a changed digest and an expected failed comparison with the original baseline. Step 4 restores the backup and passes the original baseline check. Step 5 demonstrates that a baseline generated from modified data passes while the original baseline fails. Final restoration and verification remain pending.
+The synthetic invoice was created and its visible contents verified. Step 2 records the original SHA-256 digest and a passing baseline check (`invoice.txt: OK`). Step 3 records a changed digest and an expected failed comparison with the original baseline. Step 4 restores the backup and passes the original baseline check. Step 5 demonstrates that a baseline generated from modified data passes while the original baseline fails. Step 6 restores the original contents and digest; the original baseline passes with exit code `0`, while the changed-data baseline fails with exit code `1`.
 
 ## Environment and authorized scope
 
@@ -39,6 +39,9 @@ The synthetic invoice was created and its visible contents verified. Step 2 reco
 | 5 | Append Amount: 999; generate compromised-baseline.sha256 | No visible errors | [Trust-limit screenshot](../screenshots/05-trust-limit.png) | New comparison baseline is generated from the modified data. |
 | 5 | Check compromised-baseline.sha256 | invoice.txt: OK | [Trust-limit screenshot](../screenshots/05-trust-limit.png) | Modified data matches its newly generated baseline. |
 | 5 | Check original baseline.sha256 | invoice.txt: FAILED; one computed checksum did NOT match | [Trust-limit screenshot](../screenshots/05-trust-limit.png) | Original baseline still detects the difference. Exit codes not shown. |
+| 6 | Restore backup; cat invoice.txt; sha256sum invoice.txt | Invoice ID: LAB-001, Amount: 100; original digest reproduced | [Final screenshot](../screenshots/06-summary.png) | Original content restored and hash verified. |
+| 6 | Check baseline.sha256; immediate echo $? | invoice.txt: OK; 0 | [Final screenshot](../screenshots/06-summary.png) | Original baseline comparison succeeds. |
+| 6 | Check compromised-baseline.sha256; immediate echo $? | invoice.txt: FAILED; mismatch warning; 1 | [Final screenshot](../screenshots/06-summary.png) | Changed-data baseline correctly mismatches restored data. |
 
 ![Step 1 synthetic invoice evidence](../screenshots/01-original.png)
 
@@ -49,6 +52,8 @@ The synthetic invoice was created and its visible contents verified. Step 2 reco
 ![Step 4 restoration evidence](../screenshots/04-restored.png)
 
 ![Step 5 baseline trust-limit evidence](../screenshots/05-trust-limit.png)
+
+![Step 6 final restoration and exit-code evidence](../screenshots/06-summary.png)
 
 ## Changed SHA-256 digest
 
@@ -64,7 +69,7 @@ The synthetic invoice was created and its visible contents verified. Step 2 reco
 
 ## Observations
 
-The file contains the expected fictional invoice identifier and amount. The shown `printf` command specifies newline separators. Step 2 records a 64-character SHA-256 digest and a passing check against `baseline.sha256`. No independent byte count is shown. The matching check supports consistency with the recorded baseline at that moment; it does not establish authorship or independently trusted baseline storage.
+The initial and final screenshots show the expected fictional invoice identifier and amount. The shown `printf` command specifies newline separators. Step 2 records a 64-character SHA-256 digest and a passing check against `baseline.sha256`. No independent byte count is shown. The matching check supports consistency with the recorded baseline at that moment; it does not establish authorship or independently trusted baseline storage.
 
 ### Controlled modification detected
 
@@ -72,7 +77,7 @@ The edit command requests changing `Amount: 100` to `Amount: 101`. The resulting
 
 ### Original baseline matches after restoration
 
-Copying the backup back to `invoice.txt` is followed by `invoice.txt: OK` against the original baseline. This supports successful restoration to bytes matching the recorded original digest. The screenshot does not separately display restored contents, recompute a standalone digest, or capture the numeric exit code.
+Copying the backup back to `invoice.txt` is followed by `invoice.txt: OK` against the original baseline. This supports successful restoration to bytes matching the recorded original digest. The Step 4 screenshot does not separately display restored contents or a numeric exit code. Step 6 supplies those checks, reproduces the original digest, and captures exit code `0` for the original baseline.
 
 ### Baseline trust limitation demonstrated
 
@@ -80,32 +85,42 @@ The lab appends `Amount: 999` and generates a second baseline from the changed d
 
 ## Deviations and troubleshooting
 
-No visible command errors or deviations from Steps 1–2. The Step 3 failure is expected after the edit. Exit codes were not captured.
+No visible command errors or deviations from Steps 1–2. The Step 3 failure is expected after the edit. Step 1–5 exit codes were not captured. Step 6 captures `0` for the original baseline and `1` for the changed-data baseline.
 
 ## Validation
 
 - **Documented:** Synthetic file creation, visible content inspection, original digest, passing baseline comparison, changed digest, and failed comparison after modification, and passing original-baseline check after restoration in Step 4, and contrasting baseline results in Step 5.
-- **Pending:** Final restoration and verification with captured exit codes.
+- **Final verification:** Original contents and digest restored; original baseline passes (`0`), changed-data baseline fails (`1`). All six lab steps are documented.
 
 ## Limitations
 
-This evidence establishes visible starting content and a match to the locally generated digest baseline. It does not establish authorship, independent baseline trust, or attribution of the observed modification. Step 3 does show detection of a checksum mismatch. OS release and tool versions were not captured in this screenshot.
+This evidence establishes visible starting content and a match to the locally generated digest baseline. It does not establish authorship, independent baseline trust, or attribution of the observed modification. Step 3 does show detection of a checksum mismatch. OS release and tool versions were not captured in this project's screenshots. The digest for the appended Step 5 data is not displayed, and exact exit codes for Steps 1–5 remain unrecorded.
 
 ## Cleanup / restoration
 
-The synthetic file and lab directory are present in Step 1; baseline.sha256 is generated in Step 2. Step 3 records a backup command to invoice-original.txt and modifies invoice.txt; Step 4 records successful backup restoration as validated against the original baseline. Step 4 restoration is verified. Step 5 subsequently modifies the file again; final restoration remains pending. Only synthetic artifacts are used.
+The synthetic file and lab directory are present in Step 1; baseline.sha256 is generated in Step 2. Step 3 records a backup command to invoice-original.txt and modifies invoice.txt; Step 4 records successful backup restoration as validated against the original baseline. Step 4 restoration is verified. Step 5 subsequently modifies the file again; Step 6 restores the original invoice and confirms the original digest and baseline match. The synthetic lab artifacts remain present, consistent with the author's decision to retain the VM for future projects. Only synthetic artifacts are used.
 
-## Lessons learned so far
+## Lessons learned
 
 - `printf` creates controlled synthetic content and `cat` checks the visible text.
 - `sha256sum --check` compares the current file against the digest recorded in the baseline.
 - A matching local baseline does not prove authorship or that the baseline is protected.
 
-## Remaining work
+## Completion review
 
 - [x] Step 1: create synthetic data
 - [x] Step 2: establish a baseline
 - [x] Step 3: change a value and detect the mismatch
 - [x] Step 4: restore and recheck
 - [x] Step 5: demonstrate baseline trust limitations
-- [ ] Step 6: complete the report and final verification
+- [x] Step 6: complete the report and final verification
+
+## Answers to the report questions
+
+- **Does a matching hash prove authorship?** No. It establishes a match to the recorded comparison digest; it does not identify the creator or independently authenticate the baseline.
+- **Where should the baseline be stored?** Store it separately with access controls that prevent whoever can change the monitored data from changing the trusted reference. Signed manifests or authenticated hashes can strengthen trust if verification keys or secrets are protected. These protections were discussed, not implemented in this lab.
+- **Why does a small byte change alter the digest?** SHA-256 combines all input bytes into a fixed-length digest. Its design makes a small input change typically produce a substantially different digest; the change from 100 to 101 produced the distinct digest recorded above.
+
+## Conclusion
+
+This lab demonstrates baseline creation, modification detection, recovery, and the trust limitation of a baseline generated from changed data. Final restoration reproduces the original digest and passes the original comparison with exit code `0`. The changed-data comparison fails with exit code `1`, as expected. No real invoice or actual security incident is involved.

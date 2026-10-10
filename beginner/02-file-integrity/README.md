@@ -1,8 +1,8 @@
 # File Integrity with SHA-256
 
-**Level:** Beginner · **Suggested time:** 45–90 minutes · **Status:** In progress
+**Level:** Beginner · **Suggested time:** 45–90 minutes · **Status:** Completed
 
-> Lab in progress. Steps 1–5 are evidenced below; Step 6 remains pending.
+> Completed October 9, 2026. All six steps are documented with screenshots and findings. The original invoice is restored and verified.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Ubuntu VM with sha256sum (coreutils). No privileged access required.
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–5 evidence is included below; add later screenshots as you complete the lab.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–6 evidence is included below; add later screenshots as you complete the lab.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -131,6 +131,10 @@ Expected: original invoice with `Amount: 100`, original digest, original-baselin
 
 **Screenshot checkpoint:** 06-summary.png: restored contents, digest, contrasting checks, and exit codes.
 
+![Step 6: restored invoice, original digest, and final checks with exit codes](screenshots/06-summary.png)
+
+**Observed result:** The restored file displays `Invoice ID: LAB-001` and `Amount: 100`. Its SHA-256 digest matches the original digest recorded in Step 2. The original baseline returns `invoice.txt: OK` with exit code `0`; the baseline generated from changed data returns `invoice.txt: FAILED` with exit code `1`. Both outcomes are expected. The synthetic lab files remain available in the retained VM.
+
 ## Troubleshooting
 
 Run commands from the same directory used to create the baseline. A missing file is different from a digest mismatch. Windows CRLF line endings can change a digest without changing visible text.
@@ -143,13 +147,13 @@ Run commands from the same directory used to create the baseline. A missing file
 
 ## Completion checklist
 
-- [ ] Environment and exact scope recorded
-- [ ] All lab steps attempted and actual outcomes documented
-- [ ] Screenshots uploaded and linked under their steps
-- [ ] Findings distinguish observation from interpretation
-- [ ] Limitations and remediation explained
-- [ ] Cleanup or restoration completed
-- [ ] Findings report completed; status updated in this repository and portfolio index
+- [x] Environment and exact scope recorded
+- [x] All lab steps attempted and actual outcomes documented
+- [x] Screenshots uploaded and linked under their steps
+- [x] Findings distinguish observation from interpretation
+- [x] Limitations and remediation explained
+- [x] Original invoice restored and verified; synthetic artifacts retained
+- [x] Findings report completed; status updated in this repository and portfolio index
 
 ## Official references
 
