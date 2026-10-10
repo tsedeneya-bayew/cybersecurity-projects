@@ -1,8 +1,8 @@
 # Wireshark Traffic Analysis
 
-**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** Not started
+**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Prepared lab guide. No execution, screenshots, or findings are claimed yet.
+> Lab in progress. Step 1 setup evidence is included; Wireshark interface verification and Steps 2–6 remain pending.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Ubuntu desktop VM; Wireshark, Python 3, curl, and dnsutils. Use synthetic HTTP o
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. No images are included yet.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Setup evidence is included below; add the remaining screenshots as you complete the lab.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -37,6 +37,10 @@ cd ~/portfolio-labs/traffic
 printf 'Synthetic HTTP lab page\n' > index.html
 ```
 During Wireshark package setup, permit non-root capture if prompted. Add your VM user with `sudo usermod -aG wireshark "$USER"` and log out and back in. Launch Wireshark without sudo. Capture only your own lab traffic.
+
+![Step 1 setup: dnsutils installation and synthetic page creation](screenshots/01-setup.png)
+
+**Observed result:** The screenshot shows `dnsutils` version `1:9.18.30-0ubuntu0.20.04.2` being unpacked and configured. Commands create `~/portfolio-labs/traffic`, change into it, and write `Synthetic HTTP lab page` to `index.html`, with no visible errors. This screenshot does not establish Wireshark capture permissions or available interfaces; the interface checkpoint remains pending.
 
 **Screenshot checkpoint:** 01-interfaces.png: available Wireshark interfaces.
 
