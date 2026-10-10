@@ -132,6 +132,10 @@ Run `python3 -m unittest -v` or `py -m unittest -v`. A passing test suite checks
 
 **Screenshot checkpoint:** 04-tests.png: four passing tests.
 
+![Step 4: four automated checker tests pass](screenshots/04-tests.png)
+
+**Verified result:** `python3 -m unittest -v` reports four tests, each `ok`: common password flagged, empty input rejected, long phrase has no heuristic issue, and repeated character flagged. The summary is `Ran 4 tests in 0.000s` and `OK`, followed by the shell prompt. This verifies the observed suite passed; its source has not yet been collected, so exact test assertions still require source review. Passing these tests does not guarantee real-world password strength.
+
 ### 5. Evaluate limitations
 
 Explain that length and an example blocklist do not measure predictability, leaked-password reuse, personal information, or credential stuffing. Do not require arbitrary character-class rules as proof of strength. Discuss MFA, password managers, and checking a comprehensive compromised-password blocklist without transmitting raw passwords.

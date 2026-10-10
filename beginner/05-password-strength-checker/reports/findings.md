@@ -6,7 +6,7 @@
 
 ## Progress summary
 
-Step 1 is verified after correcting the working directory. The new screenshot shows /home/seed/portfolio-labs/password-checker and Python 3.8.5. Step 2 now shows saved source readback, but final lines are clipped and three interactive executions are now documented; the empty-input case is now verified and automated tests remain pending.
+Step 1 is verified after correcting the working directory. The new screenshot shows /home/seed/portfolio-labs/password-checker and Python 3.8.5. Step 2 now shows saved source readback, but final lines are clipped and three interactive executions are now documented; the empty-input case is now verified and the observed four-test automated suite now passes; limitations and source publication remain pending.
 
 ## Environment and scope
 
@@ -47,6 +47,12 @@ The additional `python3 checker.py` run prints both `Use at least 15 characters 
 
 [Empty-input screenshot](../screenshots/03-empty.png)
 
+## Step 4 automated validation
+
+`python3 -m unittest -v` reports four tests, each `ok`: common password flagged, empty input rejected, long phrase has no heuristic issue, and repeated character flagged. The summary is `Ran 4 tests in 0.000s` and `OK`, followed by the shell prompt. This verifies the observed suite passed; its source has not yet been collected, so exact test assertions still require source review. Passing these tests does not guarantee real-world password strength.
+
+[Automated test evidence](../screenshots/04-tests.png)
+
 ## Deviations and correction
 
 The initial attempt uses /home, the parent directory containing user homes. The guide now provides explicit commands to create and enter ~/portfolio-labs/password-checker, print the directory, and check Python's version before editing checker.py. No elevated privileges are needed. The user reported a Permission denied error when saving in /home; the error text is not visible in the initial screenshot. The corrected screenshot confirms use of the user's own home directory. The customized terminal prompt is a display choice; the actual home is /home/seed.
@@ -60,10 +66,10 @@ The initial attempt uses /home, the parent directory containing user homes. The 
 - [ ] Step 2/6: collect complete source for publication
 - [x] Step 3: document no-issue, length, and repetition feedback
 - [x] Step 3: document empty-input feedback
-- [ ] Step 4: run automated checks
+- [x] Step 4: document four automated tests passing
 - [ ] Step 5: document heuristic limitations
 - [ ] Step 6: publish actual executed code and finalize report
 
 ## Limitations and cleanup
 
-The Step 2 screenshot establishes saved source readback, but its final lines are not visible. Three interactive runs are documented; no automated test success or real-world password-strength conclusion is claimed. No sensitive information requiring redaction was visible. The VM is retained for learning; no service or system change is shown in this attempt.
+The Step 2 screenshot establishes saved source readback, but its final lines are not visible. Three interactive runs are documented; four automated tests pass; no real-world password-strength conclusion is claimed. No sensitive information requiring redaction was visible. The VM is retained for learning; no service or system change is shown in this attempt.
