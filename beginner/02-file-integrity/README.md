@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 45–90 minutes · **Status:** In progress
 
-> Lab in progress. Step 1 is evidenced below; Steps 2–6 remain pending.
+> Lab in progress. Steps 1–2 are evidenced below; Steps 3–6 remain pending.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Ubuntu VM with sha256sum (coreutils). No privileged access required.
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. Step 1 evidence is included below; add later screenshots as you complete the lab.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–2 evidence is included below; add later screenshots as you complete the lab.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -52,6 +52,14 @@ sha256sum --check baseline.sha256
 A SHA-256 digest is 64 hexadecimal characters. `--check` recomputes the hash and compares it with the stored digest. Expected result is `invoice.txt: OK`. The baseline must be protected separately from the monitored data.
 
 **Screenshot checkpoint:** 02-baseline.png: digest and successful verification.
+
+![Step 2: SHA-256 baseline and successful verification](screenshots/02-baseline.png)
+
+**Observed result:** `sha256sum invoice.txt | tee baseline.sha256` displays the digest below and writes the baseline. `sha256sum --check baseline.sha256` returns `invoice.txt: OK`. No errors or exit codes are shown. This establishes a matching local baseline at this stage; separate protection or authenticity of that baseline has not been demonstrated.
+
+```text
+1894293b52f6cdc4cbbb539c88c43531f5aace2f574baa302deaf0810627b2ed  invoice.txt
+```
 
 ### 3. Change one value
 
