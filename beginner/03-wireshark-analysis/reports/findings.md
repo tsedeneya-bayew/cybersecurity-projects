@@ -4,11 +4,11 @@
 **Started:** October 9, 2026 (first screenshot submitted)  
 **Completed:** Not yet completed
 
-> Partial findings report. Setup, HTTP request and response inspection, and stream reconstruction are documented. The local capture save is documented; handshake inspection, DNS analysis, and final summary/cleanup remain pending.
+> Partial findings report. Steps 1–4 are documented, including handshake verification and the local capture save. DNS analysis and final summary/cleanup remain pending.
 
 ## Progress summary
 
-The supplied screenshot documents dnsutils installation and synthetic page preparation. An additional screenshot shows Wireshark 3.2.3 and available interfaces, including loopback. Step 2 shows the Python HTTP server running on 127.0.0.1:8000. Step 3 shows a captured loopback HTTP GET request and TCP ports. Step 4 reconstructs the request and a `200 OK` response containing the synthetic page. The saved capture is shown as `http-lab.pcapng`. Handshake inspection, DNS inspection, and cleanup remain pending.
+The supplied screenshot documents dnsutils installation and synthetic page preparation. An additional screenshot shows Wireshark 3.2.3 and available interfaces, including loopback. Step 2 shows the Python HTTP server running on 127.0.0.1:8000. Step 3 shows a captured loopback HTTP GET request and TCP ports. Step 4 reconstructs the request and a `200 OK` response containing the synthetic page. The saved capture is shown as `http-lab.pcapng`. The additional packet-list screenshot verifies the TCP three-way handshake. DNS inspection and cleanup remain pending.
 
 ## Environment and authorized scope
 
@@ -38,7 +38,9 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 
 | 4 | Follow TCP Stream, stream 0, ASCII | GET / HTTP/1.1; HTTP/1.0 200 OK; Content-Length: 24; Synthetic HTTP lab page | [Stream screenshot](../screenshots/04-stream.png) | Successful local HTTP exchange and readable plaintext response reconstructed. |
 
-| 4 save | Save capture locally; display tcp.stream == 0 | Title and status bar show http-lab.pcapng; 12 displayed packets; 0 dropped | [Saved capture screenshot](../screenshots/04-saved-capture.png) | Local save documented; handshake flags still not visible. |
+| 4 save | Save capture locally; display tcp.stream == 0 | Title and status bar show http-lab.pcapng; 12 displayed packets; 0 dropped | [Saved capture screenshot](../screenshots/04-saved-capture.png) | Local save documented; handshake verified in separate evidence. |
+
+| 3 handshake | Inspect Info column for stream 0 | Client SYN, server SYN/ACK, client ACK; sequence acknowledgments each increment the SYN sequence by one | [Handshake screenshot](../screenshots/03-handshake.png) | TCP three-way handshake verified before GET. |
 
 ![Step 1 setup evidence](../screenshots/01-setup.png)
 
@@ -52,13 +54,15 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 
 ![Step 4 saved capture evidence](../screenshots/04-saved-capture.png)
 
+![Step 3 TCP handshake evidence](../screenshots/03-handshake.png)
+
 ## Observations and limitations
 
 Only dnsutils setup is visible in the installation excerpt; the interface screenshot separately establishes Wireshark availability. Python 3 successfully starts its HTTP server in Step 2; the Step 4 response advertises Python/3.8.5, but no independent version command is shown. The captured HTTP User-Agent advertises curl/7.68.0; no independent curl version command was captured. The package summary lists 570 packages not upgraded, which alone does not establish vulnerability or patch status. Wireshark interfaces are visible, including loopback. The Python server reports startup on loopback port 8000. Step 3 establishes successful packet capture on loopback and a decoded HTTP request. It does not establish the privilege configuration used to capture. DNS responses remain unverified. Exact exit codes are not shown.
 
 ### Loopback request inspection
 
-The client request goes from 127.0.0.1:44470 to 127.0.0.1:8000. Port 8000 is the lab server port; 44470 is the client port for this observed exchange. The HTTP request headers are visible in plaintext. Frame 8 is identified as the corresponding response. Step 4's reconstructed stream confirms `HTTP/1.0 200 OK` and the body `Synthetic HTTP lab page`. Frames 1–3 appear as TCP in the list, but their flags are not visible, so a three-way handshake is not yet claimed. Wireshark reports zero dropped packets for this capture; no raw capture has been reviewed or uploaded.
+The client request goes from 127.0.0.1:44470 to 127.0.0.1:8000. Port 8000 is the lab server port; 44470 is the client port for this observed exchange. The HTTP request headers are visible in plaintext. Frame 8 is identified as the corresponding response. Step 4's reconstructed stream confirms `HTTP/1.0 200 OK` and the body `Synthetic HTTP lab page`. The additional handshake screenshot shows the first three rows as `44470 → 8000 [SYN]`, `8000 → 44470 [SYN, ACK]`, and `44470 → 8000 [ACK]`. The client sequence number 259722748 is acknowledged as 259722749; the server sequence number 1620620 is acknowledged as 1620621. This verifies connection establishment before the HTTP request. Wireshark reports zero dropped packets for this capture; no raw capture has been reviewed or uploaded.
 
 ### Reconstructed HTTP conversation
 
@@ -76,7 +80,7 @@ No visible error. The first screenshot documented preparation; the additional in
 - [x] Step 2: start loopback HTTP server
 - [x] Step 3: capture and inspect HTTP request and ports
 - [x] Step 3: verify HTTP response status through reconstructed stream
-- [ ] Step 3 remaining check: TCP handshake flags
+- [x] Step 3: verify SYN, SYN/ACK, and ACK handshake flags
 - [x] Step 4: reconstruct TCP conversation and verify synthetic response
 - [x] Step 4: document local capture saved as http-lab.pcapng
 - [ ] Step 5: inspect DNS query and response

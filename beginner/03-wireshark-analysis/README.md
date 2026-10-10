@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Steps 1–2, the Step 3 HTTP request and response status, and Step 4 stream reconstruction are documented. The capture is shown saved as `http-lab.pcapng`; TCP handshake inspection and Steps 5–6 remain pending.
+> Lab in progress. Steps 1–4 are documented, including the HTTP response, TCP handshake, reconstructed stream, and local capture save. DNS analysis and final summary/cleanup (Steps 5–6) remain pending.
 
 [← Project index](../../README.md)
 
@@ -74,7 +74,11 @@ Stop capture. Enter the display filter `tcp.port == 8000`. If HTTP is not decode
 
 ![Step 3: filtered loopback HTTP GET request and TCP ports](screenshots/03-http.png)
 
-**Observed result:** On `Loopback: lo`, the applied display filter is `tcp.port == 8000`. Frame 4 shows `GET / HTTP/1.1`, Host `127.0.0.1:8000`, User-Agent `curl/7.68.0`, and Accept `*/*`. TCP source port is `44470` and destination port is `8000`; both IP addresses are `127.0.0.1`. Wireshark links the response to frame 8. The status bar reports 12 captured and displayed packets and 0 dropped. The Step 4 stream screenshot below confirms the response status as `HTTP/1.0 200 OK`. TCP handshake flags still require inspection.
+**Observed result:** On `Loopback: lo`, the applied display filter is `tcp.port == 8000`. Frame 4 shows `GET / HTTP/1.1`, Host `127.0.0.1:8000`, User-Agent `curl/7.68.0`, and Accept `*/*`. TCP source port is `44470` and destination port is `8000`; both IP addresses are `127.0.0.1`. Wireshark links the response to frame 8. The status bar reports 12 captured and displayed packets and 0 dropped. The Step 4 stream screenshot below confirms the response status as `HTTP/1.0 200 OK`. The additional handshake screenshot below verifies the three-way handshake.
+
+![Step 3: TCP three-way handshake and HTTP response](screenshots/03-handshake.png)
+
+**Handshake verification:** With `tcp.stream == 0`, the first three rows show client `44470 → 8000 [SYN]`, server `8000 → 44470 [SYN, ACK]`, and client `44470 → 8000 [ACK]`, followed by the GET request. The client's initial sequence number `259722748` is acknowledged as `259722749`; the server's `1620620` is acknowledged as `1620621`. Each SYN consumes one sequence number, consistent with TCP connection establishment. The packet list also shows `HTTP/1.0 200 OK`.
 
 ### 4. Reconstruct the conversation
 
@@ -88,7 +92,7 @@ Select an HTTP packet and choose Follow → TCP Stream. Find the GET request and
 
 ![Step 4: saved packet capture with stream 0 displayed](screenshots/04-saved-capture.png)
 
-**Capture save evidence:** Wireshark's title and status bar show `http-lab.pcapng`; `tcp.stream == 0` displays all 12 captured packets with 0 dropped. The screenshot shows frame 4 selected. The Info column and handshake flags are not visible, so the three-way handshake still needs verification. The PCAP remains local; it has not been uploaded or independently reviewed.
+**Capture save evidence:** Wireshark's title and status bar show `http-lab.pcapng`; `tcp.stream == 0` displays all 12 captured packets with 0 dropped. The screenshot shows frame 4 selected. The Info column is hidden in this save screenshot; the Step 3 handshake screenshot separately verifies the flags. The PCAP remains local; it has not been uploaded or independently reviewed.
 
 ### 5. Capture a small DNS sample
 
