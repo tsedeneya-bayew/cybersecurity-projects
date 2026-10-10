@@ -4,11 +4,11 @@
 **Started:** October 9, 2026 (first screenshot submitted)  
 **Completed:** Not yet completed
 
-> Partial setup report. Steps 1–2 are documented; Steps 3–6 remain pending.
+> Partial setup report. Steps 1–2 and Step 3 HTTP request inspection are documented; remaining Step 3 checks and Steps 4–6 remain pending.
 
 ## Progress summary
 
-The supplied screenshot documents dnsutils installation and synthetic page preparation. An additional screenshot shows Wireshark 3.2.3 and available interfaces, including loopback. Step 2 shows the Python HTTP server running on 127.0.0.1:8000. Packet capture and protocol analysis remain pending.
+The supplied screenshot documents dnsutils installation and synthetic page preparation. An additional screenshot shows Wireshark 3.2.3 and available interfaces, including loopback. Step 2 shows the Python HTTP server running on 127.0.0.1:8000. Step 3 shows a captured loopback HTTP GET request and TCP ports. Response-status, handshake, stream reconstruction, and DNS inspection remain pending.
 
 ## Environment and authorized scope
 
@@ -33,6 +33,8 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 | 1 setup | printf redirected to index.html | No visible error | [Setup screenshot](../screenshots/01-setup.png) | Synthetic page creation command recorded; contents not separately read back. |
 | 1 interfaces | Open Wireshark and inspect welcome screen | Version 3.2.3; enp0s3 and Loopback: lo listed; No Packets | [Interface screenshot](../screenshots/01-interfaces.png) | Interface availability verified; capture success remains untested. |
 | 2 | cd to traffic directory; python3 -m http.server 8000 --bind 127.0.0.1 | Serving HTTP on 127.0.0.1 port 8000 | [Server screenshot](../screenshots/02-server.png) | Server startup on loopback recorded; requests not yet shown. |
+| 3 | Capture on Loopback: lo; apply tcp.port == 8000; inspect frame 4 | GET / HTTP/1.1; Host 127.0.0.1:8000; source port 44470, destination port 8000 | [HTTP screenshot](../screenshots/03-http.png) | Local client request to lab server captured and decoded. |
+| 3 | Inspect HTTP headers and capture status | User-Agent curl/7.68.0; Accept */*; response linked to frame 8; 12 packets displayed, 0 dropped | [HTTP screenshot](../screenshots/03-http.png) | Plaintext request headers visible; response status and body not shown. |
 
 ![Step 1 setup evidence](../screenshots/01-setup.png)
 
@@ -40,9 +42,15 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 
 ![Step 2 loopback HTTP server evidence](../screenshots/02-server.png)
 
+![Step 3 HTTP request evidence](../screenshots/03-http.png)
+
 ## Observations and limitations
 
-Only dnsutils setup is visible in the installation excerpt; the interface screenshot separately establishes Wireshark availability. Python 3 successfully starts its HTTP server in Step 2; its exact version and curl availability are not shown. The package summary lists 570 packages not upgraded, which alone does not establish vulnerability or patch status. Wireshark interfaces are visible, including loopback. The Python server reports startup on loopback port 8000. Capture privileges, successful HTTP requests, packets, and DNS responses have not been verified. Interface visibility alone does not prove a successful capture. Exact exit codes are not shown.
+Only dnsutils setup is visible in the installation excerpt; the interface screenshot separately establishes Wireshark availability. Python 3 successfully starts its HTTP server in Step 2; its exact version is not shown. The captured HTTP User-Agent advertises curl/7.68.0; no independent curl version command was captured. The package summary lists 570 packages not upgraded, which alone does not establish vulnerability or patch status. Wireshark interfaces are visible, including loopback. The Python server reports startup on loopback port 8000. Step 3 establishes successful packet capture on loopback and a decoded HTTP request. It does not establish the privilege configuration used to capture. DNS responses remain unverified. Exact exit codes are not shown.
+
+### Loopback request inspection
+
+The client request goes from 127.0.0.1:44470 to 127.0.0.1:8000. Port 8000 is the lab server port; 44470 is the client port for this observed exchange. The HTTP request headers are visible in plaintext. Frame 8 is identified as the corresponding response, but its status code is not shown. Frames 1–3 appear as TCP in the list, but their flags are not visible, so a three-way handshake is not yet claimed. Wireshark reports zero dropped packets for this capture; no raw capture has been reviewed or uploaded.
 
 ## Deviations and troubleshooting
 
@@ -52,9 +60,10 @@ No visible error. The first screenshot documented preparation; the additional in
 
 - [x] Document dnsutils setup and synthetic page creation commands
 - [x] Step 1: prepare the lab and inspect Wireshark interfaces
-- [ ] Verify successful capture access when beginning Step 3
+- [x] Verify successful loopback capture in Step 3
 - [x] Step 2: start loopback HTTP server
-- [ ] Step 3: capture and inspect HTTP
+- [x] Step 3: capture and inspect HTTP request and ports
+- [ ] Step 3 remaining checks: HTTP response status and TCP handshake flags
 - [ ] Step 4: reconstruct TCP conversation
 - [ ] Step 5: inspect DNS query and response
 - [ ] Step 6: summarize results and stop server

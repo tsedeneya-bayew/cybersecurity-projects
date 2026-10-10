@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Steps 1–2 are documented; Steps 3–6 remain pending.
+> Lab in progress. Steps 1–2 and Step 3 HTTP request evidence are documented; response-status and handshake inspection remain pending, along with Steps 4–6.
 
 [← Project index](../../README.md)
 
@@ -71,6 +71,10 @@ curl http://127.0.0.1:8000/
 Stop capture. Enter the display filter `tcp.port == 8000`. If HTTP is not decoded, select a packet, use Analyze → Decode As, and select HTTP for TCP port 8000. Inspect request method, response status, TCP source/destination ports, and the three-way handshake.
 
 **Screenshot checkpoint:** 03-http.png: filtered packets and a request or response detail.
+
+![Step 3: filtered loopback HTTP GET request and TCP ports](screenshots/03-http.png)
+
+**Observed result:** On `Loopback: lo`, the applied display filter is `tcp.port == 8000`. Frame 4 shows `GET / HTTP/1.1`, Host `127.0.0.1:8000`, User-Agent `curl/7.68.0`, and Accept `*/*`. TCP source port is `44470` and destination port is `8000`; both IP addresses are `127.0.0.1`. Wireshark links the response to frame 8. The status bar reports 12 captured and displayed packets and 0 dropped. The response status and handshake flags are not expanded in this screenshot; inspect them or provide additional evidence before treating those checks as complete.
 
 ### 4. Reconstruct the conversation
 
