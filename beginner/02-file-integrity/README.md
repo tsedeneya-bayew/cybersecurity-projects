@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 45–90 minutes · **Status:** In progress
 
-> Lab in progress. Steps 1–2 are evidenced below; Steps 3–6 remain pending.
+> Lab in progress. Steps 1–3 are evidenced below; Steps 4–6 remain pending.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Ubuntu VM with sha256sum (coreutils). No privileged access required.
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–2 evidence is included below; add later screenshots as you complete the lab.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–3 evidence is included below; add later screenshots as you complete the lab.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -72,6 +72,14 @@ sha256sum --check baseline.sha256
 The comparison should fail because the file has changed. Record the exit code immediately with `echo $?`. This detects modification, but does not identify who changed the file.
 
 **Screenshot checkpoint:** 03-tamper-detected.png: changed invoice and failed check.
+
+![Step 3: modified invoice digest and expected baseline mismatch](screenshots/03-tamper-detected.png)
+
+**Observed result:** The screenshot shows copying the original invoice and running the substitution from `Amount: 100` to `Amount: 101`. The new SHA-256 digest is shown below. Checking the original baseline returns `invoice.txt: FAILED` and a warning that one computed checksum did not match. This is the expected modification-detection result. Changed file contents and the exit code are not separately displayed.
+
+```text
+16d7cb06a3aae288ff23562281cf17383b665826937b69579a04af5f4b711d98  invoice.txt
+```
 
 ### 4. Restore and recheck
 
