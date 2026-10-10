@@ -4,11 +4,11 @@
 **Started:** October 9, 2026 (first screenshot submitted)  
 **Completed:** Not yet completed
 
-> Partial report based on Steps 1–3 evidence. Steps 4–6 remain pending.
+> Partial report based on Steps 1–4 evidence. Steps 5–6 remain pending.
 
 ## Progress summary
 
-The synthetic invoice was created and its visible contents verified. Step 2 records the original SHA-256 digest and a passing baseline check (`invoice.txt: OK`). Step 3 records a changed digest and an expected failed comparison with the original baseline. Restoration and baseline trust tests remain pending.
+The synthetic invoice was created and its visible contents verified. Step 2 records the original SHA-256 digest and a passing baseline check (`invoice.txt: OK`). Step 3 records a changed digest and an expected failed comparison with the original baseline. Step 4 restores the backup and passes the original baseline check. The baseline trust demonstration and final verification remain pending.
 
 ## Environment and authorized scope
 
@@ -34,12 +34,16 @@ The synthetic invoice was created and its visible contents verified. Step 2 reco
 | 3 | `cp invoice.txt invoice-original.txt`; substitution of Amount: 100 with Amount: 101 | No visible errors | [Modification screenshot](../screenshots/03-tamper-detected.png) | Backup and controlled edit commands recorded; changed contents not separately displayed. |
 | 3 | `sha256sum invoice.txt` | Changed digest recorded below | [Modification screenshot](../screenshots/03-tamper-detected.png) | Digest differs from Step 2 baseline. |
 | 3 | `sha256sum --check baseline.sha256` | invoice.txt: FAILED; WARNING: 1 computed checksum did NOT match | [Modification screenshot](../screenshots/03-tamper-detected.png) | Original baseline detects the modified file. Exact exit code not shown. |
+| 4 | `cp invoice-original.txt invoice.txt` | No visible error | [Restoration screenshot](../screenshots/04-restored.png) | Backup restored to the monitored file. |
+| 4 | `sha256sum --check baseline.sha256` | invoice.txt: OK | [Restoration screenshot](../screenshots/04-restored.png) | Restored file matches the original baseline digest; numeric exit code not shown. |
 
 ![Step 1 synthetic invoice evidence](../screenshots/01-original.png)
 
 ![Step 2 baseline verification evidence](../screenshots/02-baseline.png)
 
 ![Step 3 modification-detection evidence](../screenshots/03-tamper-detected.png)
+
+![Step 4 restoration evidence](../screenshots/04-restored.png)
 
 ## Changed SHA-256 digest
 
@@ -61,14 +65,18 @@ The file contains the expected fictional invoice identifier and amount. The show
 
 The edit command requests changing `Amount: 100` to `Amount: 101`. The resulting digest differs from the recorded original digest, and the original baseline check fails with a checksum-mismatch warning. This confirms detection of changed bytes; it does not establish who changed them or whether a change was malicious. A separate `cat` of the modified file and exact exit code were not captured.
 
+### Original baseline matches after restoration
+
+Copying the backup back to `invoice.txt` is followed by `invoice.txt: OK` against the original baseline. This supports successful restoration to bytes matching the recorded original digest. The screenshot does not separately display restored contents, recompute a standalone digest, or capture the numeric exit code.
+
 ## Deviations and troubleshooting
 
 No visible command errors or deviations from Steps 1–2. The Step 3 failure is expected after the edit. Exit codes were not captured.
 
 ## Validation
 
-- **Documented:** Synthetic file creation, visible content inspection, original digest, passing baseline comparison, changed digest, and failed comparison after modification.
-- **Pending:** Restoration and the baseline trust demonstration.
+- **Documented:** Synthetic file creation, visible content inspection, original digest, passing baseline comparison, changed digest, and failed comparison after modification, and passing original-baseline check after restoration.
+- **Pending:** Baseline trust demonstration and final verification.
 
 ## Limitations
 
@@ -76,7 +84,7 @@ This evidence establishes visible starting content and a match to the locally ge
 
 ## Cleanup / restoration
 
-The synthetic file and lab directory are present in Step 1; baseline.sha256 is generated in Step 2. Step 3 records a backup command to invoice-original.txt and modifies invoice.txt; backup restoration has not yet been tested. No cleanup or restoration has been reported for this project.
+The synthetic file and lab directory are present in Step 1; baseline.sha256 is generated in Step 2. Step 3 records a backup command to invoice-original.txt and modifies invoice.txt; Step 4 records successful backup restoration as validated against the original baseline. No cleanup or restoration has been reported for this project.
 
 ## Lessons learned so far
 
@@ -89,6 +97,6 @@ The synthetic file and lab directory are present in Step 1; baseline.sha256 is g
 - [x] Step 1: create synthetic data
 - [x] Step 2: establish a baseline
 - [x] Step 3: change a value and detect the mismatch
-- [ ] Step 4: restore and recheck
+- [x] Step 4: restore and recheck
 - [ ] Step 5: demonstrate baseline trust limitations
 - [ ] Step 6: complete the report and final verification

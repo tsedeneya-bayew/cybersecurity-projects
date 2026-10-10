@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 45–90 minutes · **Status:** In progress
 
-> Lab in progress. Steps 1–3 are evidenced below; Steps 4–6 remain pending.
+> Lab in progress. Steps 1–4 are evidenced below; Steps 5–6 remain pending.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Ubuntu VM with sha256sum (coreutils). No privileged access required.
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–3 evidence is included below; add later screenshots as you complete the lab.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Steps 1–4 evidence is included below; add later screenshots as you complete the lab.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -90,6 +90,10 @@ sha256sum --check baseline.sha256
 Expected: OK again. Do not overwrite the baseline just to make an unexpected change disappear.
 
 **Screenshot checkpoint:** 04-restored.png: restored contents and passing check.
+
+![Step 4: restore original invoice and pass baseline check](screenshots/04-restored.png)
+
+**Observed result:** The screenshot shows copying `invoice-original.txt` back to `invoice.txt`, then checking the original `baseline.sha256`. The result is `invoice.txt: OK`, confirming that the restored file matches the recorded original digest. File contents and the numeric exit code are not displayed in this screenshot.
 
 ### 5. Demonstrate the trust limitation
 
