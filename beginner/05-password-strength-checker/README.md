@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab started October 9, 2026. Step 1 is verified: project directory and Python 3.8.5 are documented. Implementation and testing remain pending.
+> Lab started October 9, 2026. Step 1 is verified: project directory and Python 3.8.5 are documented. Step 2 has saved-code evidence; the final lines and execution checks remain pending.
 
 [← Project index](../../README.md)
 
@@ -80,6 +80,19 @@ if __name__ == '__main__':
 `getpass` avoids displaying input. `casefold` allows case-insensitive matching. The function returns explanations rather than logging the password. A tiny common-password list is illustrative, not complete.
 
 **Screenshot checkpoint:** 02-code.png: implementation without entered passwords.
+
+![Step 2: saved checker implementation, final lines outside screenshot](screenshots/02-code.png)
+
+**Observed result:** `cat checker.py` shows the saved file's import, four-entry COMMON set, evaluate function, length/common/repetition/empty checks, and getpass main block. The visible code matches the guide. The screenshot ends at `print('\n'.join(findings) if findings else`, so the final fallback string and closing parenthesis are outside the image. File readback is established, but complete source and syntax/execution verification remain pending.
+
+To verify the remaining lines and syntax:
+
+```bash
+tail -n 8 checker.py
+python3 -m py_compile checker.py
+```
+
+A successful compile normally prints nothing; record any error. Compilation checks syntax, not runtime behavior.
 
 ### 3. Run controlled examples
 
