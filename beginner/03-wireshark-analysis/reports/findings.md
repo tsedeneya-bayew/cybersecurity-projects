@@ -4,7 +4,7 @@
 **Started:** October 9, 2026 (first screenshot submitted)  
 **Completed:** Not yet completed
 
-> Partial findings report. Steps 1–4 are documented, including handshake verification and the local capture save. Initial DNS query evidence is documented; frame 7's example.com A/IN query is now verified. Response verification and final summary/cleanup remain pending.
+> Partial findings report. Steps 1–5 are documented, including a matched DNS response with two IPv4 answers. Final summary and cleanup remain pending.
 
 ## Progress summary
 
@@ -48,6 +48,8 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 
 | 5 response partial | Inspect frame 4 | example.com A/IN; 2 answer records; Request In: 3; interval 0.000078441 s | [Response screenshot](../screenshots/05-dns-response.png) | Response linked to first query; ID, response code, and answer addresses remain to inspect. |
 
+| 5 verified | Expand frame 4 DNS response and Answers | ID 0x43bf matches frame 3; flags 0x8180 No error; A answers 172.66.147.243 and 104.20.23.154 | [Verified DNS screenshot](../screenshots/05-dns-verified.png) | First example.com query/response successfully matched and inspected. |
+
 ![Step 1 setup evidence](../screenshots/01-setup.png)
 
 ![Step 1 Wireshark interface evidence](../screenshots/01-interfaces.png)
@@ -68,9 +70,11 @@ The supplied screenshot documents dnsutils installation and synthetic page prepa
 
 ![Step 5 initial DNS response evidence](../screenshots/05-dns-response.png)
 
+![Step 5 verified DNS response evidence](../screenshots/05-dns-verified.png)
+
 ## Observations and limitations
 
-Only dnsutils setup is visible in the installation excerpt; the interface screenshot separately establishes Wireshark availability. Python 3 successfully starts its HTTP server in Step 2; the Step 4 response advertises Python/3.8.5, but no independent version command is shown. The captured HTTP User-Agent advertises curl/7.68.0; no independent curl version command was captured. The package summary lists 570 packages not upgraded, which alone does not establish vulnerability or patch status. Wireshark interfaces are visible, including loopback. The Python server reports startup on loopback port 8000. Step 3 establishes successful packet capture on loopback and a decoded HTTP request. It does not establish the privilege configuration used to capture. DNS response details remain unverified. The initial DNS screenshot shows a local resolver exchange on loopback, rather than the proposed NAT-interface capture. Exact exit codes are not shown.
+Only dnsutils setup is visible in the installation excerpt; the interface screenshot separately establishes Wireshark availability. Python 3 successfully starts its HTTP server in Step 2; the Step 4 response advertises Python/3.8.5, but no independent version command is shown. The captured HTTP User-Agent advertises curl/7.68.0; no independent curl version command was captured. The package summary lists 570 packages not upgraded, which alone does not establish vulnerability or patch status. Wireshark interfaces are visible, including loopback. The Python server reports startup on loopback port 8000. Step 3 establishes successful packet capture on loopback and a decoded HTTP request. It does not establish the privilege configuration used to capture. The later expanded frame 4 screenshot verifies DNS response details for the first exchange. The initial DNS screenshot shows a local resolver exchange on loopback, rather than the proposed NAT-interface capture. Exact exit codes are not shown.
 
 ### Loopback request inspection
 
@@ -88,6 +92,10 @@ The additional screenshot selects **frame 7**, rather than frame 3. Its expanded
 
 Frame 4 shows a DNS packet from `127.0.0.53` to `127.0.0.1`, the question `example.com: type A, class IN`, two answer records, zero authority records, and one additional record. Wireshark links it to request frame 3 and reports a query-to-response interval of `0.000078441 seconds`. This confirms the question name/type for the first exchange as well. The Answers section is collapsed and the transaction ID and flags are off-screen; returned addresses and response code remain unverified. This frame belongs to the frame 3/4 exchange, separately from the frame 7/8 exchange.
 
+### Completed DNS verification
+
+The expanded frame 4 response has transaction ID `0x43bf`, matching the frame 3 query. Flags `0x8180` decode as `Standard query response, No error`. Its question is `example.com`, type A, class IN, and its two A answers are `172.66.147.243` and `104.20.23.154`. Wireshark links `Request In: 3` and reports `0.000078441 seconds` between query and response. This verifies the first DNS exchange. These addresses are observations from this capture, not permanent domain values. The local resolver leg does not establish the upstream resolver, cache status, or DNSSEC validation.
+
 ## Deviations and troubleshooting
 
 No visible error. The first screenshot documented preparation; the additional interface screenshot now satisfies the interface checkpoint. enp0s3 is highlighted, but the local HTTP exercise requires Loopback: lo.
@@ -104,7 +112,7 @@ No visible error. The first screenshot documented preparation; the additional in
 - [x] Step 4: reconstruct TCP conversation and verify synthetic response
 - [x] Step 4: document local capture saved as http-lab.pcapng
 - [x] Step 5: verify example.com A/IN question in frame 7
-- [ ] Step 5: verify matching response transaction ID, response code, and answer records
+- [x] Step 5: verify frame 3/4 matching transaction ID, no-error response, and two A answer records
 - [ ] Step 6: summarize results and stop server
 
 ## Cleanup / restoration

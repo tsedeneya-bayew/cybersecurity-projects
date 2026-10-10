@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab in progress. Steps 1–4 are documented, including the HTTP response, TCP handshake, reconstructed stream, and local capture save. Step 5 has initial loopback DNS query evidence; the query name/type is now documented for frame 7; response matching checks and Step 6 remain pending.
+> Lab in progress. Steps 1–5 are documented, including matched DNS query/response details. Step 6 summary and server shutdown remain pending.
 
 [← Project index](../../README.md)
 
@@ -115,6 +115,10 @@ Stop capture and apply `dns`. Compare query and response transaction IDs and the
 ![Step 5: DNS response in frame 4 linked to request frame 3](screenshots/05-dns-response.png)
 
 **Response evidence:** Frame 4 shows a DNS packet from `127.0.0.53` to `127.0.0.1`, the question `example.com: type A, class IN`, two answer records, zero authority records, and one additional record. Wireshark links it to request frame 3 and reports a query-to-response interval of `0.000078441 seconds`. This confirms the question name/type for the first exchange as well. The Answers section is collapsed and the transaction ID and flags are off-screen; returned addresses and response code remain unverified. This frame belongs to the frame 3/4 exchange, separately from the frame 7/8 exchange.
+
+![Step 5: matching DNS response, no-error status, and IPv4 answers](screenshots/05-dns-verified.png)
+
+**Completed DNS verification:** The expanded frame 4 response has transaction ID `0x43bf`, matching the frame 3 query. Flags `0x8180` decode as `Standard query response, No error`. Its question is `example.com`, type A, class IN, and its two A answers are `172.66.147.243` and `104.20.23.154`. Wireshark links `Request In: 3` and reports `0.000078441 seconds` between query and response. This verifies the first DNS exchange. These addresses are observations from this capture, not permanent domain values. The local resolver leg does not establish the upstream resolver, cache status, or DNSSEC validation.
 
 ### 6. Summarize and clean up
 
