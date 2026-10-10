@@ -2,7 +2,7 @@
 
 **Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Lab started October 9, 2026. Step 1 is verified: project directory and Python 3.8.5 are documented. Step 2 has saved-code evidence; the final lines and execution checks remain pending.
+> Lab started October 9, 2026. Step 1 is verified: project directory and Python 3.8.5 are documented. Step 2 has saved-code evidence; successful interactive runs are documented; complete source publication and remaining tests are pending.
 
 [← Project index](../../README.md)
 
@@ -99,6 +99,10 @@ A successful compile normally prints nothing; record any error. Compilation chec
 Run `python3 checker.py` (Windows: `py checker.py`). Test an empty input, an invented short string, a repeated-character string, and an invented phrase of 15 or more characters. Enter no real passwords. Record the category and output, not the entered value.
 
 **Screenshot checkpoint:** 03-output.png: heuristic feedback only.
+
+![Step 3: three interactive checker runs with hidden input](screenshots/03-output.png)
+
+**Observed result:** The screenshot shows three completed `python3 checker.py` runs. Run 1 prints the limited-heuristic no-issue message; run 2 prints the minimum-length warning; run 3 prints both length and repeated-character warnings. Input values are hidden and cannot be independently identified from this screenshot. The third result is consistent with a repeated string shorter than 15 characters, rather than the suggested 20-character repeated test. No empty-input result is shown. Successful runs demonstrate that the executed file parses and reaches its feedback code; the earlier standalone compile check was skipped by the user's choice.
 
 ### 4. Add automated checks
 
