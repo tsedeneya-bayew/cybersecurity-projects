@@ -6,7 +6,7 @@
 
 ## Progress summary
 
-Step 1 is verified after correcting the working directory. The new screenshot shows /home/seed/portfolio-labs/password-checker and Python 3.8.5. Step 2 now shows saved source readback, but final lines are clipped and three interactive executions are now documented; the empty-input case and automated tests remain pending.
+Step 1 is verified after correcting the working directory. The new screenshot shows /home/seed/portfolio-labs/password-checker and Python 3.8.5. Step 2 now shows saved source readback, but final lines are clipped and three interactive executions are now documented; the empty-input case is now verified and automated tests remain pending.
 
 ## Environment and scope
 
@@ -41,6 +41,12 @@ The code requests hidden terminal input with getpass, returns feedback messages,
 
 The screenshot shows three completed `python3 checker.py` runs. Run 1 prints the limited-heuristic no-issue message; run 2 prints the minimum-length warning; run 3 prints both length and repeated-character warnings. Input values are hidden and cannot be independently identified from this screenshot. The third result is consistent with a repeated string shorter than 15 characters, rather than the suggested 20-character repeated test. No empty-input result is shown. Successful runs demonstrate that the executed file parses and reaches its feedback code; the earlier standalone compile check was skipped by the user's choice.
 
+## Empty-input verification
+
+The additional `python3 checker.py` run prints both `Use at least 15 characters for this lab heuristic.` and `Input is empty.` This verifies the empty-input feedback path. Both messages are expected because an empty string also has fewer than 15 characters. No input value is displayed. Together, the screenshots document no-issue, length, repetition, and empty feedback; automated checks remain pending.
+
+[Empty-input screenshot](../screenshots/03-empty.png)
+
 ## Deviations and correction
 
 The initial attempt uses /home, the parent directory containing user homes. The guide now provides explicit commands to create and enter ~/portfolio-labs/password-checker, print the directory, and check Python's version before editing checker.py. No elevated privileges are needed. The user reported a Permission denied error when saving in /home; the error text is not visible in the initial screenshot. The corrected screenshot confirms use of the user's own home directory. The customized terminal prompt is a display choice; the actual home is /home/seed.
@@ -53,7 +59,7 @@ The initial attempt uses /home, the parent directory containing user homes. The 
 - [x] Verify executed file parses and reaches interactive feedback
 - [ ] Step 2/6: collect complete source for publication
 - [x] Step 3: document no-issue, length, and repetition feedback
-- [ ] Step 3: document empty-input feedback
+- [x] Step 3: document empty-input feedback
 - [ ] Step 4: run automated checks
 - [ ] Step 5: document heuristic limitations
 - [ ] Step 6: publish actual executed code and finalize report

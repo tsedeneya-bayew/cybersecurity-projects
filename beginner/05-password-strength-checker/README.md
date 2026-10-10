@@ -104,6 +104,10 @@ Run `python3 checker.py` (Windows: `py checker.py`). Test an empty input, an inv
 
 **Observed result:** The screenshot shows three completed `python3 checker.py` runs. Run 1 prints the limited-heuristic no-issue message; run 2 prints the minimum-length warning; run 3 prints both length and repeated-character warnings. Input values are hidden and cannot be independently identified from this screenshot. The third result is consistent with a repeated string shorter than 15 characters, rather than the suggested 20-character repeated test. No empty-input result is shown. Successful runs demonstrate that the executed file parses and reaches its feedback code; the earlier standalone compile check was skipped by the user's choice.
 
+![Step 3: empty input produces length and empty-input feedback](screenshots/03-empty.png)
+
+**Empty-input verification:** The additional `python3 checker.py` run prints both `Use at least 15 characters for this lab heuristic.` and `Input is empty.` This verifies the empty-input feedback path. Both messages are expected because an empty string also has fewer than 15 characters. No input value is displayed. Together, the screenshots document no-issue, length, repetition, and empty feedback; automated checks remain pending.
+
 ### 4. Add automated checks
 
 Create `test_checker.py`:
