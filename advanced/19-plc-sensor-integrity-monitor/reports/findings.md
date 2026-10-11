@@ -20,6 +20,17 @@ Compare a PLC-reported tank level with a Simulink plant reference obtained throu
 
 The final Scope screenshot shows a high plateau at approximately 82–92 simulation seconds. Earlier Display screenshots show active and cleared states at 61.8 s and 85.5 s respectively. These do not provide a synchronized timeline for one event. No measured detection latency, false-positive rate, or detection accuracy is claimed.
 
+## Live 3D observations
+
+The live view uses the same model and detector signals described in the [3D guide](../3D-SIMULATION.md).
+
+| State | Simulation time | Plant level | PLC report | Difference | Pump | Alert |
+|---|---:|---:|---:|---:|---|---:|
+| Baseline | 24.3 s | 53.40% | 53.60% | 0.20 pp | OFF | 0 |
+| False report | 98.3 s | 45.40% | 55.60% | 10.20 pp | OFF | 1 |
+
+Evidence: [baseline](../screenshots/06-3d-baseline.png), [stopped view](../screenshots/05-3d-stopped.png). The alert values were transcribed from the local capture; that image is not published because it includes background lab information. These are snapshots, not exported synchronized samples. The prior 2D recovery observation is documented above; a final recovery screenshot from the 3D view is still pending.
+
 ## Interpretation
 
 The prototype identified the deliberately introduced difference between the report and simulation reference. Removing the report bias restored agreement within the demonstrated threshold. A successful Modbus exchange alone did not guarantee that the reported process value was accurate.

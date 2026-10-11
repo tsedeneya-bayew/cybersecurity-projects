@@ -1,9 +1,9 @@
 # Project 19 — PLC and Sensor Integrity Monitoring
 
-[← Main project index](../../README.md) · [Findings](reports/findings.md) · [PLC source](src/PLC_PRG.st)
+[← Main project index](../../README.md) · [Findings](reports/findings.md) · [PLC source](src/PLC_PRG.st) · [Live 3D guide](3D-SIMULATION.md) · [MATLAB 3D code](src/PLC_EDR_3D.m)
 
 **Author:** Tsedeneya Bayew  
-**Status:** In progress — PLC false-report detection and recovery demonstrated; broader EDR research continues.
+**Status:** In progress — PLC false-report detection and recovery demonstrated; live 3D baseline and alert captured; broader EDR research continues.
 
 ## What I built
 
@@ -12,6 +12,14 @@ I connected a Simulink water-tank model to a CODESYS soft PLC through Modbus TCP
 A controlled switch in the PLC adds 10 percentage points to the reported level. The detector raises an alert when the absolute difference exceeds 2 percentage points. The included mismatch graph shows the injected offset and recovery; alert activation and clearing were also observed during the lab.
 
 This is an OT integrity-monitoring prototype toward an EDR research project. It does not demonstrate exploitation of a PLC, a complete EDR product, or automatic incident response.
+
+## Live 3D visualization
+
+The same tank model now drives a live MATLAB 3D view: blue water shows the direct Simulink plant level, a gold ring shows the PLC report, and a status panel displays pump state, mismatch and alert. The view reads runtime signals from the existing model; it does not generate substitute measurements.
+
+![Live 3D baseline: plant 53.40%, report 53.60%, difference 0.20 pp, Alert 0](screenshots/06-3d-baseline.png)
+
+**[Open the complete 3D setup and demonstration guide →](3D-SIMULATION.md)**
 
 ## Research question and trust boundary
 
@@ -176,9 +184,9 @@ The final captured trace spans 120 s and shows a roughly 10-point mismatch aroun
 
 ## Repository contents and next work
 
-This folder includes documentation, a transcription of the demonstrated PLC logic, and one original screenshot capture. The native `.slx` and `.project` files and exported time-series data have **not** been uploaded; the repository is not yet a turnkey executable lab.
+This folder includes documentation, the demonstrated PLC logic, the corrected MATLAB 3D function, the original Scope capture and two original 3D screenshots. The native `.slx` and `.project` files and exported time-series data have **not** been uploaded; the repository is not yet a turnkey executable lab.
 
-Next milestones: timestamped signal logging, startup handling, persistent mismatch detection, sensor-path tampering with a trusted reference, communication-failure testing, and a dashboard or 3D visualization.
+Next milestones: timestamped signal logging, startup handling, persistent mismatch detection, sensor-path tampering with a trusted reference, communication-failure testing, and capture of final recovery in the 3D view.
 
 ## References
 

@@ -4,7 +4,7 @@
 
 A public learning portfolio with six beginner projects, six intermediate projects, and seven advanced projects. Each project has a detailed guide, screenshot checkpoints, troubleshooting, and a findings report template.
 
-> **Status:** Projects 01–03 are completed with screenshot evidence and finalized findings reports. Project 05 is in progress with an initial setup attempt; Project 04 and Projects 06–18 remain prepared guides awaiting documented execution. Project 19 is in progress with a demonstrated PLC false-report detector and screenshot evidence.
+> **Status:** Projects 01–03 are completed with screenshot evidence and finalized findings reports. Project 05 is in progress with an initial setup attempt; Project 04 and Projects 06–18 remain prepared guides awaiting documented execution. Project 19 is in progress with a demonstrated PLC false-report detector, live 3D visualization and screenshot evidence.
 
 **[Start here: lab setup and screenshot workflow](START-HERE.md)**
 
@@ -47,7 +47,7 @@ A public learning portfolio with six beginner projects, six intermediate project
 | 17 | [AI Prompt Injection Evaluation](advanced/17-ai-security-evaluation/README.md) | 1–2 days | Not started |
 | 18 | [OT/ICS Threat Modeling](advanced/18-ot-ics-threat-model/README.md) | 1–2 days | Not started |
 
-| 19 | [PLC and Sensor Integrity Monitoring](advanced/19-plc-sensor-integrity-monitor/README.md) | Ongoing research | In progress — detection demonstrated |
+| 19 | [PLC and Sensor Integrity Monitoring](advanced/19-plc-sensor-integrity-monitor/README.md) | Ongoing research | In progress — detection and live 3D demonstrated |
 
 ## Inside each project
 
