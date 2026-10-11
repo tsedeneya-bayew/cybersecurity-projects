@@ -1,10 +1,10 @@
 # Cybersecurity Projects
 
-### 18 hands-on labs · Beginner → Intermediate → Advanced
+### 19 hands-on projects · Beginner → Intermediate → Advanced
 
-A public learning portfolio with six projects at each level. Each project has a detailed guide, screenshot checkpoints, troubleshooting, and a findings report template.
+A public learning portfolio with six beginner projects, six intermediate projects, and seven advanced projects. Each project has a detailed guide, screenshot checkpoints, troubleshooting, and a findings report template.
 
-> **Status:** Projects 01–03 are completed with screenshot evidence and finalized findings reports. Project 05 is in progress with an initial setup attempt; Project 04 and Projects 06–18 remain prepared guides awaiting documented execution.
+> **Status:** Projects 01–03 are completed with screenshot evidence and finalized findings reports. Project 05 is in progress with an initial setup attempt; Project 04 and Projects 06–18 remain prepared guides awaiting documented execution. Project 19 is in progress with a demonstrated PLC false-report detector and screenshot evidence.
 
 **[Start here: lab setup and screenshot workflow](START-HERE.md)**
 
@@ -12,7 +12,7 @@ A public learning portfolio with six projects at each level. Each project has a 
 |---|---:|---|
 | [Beginner](beginner/README.md) | 6 | Linux, file integrity, network traffic, Windows logs, Python, service discovery |
 | [Intermediate](intermediate/README.md) | 6 | Log analysis, hardening, phishing, application security, assessment, forensics |
-| [Advanced](advanced/README.md) | 6 | SIEM, incident response, Active Directory, CI/CD, AI security, OT/ICS |
+| [Advanced](advanced/README.md) | 7 | SIEM, incident response, Active Directory, CI/CD, AI security, OT/ICS |
 
 ## Beginner
 
@@ -47,6 +47,8 @@ A public learning portfolio with six projects at each level. Each project has a 
 | 17 | [AI Prompt Injection Evaluation](advanced/17-ai-security-evaluation/README.md) | 1–2 days | Not started |
 | 18 | [OT/ICS Threat Modeling](advanced/18-ot-ics-threat-model/README.md) | 1–2 days | Not started |
 
+| 19 | [PLC and Sensor Integrity Monitoring](advanced/19-plc-sensor-integrity-monitor/README.md) | Ongoing research | In progress — detection demonstrated |
+
 ## Inside each project
 
 - `README.md`: objective, prerequisites, numbered steps, expected behavior, explanations, screenshot checkpoints, troubleshooting, and references
@@ -72,4 +74,4 @@ Use owned or explicitly authorized disposable lab systems and synthetic data. Ke
 
 ## Collection history
 
-This repository consolidates all 18 guides into one collection. Earlier standalone project repositories point to the current folders. The profile README links here. No further repository creation is needed for these projects.
+This repository consolidates all 18 guides into one collection. Earlier standalone project repositories point to the current folders. Project 19 adds an executed MATLAB/Simulink and CODESYS integrity-monitoring prototype. The profile README links here. No further repository creation is needed for these projects.

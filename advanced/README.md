@@ -2,7 +2,7 @@
 
 [← Main project index](../README.md)
 
-Six advanced labs, listed in recommended order. All begin as prepared guides; update status after adding your own work.
+Seven advanced projects. Projects 13–18 are prepared guides; Project 19 documents an executed OT integrity-monitoring prototype with ongoing research.
 
 | # | Project | Estimated time | Status |
 |---|---|---|---|
@@ -12,3 +12,4 @@ Six advanced labs, listed in recommended order. All begin as prepared guides; up
 | 16 | [Secure CI/CD Pipeline](16-secure-cicd-pipeline/README.md) | 1–2 days | Not started |
 | 17 | [AI Prompt Injection Evaluation](17-ai-security-evaluation/README.md) | 1–2 days | Not started |
 | 18 | [OT/ICS Threat Modeling](18-ot-ics-threat-model/README.md) | 1–2 days | Not started |
+| 19 | [PLC and Sensor Integrity Monitoring](19-plc-sensor-integrity-monitor/README.md) | Ongoing research | In progress — detection demonstrated |
