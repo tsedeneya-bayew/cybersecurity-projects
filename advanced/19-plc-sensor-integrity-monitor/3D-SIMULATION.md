@@ -116,7 +116,7 @@ While Simulink remains running, prepare TRUE for AttackEnable in CODESYS and app
 
 The PLC program adds 10 percentage points to the report. Pump control still uses the original sensor input.
 
-The alert values below were transcribed from the local capture. The alert screenshot is omitted because background lab information may be private.
+![Live simulation generating a red MISMATCH ALERT with Alert 1](screenshots/07-3d-alert.png)
 
 Observed alert snapshot:
 

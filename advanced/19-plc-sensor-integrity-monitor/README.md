@@ -19,6 +19,12 @@ The same tank model now drives a live MATLAB 3D view: blue water shows the direc
 
 ![Live 3D baseline: plant 53.40%, report 53.60%, difference 0.20 pp, Alert 0](screenshots/06-3d-baseline.png)
 
+### Alert generated during the live simulation
+
+![Live red mismatch alert: plant 45.40%, PLC report 55.60%, difference 10.20 percentage points, Alert 1](screenshots/07-3d-alert.png)
+
+At 98.3 simulation seconds, the reported level differs from the plant reference by 10.20 percentage points. Because this exceeds the 2-point threshold, the live panel shows **MISMATCH ALERT** and **Alert: 1** in red.
+
 **[Open the complete 3D setup and demonstration guide →](3D-SIMULATION.md)**
 
 ## Research question and trust boundary
@@ -184,7 +190,7 @@ The final captured trace spans 120 s and shows a roughly 10-point mismatch aroun
 
 ## Repository contents and next work
 
-This folder includes documentation, the demonstrated PLC logic, the corrected MATLAB 3D function, the original Scope capture and two original 3D screenshots. The native `.slx` and `.project` files and exported time-series data have **not** been uploaded; the repository is not yet a turnkey executable lab.
+This folder includes documentation, the demonstrated PLC logic, the corrected MATLAB 3D function, the original Scope capture and three original 3D screenshots. The native `.slx` and `.project` files and exported time-series data have **not** been uploaded; the repository is not yet a turnkey executable lab.
 
 Next milestones: timestamped signal logging, startup handling, persistent mismatch detection, sensor-path tampering with a trusted reference, communication-failure testing, and capture of final recovery in the 3D view.
 

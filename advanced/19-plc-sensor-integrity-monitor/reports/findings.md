@@ -29,7 +29,7 @@ The live view uses the same model and detector signals described in the [3D guid
 | Baseline | 24.3 s | 53.40% | 53.60% | 0.20 pp | OFF | 0 |
 | False report | 98.3 s | 45.40% | 55.60% | 10.20 pp | OFF | 1 |
 
-Evidence: [baseline](../screenshots/06-3d-baseline.png), [stopped view](../screenshots/05-3d-stopped.png). The alert values were transcribed from the local capture; that image is not published because it includes background lab information. These are snapshots, not exported synchronized samples. The prior 2D recovery observation is documented above; a final recovery screenshot from the 3D view is still pending.
+Evidence: [baseline](../screenshots/06-3d-baseline.png), [live red alert](../screenshots/07-3d-alert.png), and [stopped view](../screenshots/05-3d-stopped.png). These are snapshots, not exported synchronized samples. The prior 2D recovery observation is documented above; a final recovery screenshot from the 3D view is still pending.
 
 ## Interpretation
 
