@@ -6,7 +6,7 @@
 
 ## Progress summary
 
-Step 1 is documented: Python 3.8.5, the dedicated lab directory, and the expected synthetic CSV are visible. Analyzer execution and detection outcomes have not yet been demonstrated.
+Step 1 is documented: Python 3.8.5, the dedicated lab directory, and the expected synthetic CSV are visible. Baseline analyzer execution now matches the independently counted dataset; boundary tests and temporal detection remain pending.
 
 ## Environment and scope
 
@@ -35,13 +35,13 @@ The three failures occur at 10:00:00Z, 10:00:30Z, and 10:01:00Z; the same source
 
 ## Interpretation and limitations
 
-The dataset matches the guide and supports an expected whole-file candidate for 192.0.2.10 at a threshold of three failures. This is an expected result awaiting execution, not a confirmed detection. Repeated failures followed by success require context and do not by themselves prove an attack. No real credential, personal traffic, or sensitive information requiring redaction was visible.
+The dataset matches the guide and supports an expected whole-file candidate for 192.0.2.10 at a threshold of three failures. The Step 3 output now confirms this candidate in the baseline run. Repeated failures followed by success require context and do not by themselves prove an attack. No real credential, personal traffic, or sensitive information requiring redaction was visible.
 
 ## Progress
 
 - [x] Step 1: verify environment and synthetic dataset
 - [ ] Step 2: implement analyzer
-- [ ] Step 3: execute and independently validate output
+- [x] Step 3: execute and independently validate baseline output
 - [ ] Step 4: test boundary and malformed inputs
 - [ ] Step 5: implement and validate temporal detection
 - [ ] Step 6: publish actual implementation and final analyst report
@@ -55,3 +55,9 @@ The lab directory and synthetic CSV are retained in the VM. No service startup o
 Saved-source readback through `cat analyzer.py` shows csv/json/Counter imports, opening auth.csv with UTF-8 and newline handling, DictReader loading, required-column checks, and rejection of unexpected result values. This visible portion matches the supplied implementation. The screenshot ends before failure counting, candidate selection, and JSON output/file writing, so those sections are not yet verified. No execution result or sensitive information is shown.
 
 [Saved-code screenshot](../screenshots/02-code.png)
+
+## Step 3: baseline execution
+
+`python3 analyzer.py` prints `total_events: 5`, `failures_by_ip: {192.0.2.10: 3}`, and one candidate source, `192.0.2.10`, then returns to the shell without a visible error. This matches the independent count of the five displayed input records. The later success from the same source does not remove its three whole-file failures. A candidate is an investigation lead, not a proven attacker. The remaining source lines and on-disk summary.json contents are not shown in this screenshot.
+
+[Baseline JSON output](../screenshots/03-summary.png)

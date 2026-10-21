@@ -2,7 +2,7 @@
 
 **Level:** Intermediate · **Suggested time:** 2–3 hours · **Status:** In progress
 
-> Started October 21, 2026. Step 1 dataset and Python environment are verified; Step 2 has partial saved-source evidence; the remaining code and execution checks are pending.
+> Started October 21, 2026. Step 1 dataset and Python environment are verified; Step 2 has partial saved-source evidence; Step 3 baseline execution matches the manual count. Full source readback, saved JSON verification, boundary tests, and temporal detection remain pending.
 
 [← Project index](../../README.md)
 
@@ -85,6 +85,10 @@ This threshold counts the entire file, not a rolling time window. It identifies 
 Run `python3 analyzer.py` or `py analyzer.py`. Expected: total_events 5; three failures from 192.0.2.10; one candidate source. Count rows by hand and compare. Record how later success influences interpretation.
 
 **Screenshot checkpoint:** 03-summary.png: actual JSON output.
+
+![Step 3: five events, three failures, and one candidate source](screenshots/03-summary.png)
+
+**Verified result:** `python3 analyzer.py` prints `total_events: 5`, `failures_by_ip: {192.0.2.10: 3}`, and one candidate source, `192.0.2.10`, then returns to the shell without a visible error. This matches the independent count of the five displayed input records. The later success from the same source does not remove its three whole-file failures. A candidate is an investigation lead, not a proven attacker. The remaining source lines and on-disk summary.json contents are not shown in this screenshot.
 
 ### 4. Test boundary and malformed cases
 
