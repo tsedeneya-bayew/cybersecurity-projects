@@ -1,8 +1,8 @@
 # Python Security Log Analyzer
 
-**Level:** Intermediate · **Suggested time:** 2–3 hours · **Status:** Not started
+**Level:** Intermediate · **Suggested time:** 2–3 hours · **Status:** In progress
 
-> Prepared lab guide. No execution, screenshots, or findings are claimed yet.
+> Started October 21, 2026. Step 1 dataset and Python environment are verified; analyzer implementation and subsequent validation remain pending.
 
 [← Project index](../../README.md)
 
@@ -19,7 +19,7 @@ Python 3; complete project 05 first. Uses a provided synthetic CSV, not producti
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. No images are included yet.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Step 1 evidence is included below.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -41,6 +41,10 @@ timestamp,user,source_ip,result
 These documentation-range IPs identify fictional sources. Save `auth.csv` and the script in the same folder.
 
 **Screenshot checkpoint:** 01-dataset.png: five synthetic log rows.
+
+![Step 1: Python version, lab directory, and five synthetic CSV records](screenshots/01-dataset.png)
+
+**Observed result:** Python reports `3.8.5`; `pwd` prints `/home/seed/portfolio-labs/log-analyzer`. `cat auth.csv` shows the expected four-column header and all five records: three failures from `192.0.2.10`, followed by one success from that source and one success from `192.0.2.20`. Dataset timestamps are fictional January 1 values, not execution timestamps. No visible command error or sensitive information requiring redaction is present.
 
 ### 2. Implement a basic analyzer
 

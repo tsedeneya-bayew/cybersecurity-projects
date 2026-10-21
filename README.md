@@ -4,7 +4,7 @@
 
 A public learning portfolio with six beginner projects, six intermediate projects, and seven advanced projects. Each project has a detailed guide, screenshot checkpoints, troubleshooting, and a findings report template.
 
-> **Status:** Projects 01–03 are completed with screenshot evidence and finalized findings reports. Project 05 is completed with interactive examples and four passing automated tests; its report records the reduced completion scope; Project 04 is in progress with Windows host baseline evidence; Projects 06–18 remain prepared guides awaiting documented execution. Project 19 is in progress with a demonstrated PLC false-report detector, live 3D visualization and screenshot evidence.
+> **Status:** Projects 01–03 are completed with screenshot evidence and finalized findings reports. Project 05 is completed with interactive examples and four passing automated tests; its report records the reduced completion scope; Project 04 is in progress with Windows host baseline evidence; Project 07 is in progress with its synthetic dataset verified; Projects 06 and 08–18 remain prepared guides awaiting documented execution. Project 19 is in progress with a demonstrated PLC false-report detector, live 3D visualization and screenshot evidence.
 
 **[Start here: lab setup and screenshot workflow](START-HERE.md)**
 
@@ -29,7 +29,7 @@ A public learning portfolio with six beginner projects, six intermediate project
 
 | # | Project | Estimated time | Status |
 |---|---|---|---|
-| 07 | [Python Security Log Analyzer](intermediate/07-python-log-analyzer/README.md) | 2–3 hours | Not started |
+| 07 | [Python Security Log Analyzer](intermediate/07-python-log-analyzer/README.md) | 2–3 hours | In progress |
 | 08 | [Linux System Hardening](intermediate/08-linux-hardening/README.md) | 3–4 hours | Not started |
 | 09 | [Phishing Email Investigation](intermediate/09-phishing-email-analysis/README.md) | 2–3 hours | Not started |
 | 10 | [Local Web Vulnerability Lab](intermediate/10-web-vulnerability-lab/README.md) | 3–5 hours | Not started |
