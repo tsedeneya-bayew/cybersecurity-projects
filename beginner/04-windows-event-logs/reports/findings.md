@@ -78,3 +78,11 @@ Settings → Accounts → Other Users shows `portfoliotest` as a Local account, 
 The Change account type dialog for local account `portfoliotest` shows `Standard user` selected. This records the displayed account type; no administrator role is shown. Close the dialog with OK before testing. No sensitive information requiring redaction is visible.
 
 [Standard user screenshot](../screenshots/02-standard-user.png)
+
+## Step 3: runas input troubleshooting
+
+Two runas invocations for `.\portfoliotest` return `RUNAS ERROR: Unable to acquire user password`. A displayed timestamp is October 20, 2026 at 10:47:57 PM, but paired before/after timestamps are not shown. The first invocation also shows a PowerShell continuation prompt before Get-Date. This is a password-input acquisition error, not evidence that Windows rejected an incorrect password; no 4625 event or successful login is established. Retry interactively with each command entered separately.
+
+[Runas input error](../screenshots/03-runas-input-error.png)
+
+No password or personal identifier requiring redaction is visible. Controlled authentication failure and successful login validation remain pending.

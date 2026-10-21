@@ -79,6 +79,10 @@ In a normal terminal run `runas /user:.\portfoliotest cmd`. Enter a wrong lab pa
 
 **Screenshot checkpoint:** 03-test-window.png: timestamps and runas outcome without credentials.
 
+![Step 3 troubleshooting: runas cannot acquire password input](screenshots/03-runas-input-error.png)
+
+**Observed result:** Two runas invocations for `.\portfoliotest` return `RUNAS ERROR: Unable to acquire user password`. A displayed timestamp is October 20, 2026 at 10:47:57 PM, but paired before/after timestamps are not shown. The first invocation also shows a PowerShell continuation prompt before Get-Date. This is a password-input acquisition error, not evidence that Windows rejected an incorrect password; no 4625 event or successful login is established. Retry interactively with each command entered separately.
+
 ### 4. Inspect Event Viewer
 
 Open Event Viewer → Windows Logs → Security → Filter Current Log. Enter `4624,4625`. Look in your recorded time window for the lab username. Event 4624 indicates successful logon; 4625 indicates failed logon. Distinguish unrelated background events. Open Details → XML to inspect field names.
