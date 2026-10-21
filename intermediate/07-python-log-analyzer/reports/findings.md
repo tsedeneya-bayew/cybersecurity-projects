@@ -49,3 +49,9 @@ The dataset matches the guide and supports an expected whole-file candidate for 
 ## Retention
 
 The lab directory and synthetic CSV are retained in the VM. No service startup or system-security configuration change is shown.
+
+## Step 2: partial source inspection
+
+Saved-source readback through `cat analyzer.py` shows csv/json/Counter imports, opening auth.csv with UTF-8 and newline handling, DictReader loading, required-column checks, and rejection of unexpected result values. This visible portion matches the supplied implementation. The screenshot ends before failure counting, candidate selection, and JSON output/file writing, so those sections are not yet verified. No execution result or sensitive information is shown.
+
+[Saved-code screenshot](../screenshots/02-code.png)

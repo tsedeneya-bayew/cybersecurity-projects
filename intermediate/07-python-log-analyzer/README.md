@@ -2,7 +2,7 @@
 
 **Level:** Intermediate · **Suggested time:** 2–3 hours · **Status:** In progress
 
-> Started October 21, 2026. Step 1 dataset and Python environment are verified; analyzer implementation and subsequent validation remain pending.
+> Started October 21, 2026. Step 1 dataset and Python environment are verified; Step 2 has partial saved-source evidence; the remaining code and execution checks are pending.
 
 [← Project index](../../README.md)
 
@@ -75,6 +75,10 @@ with open('summary.json', 'w', encoding='utf-8') as f:
 This threshold counts the entire file, not a rolling time window. It identifies candidates for investigation, not proven attackers.
 
 **Screenshot checkpoint:** 02-code.png: parsing, validation, and counting logic.
+
+![Step 2: saved analyzer imports and input validation](screenshots/02-code.png)
+
+**Observed result:** Saved-source readback through `cat analyzer.py` shows csv/json/Counter imports, opening auth.csv with UTF-8 and newline handling, DictReader loading, required-column checks, and rejection of unexpected result values. This visible portion matches the supplied implementation. The screenshot ends before failure counting, candidate selection, and JSON output/file writing, so those sections are not yet verified. No execution result or sensitive information is shown.
 
 ### 3. Run and independently validate
 
