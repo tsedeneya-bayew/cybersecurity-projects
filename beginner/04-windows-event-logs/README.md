@@ -1,8 +1,8 @@
 # Windows Security Event Logs
 
-**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** Not started
+**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
 
-> Prepared lab guide. No execution, screenshots, or findings are claimed yet.
+> Started October 20, 2026 on the owner's Windows host. Step 1 baseline evidence is documented; the existing audit backup must be inspected before policy changes.
 
 [← Project index](../../README.md)
 
@@ -12,14 +12,14 @@ Complete a reproducible windows security event logs exercise, validate the behav
 
 ## Environment and prerequisites
 
-Disposable Windows 11 VM, local administrator account, Event Viewer and PowerShell. Use a snapshot. Commands assume English-language Windows; localized audit category names may differ.
+Windows with local administrator access, Event Viewer and PowerShell. A disposable Windows VM with a snapshot is preferred. This execution uses the owner's Windows host; preserve Security logs, record the existing policy, restore only lab changes, and remove the temporary lab account after testing. Commands assume English-language Windows; localized audit category names may differ.
 
 ## How to use this repository
 
 1. Read the environment and scope before starting. Use a disposable VM for administrative changes.
 2. Follow steps in order. Record actual output; expected results are predictions, not completed evidence.
 3. Save screenshots using the exact filenames shown below in `screenshots/`.
-4. Add each image under its step using `![Description](screenshots/filename.png)`. No images are included yet.
+4. Add each image under its step using `![Description](screenshots/filename.png)`. Step 1 evidence is included below.
 5. Complete [your findings report](reports/findings.md). Record deviations and failed checks honestly.
 6. Change **Not started** to **In progress** when you begin. Mark **Completed** only after your evidence and report are committed.
 
@@ -40,6 +40,17 @@ auditpol /get /subcategory:"Logon"
 Save the audit baseline locally. It is used to restore the previous policy.
 
 **Screenshot checkpoint:** 01-baseline.png: OS version and logon auditing state.
+
+![Step 1: Windows host baseline and existing-backup error](screenshots/01-baseline.png)
+
+**Observed result:** PowerShell records October 20, 2026, 10:21:57 PM. Get-ComputerInfo reports WindowsProductName `Windows 10 Home`, WindowsVersion `2009`, and OsBuildNumber `26200`; these are the reported fields, not independent verification of the marketed OS release. `C:\PortfolioLab` exists. Logon auditing is already `Success and Failure`, so Step 2 need not enable it again. The repeated backup command fails with `0x00000050` / `The file exists.` An earlier success message is visible without its command; it does not independently validate the existing backup. Preserve that file and inspect it before making changes:
+
+```powershell
+Get-Item C:\PortfolioLab\audit-before.csv | Select-Object Name,Length,LastWriteTime
+Get-Content C:\PortfolioLab\audit-before.csv -TotalCount 5
+```
+
+Do not delete or overwrite the existing baseline. Step 1 backup validation remains pending.
 
 ### 2. Enable relevant auditing
 
