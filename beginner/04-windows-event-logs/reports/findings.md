@@ -57,3 +57,9 @@ Preserve and inspect the existing audit-before.csv file before any policy modifi
 ## Evidence limitations
 
 No controlled login attempts, event IDs, test-account creation, backup readback, or restoration are shown yet. No sensitive data requiring redaction was visible in this screenshot.
+
+## Additional backup inspection
+
+The backup check shows `audit-before.csv` exists, has length `5955` bytes, and was last written October 20, 2026 at 10:21:27 PM. Reading its first five lines shows a CSV header and four audit-policy records. The computer name is blurred in the published privacy-edited copy. This verifies a nonempty, readable CSV excerpt, not full backup validity or successful restoration. The saved Logon row is not visible. Current Logon auditing was already Success and Failure; no additional change is required for that setting.
+
+[Redacted backup check](../screenshots/01-backup-check-redacted.png)

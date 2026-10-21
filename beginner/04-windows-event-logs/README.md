@@ -52,6 +52,10 @@ Get-Content C:\PortfolioLab\audit-before.csv -TotalCount 5
 
 Do not delete or overwrite the existing baseline. Step 1 backup validation remains pending.
 
+![Step 1: existing audit backup inspected, computer name redacted](screenshots/01-backup-check-redacted.png)
+
+**Backup inspection:** The backup check shows `audit-before.csv` exists, has length `5955` bytes, and was last written October 20, 2026 at 10:21:27 PM. Reading its first five lines shows a CSV header and four audit-policy records. The computer name is blurred in the published privacy-edited copy. This verifies a nonempty, readable CSV excerpt, not full backup validity or successful restoration. The saved Logon row is not visible. Current Logon auditing was already Success and Failure; no additional change is required for that setting.
+
 ### 2. Enable relevant auditing
 
 ```powershell
