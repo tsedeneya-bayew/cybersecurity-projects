@@ -1,8 +1,8 @@
 # Python Password Strength Checker
 
-**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** In progress
+**Level:** Beginner · **Suggested time:** 1–2 hours · **Status:** Completed
 
-> Lab started October 9, 2026. Step 1 is verified: project directory and Python 3.8.5 are documented. Step 2 has saved-code evidence; successful interactive runs are documented; complete source publication and remaining tests are pending.
+> Completed October 20, 2026, with a reduced scope: setup, saved-code inspection, interactive examples, and four passing automated tests. Additional screenshots, a separate learner limitations write-up, and source-file publication were omitted at the owner's request. See the findings report for evidence and limitations.
 
 [← Project index](../../README.md)
 
@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
 ![Step 2: saved checker implementation, final lines outside screenshot](screenshots/02-code.png)
 
-**Observed result:** `cat checker.py` shows the saved file's import, four-entry COMMON set, evaluate function, length/common/repetition/empty checks, and getpass main block. The visible code matches the guide. The screenshot ends at `print('\n'.join(findings) if findings else`, so the final fallback string and closing parenthesis are outside the image. File readback is established, but complete source and syntax/execution verification remain pending.
+**Observed result:** `cat checker.py` shows the saved file's import, four-entry COMMON set, evaluate function, length/common/repetition/empty checks, and getpass main block. The visible code matches the guide. The screenshot ends at `print('\n'.join(findings) if findings else`, so the final fallback string and closing parenthesis are outside the image. File readback is established. Later interactive runs and automated tests demonstrate successful execution; complete source collection was omitted.
 
 To verify the remaining lines and syntax:
 
@@ -106,7 +106,7 @@ Run `python3 checker.py` (Windows: `py checker.py`). Test an empty input, an inv
 
 ![Step 3: empty input produces length and empty-input feedback](screenshots/03-empty.png)
 
-**Empty-input verification:** The additional `python3 checker.py` run prints both `Use at least 15 characters for this lab heuristic.` and `Input is empty.` This verifies the empty-input feedback path. Both messages are expected because an empty string also has fewer than 15 characters. No input value is displayed. Together, the screenshots document no-issue, length, repetition, and empty feedback; automated checks remain pending.
+**Empty-input verification:** The additional `python3 checker.py` run prints both `Use at least 15 characters for this lab heuristic.` and `Input is empty.` This verifies the empty-input feedback path. Both messages are expected because an empty string also has fewer than 15 characters. No input value is displayed. Together, the screenshots document no-issue, length, repetition, and empty feedback; the four automated checks below subsequently passed.
 
 ### 4. Add automated checks
 
@@ -138,11 +138,17 @@ Run `python3 -m unittest -v` or `py -m unittest -v`. A passing test suite checks
 
 ### 5. Evaluate limitations
 
+**Completion note:** A separate learner-written explanation and screenshot were omitted. The report records the heuristic's limitations; it does not claim this reflection was performed.
+
+
 Explain that length and an example blocklist do not measure predictability, leaked-password reuse, personal information, or credential stuffing. Do not require arbitrary character-class rules as proof of strength. Discuss MFA, password managers, and checking a comprehensive compromised-password blocklist without transmitting raw passwords.
 
 **Screenshot checkpoint:** 05-limitations.png: report excerpt.
 
 ### 6. Publish the implementation
+
+**Completion note:** Publishing the actual executed source files and collecting a repository screenshot were omitted. Code blocks in this guide remain reference examples; they are not claimed as uploaded copies of the VM files.
+
 
 Add your actual `checker.py` and `test_checker.py` to `src/` after running them. Include Python version, test output, changes you made, and limitations in `reports/findings.md`. Never include test inputs copied from actual credentials.
 
@@ -160,13 +166,13 @@ If getpass warns that input may be echoed, run in a normal terminal rather than 
 
 ## Completion checklist
 
-- [ ] Environment and exact scope recorded
-- [ ] All lab steps attempted and actual outcomes documented
-- [ ] Screenshots uploaded and linked under their steps
-- [ ] Findings distinguish observation from interpretation
-- [ ] Limitations and remediation explained
-- [ ] Cleanup or restoration completed
-- [ ] Findings report completed; status updated in this repository and portfolio index
+- [x] Environment and reduced completion scope recorded
+- [x] Executed work documented; omitted work explicitly identified
+- [x] Available execution screenshots uploaded and linked
+- [x] Findings distinguish observation from interpretation
+- [x] Technical limitations recorded in the report
+- [x] VM retention decision documented; no service started by this lab
+- [x] Findings report finalized; completion status updated in both indexes
 
 ## Official references
 

@@ -1,75 +1,80 @@
 # Python Password Strength Checker — Findings Report
 
-**Status:** In progress  
+**Status:** Completed  
 **Started:** October 9, 2026  
-**Completed:** Not yet completed
+**Completed:** October 20, 2026
 
-## Progress summary
+## Summary and completion scope
 
-Step 1 is verified after correcting the working directory. The new screenshot shows /home/seed/portfolio-labs/password-checker and Python 3.8.5. Step 2 now shows saved source readback, but final lines are clipped and three interactive executions are now documented; the empty-input case is now verified and the observed four-test automated suite now passes; limitations and source publication remain pending.
+The educational checker was prepared in a local VM, inspected through saved-source readback, exercised interactively, and tested with a four-test unittest suite. The observed suite passed. At the owner's request, the project is closed with the available evidence. A separate learner-written limitations response, additional screenshots, full source collection, and publication of the executed source files were omitted. Completion does not imply those activities occurred.
 
-## Environment and scope
+## Environment
 
 | Item | Observed value |
 |---|---|
-| Environment | Existing lab VM; exact OS version not shown in this screenshot |
+| Environment | Ubuntu lab VM; exact OS release not independently recorded for this project |
+| Python | 3.8.5 |
+| Directory | /home/seed/portfolio-labs/password-checker |
+| Editor | nano |
 | Prompt | tsedeneya-bayew@VM, customized display |
-| Corrected project directory | /home/seed/portfolio-labs/password-checker |
-| Editor command | nano checker.py |
-| Python version | 3.8.5 |
-| Scope | Educational local checker using invented test strings only |
+| Scope | Local educational checker; invented test strings only |
 
-## Evidence log
+## Evidence and results
 
-| Step | Action | Actual result | Evidence | Interpretation |
-|---|---|---|---|---|
-| 1 initial attempt | Run cd .. three times, then nano checker.py | Terminal reaches /home; editor command returns to shell | [Setup attempt](../screenshots/01-setup-attempt.png) | Editor invocation documented; file creation and saved contents not established |
+| Step | Evidence | Actual result |
+|---|---|---|
+| Initial setup attempt | [Setup attempt](../screenshots/01-setup-attempt.png) | nano checker.py invoked from /home; user reported Permission denied when saving |
+| Corrected setup | [Environment](../screenshots/01-environment.png) | Correct project directory printed; Python 3.8.5 verified |
+| Source inspection | [Code](../screenshots/02-code.png) | Saved import, COMMON set, evaluate function, and getpass main block visible; final output lines clipped |
+| Interactive examples | [Output](../screenshots/03-output.png) | No-issue message; minimum-length warning; length plus repetition warnings |
+| Empty input | [Empty input](../screenshots/03-empty.png) | Length warning and Input is empty. |
+| Automated tests | [Tests](../screenshots/04-tests.png) | Four tests each report ok; Ran 4 tests in 0.000s; OK |
 
-| 1 corrected | mkdir -p, cd, pwd, python3 --version, nano checker.py | Correct directory printed; Python 3.8.5; no visible errors | [Environment](../screenshots/01-environment.png) | Directory and interpreter checkpoint verified; saved code not yet shown |
+## Implementation observations
 
-| 2 partial | cat checker.py | Saved source displayed; final print fallback and closing parenthesis clipped | [Code screenshot](../screenshots/02-code.png) | Visible code matches guide; full source/syntax verification pending |
+The visible source uses a four-entry common-password set, a minimum length of 15 for this lab heuristic, a repeated-character check, and an empty-input check. casefold supports case-insensitive matching. evaluate returns feedback messages. getpass requests terminal input without displaying it; the execution screenshots show prompts and feedback without entered values.
 
-## Step 2 source inspection
+The final source lines are outside the code screenshot. Subsequent successful interactive runs and tests demonstrate that the executed file parses and runs. The standalone compile check was skipped. Full source files were not collected, so the guide's reference code must not be represented as a verified byte-for-byte copy of the VM files.
 
-`cat checker.py` shows the saved file's import, four-entry COMMON set, evaluate function, length/common/repetition/empty checks, and getpass main block. The visible code matches the guide. The screenshot ends at `print('\n'.join(findings) if findings else`, so the final fallback string and closing parenthesis are outside the image. File readback is established, but complete source and syntax/execution verification remain pending.
+## Interactive validation
 
-The code requests hidden terminal input with getpass, returns feedback messages, and does not visibly print or log the entered value. Whether input is hidden in the user's runtime remains to be demonstrated. The four-item common-password set is illustrative and cannot establish real-world password strength.
+Three initial runs show the no-issue fallback, a length warning, and combined length/repetition warnings. Inputs are hidden, so their exact values cannot be independently recovered from the screenshots. The combined warnings are consistent with a repeated string shorter than 15 characters, rather than the suggested 20-character example.
 
-| 3 partial | Run python3 checker.py three times | No-issue feedback; length warning; length plus repetition warnings | [Output screenshot](../screenshots/03-output.png) | Three feedback paths observed; hidden input values and empty case not verified |
+An additional empty-input run shows both the minimum-length warning and Input is empty. Both are expected because an empty string also has length below 15. The no-issue result means only that the limited rules found no issue; it is not proof of strength.
 
-## Step 3 interactive results
+## Automated validation
 
-The screenshot shows three completed `python3 checker.py` runs. Run 1 prints the limited-heuristic no-issue message; run 2 prints the minimum-length warning; run 3 prints both length and repeated-character warnings. Input values are hidden and cannot be independently identified from this screenshot. The third result is consistent with a repeated string shorter than 15 characters, rather than the suggested 20-character repeated test. No empty-input result is shown. Successful runs demonstrate that the executed file parses and reaches its feedback code; the earlier standalone compile check was skipped by the user's choice.
+The observed unittest output reports these tests as passing:
 
-## Empty-input verification
+- test_common_is_flagged
+- test_empty_is_rejected
+- test_long_phrase_has_no_heuristic_issue
+- test_repeated_is_flagged
 
-The additional `python3 checker.py` run prints both `Use at least 15 characters for this lab heuristic.` and `Input is empty.` This verifies the empty-input feedback path. Both messages are expected because an empty string also has fewer than 15 characters. No input value is displayed. Together, the screenshots document no-issue, length, repetition, and empty feedback; automated checks remain pending.
+The summary reports four tests and OK. No numeric exit code is shown. Test source was not collected, so the names and output establish the observed suite result without independently verifying its precise assertions or coverage.
 
-[Empty-input screenshot](../screenshots/03-empty.png)
+## Troubleshooting
 
-## Step 4 automated validation
+The initial editor invocation occurred in /home, the parent directory containing user home directories. The user reported a Permission denied error; the error text is not visible in the initial screenshot. Creating and entering ~/portfolio-labs/password-checker corrected the working location without sudo. The customized prompt does not change the actual home directory /home/seed.
 
-`python3 -m unittest -v` reports four tests, each `ok`: common password flagged, empty input rejected, long phrase has no heuristic issue, and repeated character flagged. The summary is `Ran 4 tests in 0.000s` and `OK`, followed by the shell prompt. This verifies the observed suite passed; its source has not yet been collected, so exact test assertions still require source review. Passing these tests does not guarantee real-world password strength.
+## Technical limitations and lessons
 
-[Automated test evidence](../screenshots/04-tests.png)
+This section documents the tool's limitations; it is not a claimed learner-authored reflection.
 
-## Deviations and correction
+Character count does not measure how a password was chosen or how predictable it is. A long familiar phrase or pattern can remain guessable. A four-entry blocklist misses most common or compromised passwords and does not detect reuse, personal information, or credential stuffing.
 
-The initial attempt uses /home, the parent directory containing user homes. The guide now provides explicit commands to create and enter ~/portfolio-labs/password-checker, print the directory, and check Python's version before editing checker.py. No elevated privileges are needed. The user reported a Permission denied error when saving in /home; the error text is not visible in the initial screenshot. The corrected screenshot confirms use of the user's own home directory. The customized terminal prompt is a display choice; the actual home is /home/seed.
+The checker is an educational heuristic, not an entropy estimator or a production password policy. Passing four tests verifies limited observed behavior, not resistance to attacks. Passwords should not appear in logs because logs can be copied, retained, or accessed by others.
 
-## Validation and remaining work
+A production design would need a carefully maintained compromised-password screening approach, secure handling of input, broader validation, and protection against credential attacks. Raw passwords should not be sent to a third-party checking service. Password managers help create and store unique credentials, while MFA provides an additional layer of account protection. Neither was implemented or tested in this lab.
 
-- [x] Record initial setup attempt
-- [x] Step 1: verify project directory and Python version
-- [x] Step 2: document saved source readback
-- [x] Verify executed file parses and reaches interactive feedback
-- [ ] Step 2/6: collect complete source for publication
-- [x] Step 3: document no-issue, length, and repetition feedback
-- [x] Step 3: document empty-input feedback
-- [x] Step 4: document four automated tests passing
-- [ ] Step 5: document heuristic limitations
-- [ ] Step 6: publish actual executed code and finalize report
+## Retention and completion
 
-## Limitations and cleanup
+The VM and educational files are retained for learning. This lab does not document starting a network service or changing system security settings, so no service shutdown or configuration rollback is required by the recorded work. No sensitive information requiring redaction was visible in the published screenshots.
 
-The Step 2 screenshot establishes saved source readback, but its final lines are not visible. Three interactive runs are documented; four automated tests pass; no real-world password-strength conclusion is claimed. No sensitive information requiring redaction was visible. The VM is retained for learning; no service or system change is shown in this attempt.
+- [x] Setup and working-directory correction documented
+- [x] Saved-source screenshot reviewed
+- [x] Interactive feedback and empty-input case recorded
+- [x] Four-test suite result recorded
+- [x] Limitations and evidence boundaries stated
+- [x] Omitted work identified without claiming execution
+- [x] Available report finalized and project marked completed
