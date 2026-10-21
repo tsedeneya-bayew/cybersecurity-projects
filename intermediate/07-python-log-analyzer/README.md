@@ -96,6 +96,10 @@ Work on copies of `auth.csv`. Test two failures (no candidate), exactly three fa
 
 **Screenshot checkpoint:** 04-cases.png: boundary and invalid-input checks.
 
+![Step 4: two failures produce no candidate source](screenshots/04-two-failures.png)
+
+**Observed boundary result:** The two-failure boundary run prints `total_events: 4`, two failures for `192.0.2.10`, and `candidate_sources: []`, then returns to the prompt with no visible error. This matches the expected below-threshold result. The original baseline already documented a candidate at exactly three failures. This screenshot does not show the edited CSV or backup command; original dataset restoration and malformed-input tests remain pending.
+
 ### 5. Improve temporal detection
 
 Extend the script using `datetime.fromisoformat` after replacing Z with +00:00. Group by source, sort by time, and flag three failures within five minutes. Add a dataset with failures separated by hours; it should no longer trigger. Explain out-of-order events and timezone assumptions. Publish your own extended implementation in `src/`.

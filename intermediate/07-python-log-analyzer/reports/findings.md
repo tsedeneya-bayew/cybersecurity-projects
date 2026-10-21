@@ -61,3 +61,17 @@ Saved-source readback through `cat analyzer.py` shows csv/json/Counter imports, 
 `python3 analyzer.py` prints `total_events: 5`, `failures_by_ip: {192.0.2.10: 3}`, and one candidate source, `192.0.2.10`, then returns to the shell without a visible error. This matches the independent count of the five displayed input records. The later success from the same source does not remove its three whole-file failures. A candidate is an investigation lead, not a proven attacker. The remaining source lines and on-disk summary.json contents are not shown in this screenshot.
 
 [Baseline JSON output](../screenshots/03-summary.png)
+
+## Step 4: below-threshold validation
+
+The two-failure boundary run prints `total_events: 4`, two failures for `192.0.2.10`, and `candidate_sources: []`, then returns to the prompt with no visible error. This matches the expected below-threshold result. The original baseline already documented a candidate at exactly three failures. This screenshot does not show the edited CSV or backup command; original dataset restoration and malformed-input tests remain pending.
+
+[Two-failure boundary output](../screenshots/04-two-failures.png)
+
+| Case | Observed result | Status |
+|---|---|---|
+| Exactly three failures, original baseline | One candidate source | Passed |
+| Two failures, modified input | No candidate source | Passed |
+| Missing required header | Not yet tested | Pending |
+| Unexpected result value | Not yet tested | Pending |
+| Original dataset restored | Not yet shown | Pending |
