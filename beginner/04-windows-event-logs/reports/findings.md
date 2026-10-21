@@ -71,4 +71,10 @@ Settings → Accounts → Other Users shows `portfoliotest` as a Local account, 
 [Account screenshot](../screenshots/02-account.png)
 
 - [x] Local lab account creation documented
-- [ ] Verify account type is Standard User
+- [x] Verify account type is Standard User
+
+## Step 2: account type verification
+
+The Change account type dialog for local account `portfoliotest` shows `Standard user` selected. This records the displayed account type; no administrator role is shown. Close the dialog with OK before testing. No sensitive information requiring redaction is visible.
+
+[Standard user screenshot](../screenshots/02-standard-user.png)

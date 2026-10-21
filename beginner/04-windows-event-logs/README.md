@@ -69,6 +69,10 @@ This enables success and failure logon auditing in the VM. Create a standard loc
 
 **Observed account:** Settings → Accounts → Other Users shows `portfoliotest` as a Local account, with its password form closed. This differs from the guide's example name `portfolio_test`; use the actual name `portfoliotest` for subsequent commands and event filtering. The screenshot does not display the account type, so Standard User membership still needs verification. No password or unrelated personal information is visible. The Step 1 screenshot already records Success and Failure auditing; no additional policy change is claimed.
 
+![Step 2: portfoliotest account type shown as Standard user](screenshots/02-standard-user.png)
+
+**Account type verification:** The Change account type dialog for local account `portfoliotest` shows `Standard user` selected. This records the displayed account type; no administrator role is shown. Close the dialog with OK before testing. No sensitive information requiring redaction is visible.
+
 ### 3. Generate controlled failures
 
 In a normal terminal run `runas /user:.\portfoliotest cmd`. Enter a wrong lab password once. Repeat once if necessary; then run it again with the correct password and close the opened shell. Use only this lab account and stop after two failures. Record the time before and after the test.
