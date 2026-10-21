@@ -63,3 +63,12 @@ No controlled login attempts, event IDs, test-account creation, backup readback,
 The backup check shows `audit-before.csv` exists, has length `5955` bytes, and was last written October 20, 2026 at 10:21:27 PM. Reading its first five lines shows a CSV header and four audit-policy records. The computer name is blurred in the published privacy-edited copy. This verifies a nonempty, readable CSV excerpt, not full backup validity or successful restoration. The saved Logon row is not visible. Current Logon auditing was already Success and Failure; no additional change is required for that setting.
 
 [Redacted backup check](../screenshots/01-backup-check-redacted.png)
+
+## Step 2: local lab account
+
+Settings → Accounts → Other Users shows `portfoliotest` as a Local account, with its password form closed. This differs from the guide's example name `portfolio_test`; use the actual name `portfoliotest` for subsequent commands and event filtering. The screenshot does not display the account type, so Standard User membership still needs verification. No password or unrelated personal information is visible.
+
+[Account screenshot](../screenshots/02-account.png)
+
+- [x] Local lab account creation documented
+- [ ] Verify account type is Standard User

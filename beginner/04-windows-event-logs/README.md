@@ -65,9 +65,13 @@ This enables success and failure logon auditing in the VM. Create a standard loc
 
 **Screenshot checkpoint:** 02-auditing.png: enabled logon auditing; no password visible.
 
+![Step 2: local lab account portfoliotest created](screenshots/02-account.png)
+
+**Observed account:** Settings → Accounts → Other Users shows `portfoliotest` as a Local account, with its password form closed. This differs from the guide's example name `portfolio_test`; use the actual name `portfoliotest` for subsequent commands and event filtering. The screenshot does not display the account type, so Standard User membership still needs verification. No password or unrelated personal information is visible. The Step 1 screenshot already records Success and Failure auditing; no additional policy change is claimed.
+
 ### 3. Generate controlled failures
 
-In a normal terminal run `runas /user:.\portfolio_test cmd`. Enter a wrong lab password once. Repeat once if necessary; then run it again with the correct password and close the opened shell. Use only this lab account and stop after two failures. Record the time before and after the test.
+In a normal terminal run `runas /user:.\portfoliotest cmd`. Enter a wrong lab password once. Repeat once if necessary; then run it again with the correct password and close the opened shell. Use only this lab account and stop after two failures. Record the time before and after the test.
 
 **Screenshot checkpoint:** 03-test-window.png: timestamps and runas outcome without credentials.
 
