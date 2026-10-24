@@ -19,6 +19,28 @@ The collector now retries an entire interrupted snapshot, up to five total attem
 
 After this change, Linux compilation, detector unit tests and existing subprocess integration tests passed: normal activity produced 1 event and 0 incidents; burst activity produced 61 events and 3 incidents. Sandbox and report refusal checks also passed. These are Linux results, not Windows revalidation.
 
+## Windows revalidation — successful guided run
+
+The user pulled through commit e00a162, rebuilt Debug and reran test_detector.exe successfully. Fresh synthetic data was initialized and monitored with a 250 ms interval in reports-live-02.
+
+One interrupted scan warning was observed for sample_2.txt; the retry recovered and monitoring continued. Three high-severity incidents were recorded:
+
+| Incident | Score | Signals |
+|---|---:|---|
+| 1 | 4 | canary_changed |
+| 2 | 6 | many_distinct_files_changed, canary_changed |
+| 3 | 8 | many_distinct_files_changed, canary_changed, demo_extension_delete_create_pairs |
+
+The final summary displayed in the user's terminal was:
+
+```json
+{"status":"complete","backend":"polling","events":62,"incidents":3,"interrupted":true}
+```
+
+The interrupted flag records the requested Ctrl+C shutdown. Status complete means the monitor drained its event queue and wrote its final summary; this is distinct from the earlier incomplete run.
+
+This validates the guided Windows Debug build, core unit tests, synthetic burst detection, recovery from one interrupted scan, JSON incident inspection and orderly shutdown. It does not establish Windows Python integration-suite execution, general detection performance or production readiness. Original JSONL files have not been uploaded; observations here are transcribed from user-provided terminal evidence.
+
 ## Pending
 
-Rebuild Debug on Windows and repeat the demonstration with fresh synthetic data and a new report folder. Confirm Windows burst alerts and a complete summary before claiming Windows runtime validation complete.
+Publish redacted screenshot evidence. Evaluate additional workloads and Windows-specific edge cases.
