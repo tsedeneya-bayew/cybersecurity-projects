@@ -19,6 +19,10 @@ See `test-output.txt` for captured output. `example-incident.json` is a real inc
 
 These checks establish that the implemented rules and end-to-end lab workflow work for the exercised scenarios. They do not establish a real-world detection rate, a general false-positive rate, resistance to log tampering, safe operation in hostile directory trees, or production readiness.
 
+## Windows setup checkpoint
+
+The user's supplied terminal screenshot confirms MSVC 19.51.36260, CMake 4.3.1-msvc1, successful repository cloning, and successful x64 CMake configuration with Visual Studio 18 2026. See [Windows setup observations](windows-setup.md). This is configuration evidence only; compilation, CTest, and runtime behavior remain unverified on Windows.
+
 ## Pending work
 
 - Build and run on the user's Windows machine; record compiler/toolchain and CMake/CTest output.

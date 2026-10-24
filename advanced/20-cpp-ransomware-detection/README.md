@@ -2,7 +2,7 @@
 
 [Advanced projects](../README.md) · [Main portfolio](../../README.md)
 
-**Status: implementation and Linux automated validation complete; Windows build, personal lab execution, and screenshots pending.**
+**Status: implementation and Linux automated validation complete; Windows toolchain and x64 CMake configuration verified; compilation, Windows tests, runtime validation, and screenshots pending.**
 
 A C++17 defensive monitoring prototype that identifies suspicious combinations of file activity in a disposable test folder. It records events and explainable incident evidence without encrypting files, blocking applications, or changing the monitored data. The separate simulator only edits synthetic files it created in a dedicated sandbox.
 
@@ -70,6 +70,10 @@ A score of 2–3 produces a medium alert; 4 or above produces a high alert. Entr
 - Git to clone the portfolio, or download its ZIP from GitHub.
 
 This project contains several source files, uses filesystem access and threads, and should be run locally rather than in a browser's single-file compiler.
+
+## Windows setup evidence
+
+The user verified MSVC 19.51.36260 and CMake 4.3.1-msvc1, cloned the repository, and successfully configured an x64 build with Visual Studio 18 2026. See [Windows setup observations](reports/windows-setup.md). Compilation and tests have not yet been demonstrated.
 
 ## Windows walkthrough
 
