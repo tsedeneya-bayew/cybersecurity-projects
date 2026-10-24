@@ -1,0 +1,12 @@
+Actual implementation validation on Linux
+g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+
+PASS: detector thresholds, distinct counts, expiry, cooldown, escalation, canaries,
+entropy, extension correlation, JSON escaping, queue overflow/drain/concurrency, invalid inputs
+Exit code: 0
+
+PASS: normal: events=1, incidents=0
+PASS: burst: events=61, incidents=3
+PASS: refusal of reused sandboxes, unexpected files, hard links, nested/reused reports
+Exit code: 0
+

@@ -1,0 +1,8 @@
+/build/
+/build-*/
+/ransomware-lab-sandbox/
+/reports-live*/
+*.exe
+*.obj
+*.o
+__pycache__/

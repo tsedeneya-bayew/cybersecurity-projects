@@ -1,10 +1,10 @@
 # Cybersecurity Projects
 
-### 19 hands-on projects · Beginner → Intermediate → Advanced
+### 20 hands-on projects · Beginner → Intermediate → Advanced
 
-A public learning portfolio with six beginner projects, six intermediate projects, and seven advanced projects. Each project has a detailed guide, screenshot checkpoints, troubleshooting, and a findings report template.
+A public learning portfolio with six beginner projects, six intermediate projects, and eight advanced projects. Each project has a detailed guide, screenshot checkpoints, troubleshooting, and a findings report template.
 
-> **Status:** Projects 01–03 are completed with screenshot evidence and finalized findings reports. Project 05 is completed with interactive examples and four passing automated tests; its report records the reduced completion scope; Project 04 is in progress with Windows host baseline evidence; Project 07 is in progress with its synthetic dataset verified; Projects 06 and 08–18 remain prepared guides awaiting documented execution. Project 19 is in progress with a demonstrated PLC false-report detector, live 3D visualization and screenshot evidence.
+> **Status:** Projects 01–03 are completed with screenshot evidence and finalized findings reports. Project 05 is completed with interactive examples and four passing automated tests; its report records the reduced completion scope; Project 04 is in progress with Windows host baseline evidence; Project 07 is in progress with its synthetic dataset verified; Projects 06 and 08–18 remain prepared guides awaiting documented execution. Project 19 is in progress with a demonstrated PLC false-report detector, live 3D visualization and screenshot evidence. Project 20 has a tested C++ behavioral monitoring implementation; Windows execution and personal screenshot evidence are pending.
 
 **[Start here: lab setup and screenshot workflow](START-HERE.md)**
 
@@ -12,7 +12,7 @@ A public learning portfolio with six beginner projects, six intermediate project
 |---|---:|---|
 | [Beginner](beginner/README.md) | 6 | Linux, file integrity, network traffic, Windows logs, Python, service discovery |
 | [Intermediate](intermediate/README.md) | 6 | Log analysis, hardening, phishing, application security, assessment, forensics |
-| [Advanced](advanced/README.md) | 7 | SIEM, incident response, Active Directory, CI/CD, AI security, OT/ICS |
+| [Advanced](advanced/README.md) | 8 | SIEM, incident response, Active Directory, CI/CD, AI security, OT/ICS, C++ endpoint monitoring |
 
 ## Beginner
 
@@ -46,8 +46,8 @@ A public learning portfolio with six beginner projects, six intermediate project
 | 16 | [Secure CI/CD Pipeline](advanced/16-secure-cicd-pipeline/README.md) | 1–2 days | Not started |
 | 17 | [AI Prompt Injection Evaluation](advanced/17-ai-security-evaluation/README.md) | 1–2 days | Not started |
 | 18 | [OT/ICS Threat Modeling](advanced/18-ot-ics-threat-model/README.md) | 1–2 days | Not started |
-
 | 19 | [PLC and Sensor Integrity Monitoring](advanced/19-plc-sensor-integrity-monitor/README.md) | Ongoing research | In progress — detection and live 3D demonstrated |
+| 20 | [C++ Behavioral Ransomware Detection Lab](advanced/20-cpp-ransomware-detection/README.md) | Multi-session build and evaluation | In progress — implementation tested on Linux; Windows validation pending |
 
 ## Inside each project
 
@@ -74,4 +74,5 @@ Use owned or explicitly authorized disposable lab systems and synthetic data. Ke
 
 ## Collection history
 
-This repository consolidates all 18 guides into one collection. Earlier standalone project repositories point to the current folders. Project 19 adds an executed MATLAB/Simulink and CODESYS integrity-monitoring prototype. The profile README links here. No further repository creation is needed for these projects.
+This repository consolidates all 18 guides into one collection. Earlier standalone project repositories point to the current folders. Project 19 adds an executed MATLAB/Simulink and CODESYS integrity-monitoring prototype. The profile README links here. Project 20 adds a C++17 behavioral file-monitoring lab with a safe simulator and automated validation. No further repository creation is needed for these projects.
+

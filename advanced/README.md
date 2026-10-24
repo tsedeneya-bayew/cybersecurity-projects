@@ -2,7 +2,7 @@
 
 [← Main project index](../README.md)
 
-Seven advanced projects. Projects 13–18 are prepared guides; Project 19 documents an executed OT integrity-monitoring prototype with ongoing research.
+Eight advanced projects. Projects 13–18 are prepared guides; Project 19 documents an executed OT integrity-monitoring prototype with ongoing research. Project 20 includes an implemented C++ detection lab with Linux automated validation; Windows execution and personal screenshots are pending.
 
 | # | Project | Estimated time | Status |
 |---|---|---|---|
@@ -13,3 +13,5 @@ Seven advanced projects. Projects 13–18 are prepared guides; Project 19 docume
 | 17 | [AI Prompt Injection Evaluation](17-ai-security-evaluation/README.md) | 1–2 days | Not started |
 | 18 | [OT/ICS Threat Modeling](18-ot-ics-threat-model/README.md) | 1–2 days | Not started |
 | 19 | [PLC and Sensor Integrity Monitoring](19-plc-sensor-integrity-monitor/README.md) | Ongoing research | In progress — detection demonstrated |
+| 20 | [C++ Behavioral Ransomware Detection Lab](20-cpp-ransomware-detection/README.md) | Multi-session build and evaluation | In progress — implementation tested on Linux; Windows validation pending |
+

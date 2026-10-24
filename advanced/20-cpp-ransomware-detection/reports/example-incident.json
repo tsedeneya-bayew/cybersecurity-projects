@@ -1,0 +1,371 @@
+{
+  "id": 3,
+  "recorded_unix_ms": 1792824111189,
+  "elapsed_seconds": 0.100718,
+  "score": 8,
+  "severity": "high",
+  "signals": [
+    "many_distinct_files_changed",
+    "canary_changed",
+    "demo_extension_delete_create_pairs"
+  ],
+  "evidence": [
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "modified",
+      "path": "CANARY_DO_NOT_EDIT.txt",
+      "entropy_before": 4.083275,
+      "entropy_after": 3.918296
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_0.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.013362
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_1.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.013362
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_10.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_11.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.032866
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_12.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_13.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_14.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_15.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_16.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_17.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_18.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_19.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_2.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.013362
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_20.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_21.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_22.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.032866
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_23.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_24.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_25.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_26.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_27.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_28.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_29.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.079378
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_3.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.013362
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_4.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.013362
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_5.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.013362
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_6.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.013362
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_7.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.013362
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_8.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.013362
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "created",
+      "path": "sample_9.txt.demo",
+      "entropy_before": 0.0,
+      "entropy_after": 4.013362
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_0.txt",
+      "entropy_before": 3.923231,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_1.txt",
+      "entropy_before": 3.923231,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_10.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_11.txt",
+      "entropy_before": 3.937752,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_12.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_13.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_14.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_15.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_16.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_17.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_18.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_19.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_2.txt",
+      "entropy_before": 3.923231,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_20.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_21.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_22.txt",
+      "entropy_before": 3.937752,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_23.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_24.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_25.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    },
+    {
+      "elapsed_seconds": 0.100718,
+      "kind": "deleted",
+      "path": "sample_26.txt",
+      "entropy_before": 4.002268,
+      "entropy_after": 0.0
+    }
+  ]
+}

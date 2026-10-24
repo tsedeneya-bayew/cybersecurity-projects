@@ -1,0 +1,5 @@
+BASELINE READY files=42 backend=polling
+ALERT id=1 score=4 latest="CANARY_DO_NOT_EDIT.txt"
+ALERT id=2 score=6 latest="sample_25.txt"
+ALERT id=3 score=8 latest="sample_26.txt"
+STOPPED events=61 incidents=3
