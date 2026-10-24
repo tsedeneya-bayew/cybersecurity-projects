@@ -2,7 +2,7 @@
 
 [Advanced projects](../README.md) · [Main portfolio](../../README.md)
 
-**Status: implementation and Linux automated validation complete; Windows toolchain and x64 CMake configuration verified; compilation, Windows tests, runtime validation, and screenshots pending.**
+**Status: implementation and Linux automated validation complete; Windows Debug build, detector unit tests and guided synthetic runtime demonstration verified (62 events, 3 incidents). Redacted screenshot publication pending.**
 
 A C++17 defensive monitoring prototype that identifies suspicious combinations of file activity in a disposable test folder. It records events and explainable incident evidence without encrypting files, blocking applications, or changing the monitored data. The separate simulator only edits synthetic files it created in a dedicated sandbox.
 
@@ -73,7 +73,7 @@ This project contains several source files, uses filesystem access and threads, 
 
 ## Windows setup evidence
 
-The user verified MSVC 19.51.36260 and CMake 4.3.1-msvc1, cloned the repository, and successfully configured an x64 build with Visual Studio 18 2026. See [Windows setup observations](reports/windows-setup.md). Compilation and tests have not yet been demonstrated.
+The user verified MSVC 19.51.36260 and CMake 4.3.1-msvc1, cloned the repository, and successfully configured an x64 build with Visual Studio 18 2026. See [Windows setup observations](reports/windows-setup.md). The Windows Debug build and detector unit tests subsequently passed. A guided synthetic run completed with 62 events and three high-severity incidents after recovering from one interrupted scan. See [Windows runtime observations](reports/windows-runtime-checkpoint.md).
 
 ## Windows walkthrough
 
@@ -191,7 +191,7 @@ Interactive demo, using two terminals:
 
 - Intended for small, local, disposable lab folders with a trusted operator. The simulator checks are guardrails, not an adversarial sandbox boundary.
 - Polling misses short-lived operations between snapshots; a file created and removed entirely between scans may never appear. Modification events can be coalesced.
-- Scans are not atomic. Concurrent deletion or permission changes can cause an explicit incomplete-run error. Earlier logs remain partial evidence; only a successful run writes `summary.json` with `status=complete`.
+- Scans are not atomic. Interrupted scans are discarded and retried up to five total attempts, with warnings and 25 ms delays. Persistent filesystem or read failures cause an explicit incomplete-run error. Earlier logs remain partial evidence; only a successful run writes `summary.json` with `status=complete`.
 - Samples cover at most 64 KiB per file. Tail-only changes that preserve size and timestamp can be missed. Entropy is sampled and does not establish encryption.
 - FNV-1a is not collision resistant and is not SHA-256. No forensic integrity or tamper-proof logging claim is made.
 - Symlinks are skipped by the collector. Junctions/reparse points on Windows need further hardening and testing. Do not monitor trees containing these links or files being changed by a hostile process.
