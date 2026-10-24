@@ -21,11 +21,11 @@ These checks establish that the implemented rules and end-to-end lab workflow wo
 
 ## Windows setup checkpoint
 
-The user's supplied terminal screenshot confirms MSVC 19.51.36260, CMake 4.3.1-msvc1, successful repository cloning, and successful x64 CMake configuration with Visual Studio 18 2026. See [Windows setup observations](windows-setup.md). This is configuration evidence only; compilation, CTest, and runtime behavior remain unverified on Windows.
+The user's supplied terminal screenshot confirms MSVC 19.51.36260, CMake 4.3.1-msvc1, successful repository cloning, and successful x64 CMake configuration with Visual Studio 18 2026. See [Windows setup observations](windows-setup.md). Later user-supplied evidence verifies successful Windows Debug compilation, a passing direct test_detector.exe invocation, and a completed guided synthetic run with 62 events and 3 high-severity incidents. One interrupted scan recovered through the bounded retry. See [Windows runtime checkpoint](windows-runtime-checkpoint.md). Windows CTest/Python integration execution remains unverified.
 
 ## Pending work
 
-- Build and run on the user's Windows machine; record compiler/toolchain and CMake/CTest output.
+- Run the full Python integration suite on Windows if desired; the guided Windows build, core tests and runtime demonstration are verified.
 - Capture personal lab screenshots and findings.
 - Evaluate legitimate bulk copying, archives, and larger workloads.
 - Quantify detection delay, CPU/memory consumption, and missed events.
