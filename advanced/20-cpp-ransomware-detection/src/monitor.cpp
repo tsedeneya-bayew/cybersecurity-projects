@@ -20,6 +20,7 @@ struct Sample {
     double entropy;
 };
 using Snapshot = std::map<std::string, Sample>;
+struct SampleReadError : std::runtime_error { using std::runtime_error::runtime_error; };
 Snapshot snapshot(const fs::path& root) {
     Snapshot result;
     // Default traversal does not follow directory symlinks. Skip file links too.
@@ -29,10 +30,10 @@ Snapshot snapshot(const fs::path& root) {
         auto size = item.file_size();
         auto modified = item.last_write_time();
         std::ifstream input(item.path(), std::ios::binary);
-        if (!input) throw std::runtime_error("Cannot sample file: " + item.path().string());
+        if (!input) throw SampleReadError("Cannot sample file: " + item.path().string());
         std::vector<unsigned char> bytes(65536);
         input.read(reinterpret_cast<char*>(bytes.data()), static_cast<std::streamsize>(bytes.size()));
-        if (input.bad()) throw std::runtime_error("File sample read failed");
+        if (input.bad()) throw SampleReadError("File sample read failed");
         bytes.resize(static_cast<std::size_t>(input.gcount()));
         // FNV-1a is a change fingerprint, NOT a cryptographic integrity hash.
         std::uint64_t hash = 14695981039346656037ULL;
@@ -41,6 +42,25 @@ Snapshot snapshot(const fs::path& root) {
         result.emplace(relative, Sample{size, modified, hash, lab::entropy(bytes)});
     }
     return result;
+}
+
+Snapshot stable_snapshot(const fs::path& root) {
+    // Discard the entire interrupted scan so unreadable paths are never
+    // mistaken for deletions. Persistent failures still stop the run.
+    for (int attempt = 1; ; ++attempt) {
+        try {
+            return snapshot(root);
+        } catch (const SampleReadError& e) {
+            if (attempt >= 5) throw;
+            std::cerr << "WARNING: retrying interrupted scan (" << attempt
+                      << "/4): " << e.what() << '\n';
+        } catch (const fs::filesystem_error& e) {
+            if (attempt >= 5) throw;
+            std::cerr << "WARNING: retrying interrupted scan (" << attempt
+                      << "/4): " << e.what() << '\n';
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(25));
+    }
 }
 
 bool inside(const fs::path& path, const fs::path& root) {
@@ -70,7 +90,7 @@ int main(int argc, char** argv) {
         if (!fs::create_directory(report)) throw std::runtime_error("Report folder must not exist");
         std::ofstream events(report / "events.jsonl"), incidents(report / "incidents.jsonl");
         if (!events || !incidents) throw std::runtime_error("Cannot create evidence logs");
-        auto previous = snapshot(root);
+        auto previous = stable_snapshot(root);
         std::cout << "BASELINE READY files=" << previous.size() << " backend=polling\n" << std::flush;
         const auto start = Clock::now();
         const auto deadline = start + std::chrono::seconds(seconds);
@@ -116,7 +136,7 @@ int main(int argc, char** argv) {
         try {
             while (!interrupted && !failed && Clock::now() < deadline) {
                 std::this_thread::sleep_for(std::chrono::milliseconds(poll_ms));
-                auto current = snapshot(root);
+                auto current = stable_snapshot(root);
                 const double now = std::chrono::duration<double>(Clock::now() - start).count();
                 for (const auto& pair : current) {
                     const auto old = previous.find(pair.first);
