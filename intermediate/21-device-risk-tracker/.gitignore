@@ -1,0 +1,5 @@
+risk_tracker
+*.exe
+*.obj
+*.o
+risk_reports.txt

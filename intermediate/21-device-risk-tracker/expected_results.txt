@@ -1,0 +1,13 @@
+FICTIONAL DATASET - EXPECTED RESULTS
+Computer: 10 points per vulnerability; Server: 20; maximum 100.
+Low: 0-29; Medium: 30-59; High: 60-100.
+
+ID   Type      Count  Score  Level   Name
+101  Server    0      0      Low     Backup Server
+102  Computer  0      0      Low     Reception PC
+103  Computer  3      30     Medium  Student Laptop
+104  Server    2      40     Medium  File Server
+105  Computer  6      60     High    Training PC
+106  Server    3      60     High    Lab Server
+107  Server    8      100    High    Test Web Server
+108  Computer  2      20     Low     Library PC

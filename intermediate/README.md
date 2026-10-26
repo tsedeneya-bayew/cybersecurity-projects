@@ -2,7 +2,7 @@
 
 [← Main project index](../README.md)
 
-Six intermediate labs, listed in recommended order. All begin as prepared guides; update status after adding your own work.
+Seven intermediate projects. Project 21 includes a tested C++ OOP starter, fictional dataset, and presentation study guide.
 
 | # | Project | Estimated time | Status |
 |---|---|---|---|
@@ -12,3 +12,5 @@ Six intermediate labs, listed in recommended order. All begin as prepared guides
 | 10 | [Local Web Vulnerability Lab](10-web-vulnerability-lab/README.md) | 3–5 hours | Not started |
 | 11 | [Network Vulnerability Assessment](11-vulnerability-assessment/README.md) | 3–5 hours | Not started |
 | 12 | [Digital Forensics Investigation](12-digital-forensics/README.md) | 3–5 hours | Not started |
+
+| 21 | [Cybersecurity Device Risk Tracker](21-device-risk-tracker/README.md) | OOP final project | AI-assisted starter tested on Linux; student adaptation and Windows demo pending |

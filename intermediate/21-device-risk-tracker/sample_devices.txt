@@ -1,0 +1,10 @@
+# Fictional classroom dataset. No real devices or scans.
+# Format: ID C-or-S vulnerability_count device_name
+103 C 3 Student Laptop
+101 S 0 Backup Server
+106 S 3 Lab Server
+102 C 0 Reception PC
+105 C 6 Training PC
+104 S 2 File Server
+108 C 2 Library PC
+107 S 8 Test Web Server

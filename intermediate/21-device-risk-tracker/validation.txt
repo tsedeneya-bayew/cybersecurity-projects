@@ -1,0 +1,6 @@
+Validation date: October 26, 2026
+Environment: Linux, g++ C++17
+Build: -Wall -Wextra -Wpedantic -Werror (passed with no warnings)
+Windows/MSVC execution: pending student verification
+
+PASS: sample import, all 8 scores/levels, descending risk sort, binary search, export, duplicate IDs, input validation, both overloads, count cap, EOF, repeated import, atomic malformed import, missing dataset, and file-write failure.

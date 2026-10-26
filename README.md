@@ -1,8 +1,8 @@
 # Cybersecurity Projects
 
-### 20 hands-on projects · Beginner → Intermediate → Advanced
+### 21 hands-on projects · Beginner → Intermediate → Advanced
 
-A public learning portfolio with six beginner projects, six intermediate projects, and eight advanced projects. Each project has a detailed guide, screenshot checkpoints, troubleshooting, and a findings report template.
+A public learning portfolio with six beginner projects, seven intermediate projects, and eight advanced projects. Each project has a detailed guide, screenshot checkpoints, troubleshooting, and a findings report template.
 
 > **Status:** Projects 01–03 are completed with screenshot evidence and finalized findings reports. Project 05 is completed with interactive examples and four passing automated tests; its report records the reduced completion scope; Project 04 is in progress with Windows host baseline evidence; Project 07 is in progress with its synthetic dataset verified; Projects 06 and 08–18 remain prepared guides awaiting documented execution. Project 19 is in progress with a demonstrated PLC false-report detector, live 3D visualization and screenshot evidence. Project 20 has a tested C++ behavioral monitoring implementation; Windows execution and personal screenshot evidence are pending.
 
@@ -11,7 +11,7 @@ A public learning portfolio with six beginner projects, six intermediate project
 | Category | Projects | Focus |
 |---|---:|---|
 | [Beginner](beginner/README.md) | 6 | Linux, file integrity, network traffic, Windows logs, Python, service discovery |
-| [Intermediate](intermediate/README.md) | 6 | Log analysis, hardening, phishing, application security, assessment, forensics |
+| [Intermediate](intermediate/README.md) | 7 | C++ OOP risk tracking, log analysis, hardening, phishing, application security, assessment, forensics |
 | [Advanced](advanced/README.md) | 8 | SIEM, incident response, Active Directory, CI/CD, AI security, OT/ICS, C++ endpoint monitoring |
 
 ## Beginner
@@ -35,6 +35,7 @@ A public learning portfolio with six beginner projects, six intermediate project
 | 10 | [Local Web Vulnerability Lab](intermediate/10-web-vulnerability-lab/README.md) | 3–5 hours | Not started |
 | 11 | [Network Vulnerability Assessment](intermediate/11-vulnerability-assessment/README.md) | 3–5 hours | Not started |
 | 12 | [Digital Forensics Investigation](intermediate/12-digital-forensics/README.md) | 3–5 hours | Not started |
+| 21 | [Cybersecurity Device Risk Tracker](intermediate/21-device-risk-tracker/README.md) | OOP final project | AI-assisted starter tested on Linux; student adaptation and Windows demo pending |
 
 ## Advanced
 
